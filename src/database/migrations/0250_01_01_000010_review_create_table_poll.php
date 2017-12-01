@@ -19,7 +19,10 @@ class ReviewCreateTablePoll extends Migration {
 
                 $table->increments('id');
                 $table->string('name');
+                $table->string('email_template');                               // Email template that will be sent to the customer
                 $table->tinyInteger('default_score')->unsigned()->nullable();
+                $table->smallInteger('mailing_days')->default(0);               // Days that review will be sent to the customer
+                $table->smallInteger('expiration_days')->default(30);           // Days that review will be expired and will be deleted
 
                 $table->timestamps();
                 $table->softDeletes();

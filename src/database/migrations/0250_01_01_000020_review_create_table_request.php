@@ -20,6 +20,7 @@ class ReviewCreateTableRequest extends Migration {
                 $table->increments('ix');
                 $table->integer('id')->unsigned();
                 $table->string('lang_id', 2);
+                $table->integer('poll_id')->unsigned();
                 $table->string('name');
                 $table->text('description');
 
