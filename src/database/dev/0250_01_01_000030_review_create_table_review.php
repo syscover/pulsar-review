@@ -26,6 +26,7 @@ class ReviewCreateTableReview extends Migration {
                 $table->string('customer_name');
                 $table->string('customer_email');
                 $table->boolean('verified')->default(false);                                // check if is a verified customer
+                $table->decimal('average', 6,2);                               // average of all responses
 
                 // cron columns
                 $table->boolean('completed')->default(false);                               // check if the review was completed for the customer

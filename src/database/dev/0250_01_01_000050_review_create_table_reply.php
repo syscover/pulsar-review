@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ReviewCreateTableAverage extends Migration {
+class ReviewCreateTableReply extends Migration {
 
     /**
      * Run the migrations.
@@ -12,16 +12,17 @@ class ReviewCreateTableAverage extends Migration {
      */
     public function up()
     {
-        if(! Schema::hasTable('review_average'))
+        if(! Schema::hasTable('review_reply'))
         {
-            Schema::create('review_average', function (Blueprint $table) {
+            Schema::create('review_reply', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
 
                 $table->increments('id');
-                $table->integer('object_id')->unsigned()->nullable();
-                $table->string('object_type');
-                $table->integer('reviews')->unsigned();
-                $table->decimal('score', 6,2);
+                $table->integer('review_id')->unsigned();
+                $table->timestamp('date')->default(DB::raw('CURRENT_TIMESTAMP'));
+                $table->string('name');
+                $table->string('email');
+                $table->string('text');
 
                 $table->timestamps();
                 $table->softDeletes();
@@ -36,6 +37,6 @@ class ReviewCreateTableAverage extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('review_average');
+        Schema::dropIfExists('review_reply');
     }
 }

@@ -28,6 +28,7 @@ class ReviewCreateTableRequest extends Migration {
                 // 2 - text
                 // 3 - select, a futuro posibilidad de captar valores de un select
                 $table->tinyInteger('type')->unsigned();
+                // Max score that can to contain the review
                 $table->tinyInteger('score')->unsigned()->nullable();
 
                 $table->timestamps();
