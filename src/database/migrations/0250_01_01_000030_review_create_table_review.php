@@ -25,6 +25,7 @@ class ReviewCreateTableReview extends Migration {
                 $table->integer('customer_id')->unsigned()->nullable();                     // nullable to allow anonymous reviews
                 $table->string('customer_name');
                 $table->string('customer_email');
+                $table->string('email_subject')->nullable();                                // Email subject for this review
                 $table->boolean('verified')->default(false);                                // check if is a verified customer
                 $table->decimal('average', 6,2);                               // average of all responses
 

@@ -4,17 +4,16 @@ use Illuminate\Support\Facades\Validator;
 use Syscover\Core\Models\CoreModel;
 
 /**
- * Class Poll
+ * Class Average
  * @package Syscover\Review\Models
  */
 
-class Poll extends CoreModel
+class Average extends CoreModel
 {
-	protected $table        = 'review_poll';
-    protected $fillable     = ['name', 'email_template', 'default_score', 'mailing_days', 'expiration_days'];
+	protected $table        = 'review_average';
+    protected $fillable     = ['poll_id', 'object_id', 'object_type', 'reviews', 'average'];
 
     private static $rules   = [
-        'name' => 'required'
     ];
 
     public static function validate($data)

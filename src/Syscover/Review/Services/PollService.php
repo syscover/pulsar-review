@@ -2,7 +2,7 @@
 
 use Syscover\Review\Models\Poll;
 
-class SectionService
+class PollService
 {
     /**
      * @param array     $object     contain properties of poll

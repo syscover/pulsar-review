@@ -18,6 +18,7 @@ class ReviewCreateTableAverage extends Migration {
                 $table->engine = 'InnoDB';
 
                 $table->increments('id');
+                $table->integer('poll_id')->unsigned();
                 $table->integer('object_id')->unsigned()->nullable();
                 $table->string('object_type');
                 $table->integer('reviews')->unsigned();             // Total reviews

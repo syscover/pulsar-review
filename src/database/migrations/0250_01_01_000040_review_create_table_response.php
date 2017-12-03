@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ReviewCreateTableReply extends Migration {
+class ReviewCreateTableResponse extends Migration {
 
     /**
      * Run the migrations.
@@ -12,16 +12,16 @@ class ReviewCreateTableReply extends Migration {
      */
     public function up()
     {
-        if(! Schema::hasTable('review_reply'))
+        if(! Schema::hasTable('review_response'))
         {
-            Schema::create('review_reply', function (Blueprint $table) {
+            Schema::create('review_response', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
 
                 $table->increments('id');
                 $table->integer('review_id')->unsigned();
-                $table->timestamp('date')->default(DB::raw('CURRENT_TIMESTAMP'));
-                $table->string('name');
-                $table->string('email');
+                $table->integer('question_id')->unsigned();
+
+                $table->integer('score')->unsigned()->nullable();
                 $table->string('text');
 
                 $table->timestamps();
@@ -37,6 +37,6 @@ class ReviewCreateTableReply extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('review_reply');
+        Schema::dropIfExists('review_response');
     }
 }

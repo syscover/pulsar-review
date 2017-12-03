@@ -4,14 +4,14 @@ use Illuminate\Support\Facades\Validator;
 use Syscover\Core\Models\CoreModel;
 
 /**
- * Class Poll
+ * Class Question
  * @package Syscover\Review\Models
  */
 
-class Poll extends CoreModel
+class Question extends CoreModel
 {
-	protected $table        = 'review_poll';
-    protected $fillable     = ['name', 'email_template', 'default_score', 'mailing_days', 'expiration_days'];
+	protected $table        = 'review_question';
+    protected $fillable     = ['id', 'lang_id', 'poll_id', 'name', 'description', 'type_id', 'high_score'];
 
     private static $rules   = [
         'name' => 'required'

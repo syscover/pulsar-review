@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ReviewCreateTableRequest extends Migration {
+class ReviewCreateTableQuestion extends Migration {
 
     /**
      * Run the migrations.
@@ -12,9 +12,9 @@ class ReviewCreateTableRequest extends Migration {
      */
     public function up()
     {
-        if(! Schema::hasTable('review_request'))
+        if(! Schema::hasTable('review_question'))
         {
-            Schema::create('review_request', function (Blueprint $table) {
+            Schema::create('review_question', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
 
                 $table->increments('ix');
@@ -26,10 +26,10 @@ class ReviewCreateTableRequest extends Migration {
 
                 // 1 - score
                 // 2 - text
-                // 3 - select, a futuro posibilidad de captar valores de un select
-                $table->tinyInteger('type')->unsigned();
+                // 3 - select (inactivated)
+                $table->tinyInteger('type_id')->unsigned();
                 // Max score that can to contain the review
-                $table->tinyInteger('score')->unsigned()->nullable();
+                $table->tinyInteger('high_score')->unsigned()->nullable();
 
                 $table->timestamps();
                 $table->softDeletes();
@@ -44,6 +44,6 @@ class ReviewCreateTableRequest extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('review_request');
+        Schema::dropIfExists('review_question');
     }
 }
