@@ -21,6 +21,7 @@ class ReviewCreateTableAverage extends Migration {
                 $table->integer('poll_id')->unsigned();
                 $table->integer('object_id')->unsigned()->nullable();
                 $table->string('object_type');
+                $table->string('name');
                 $table->integer('reviews')->unsigned();             // Total reviews
                 $table->decimal('average', 6,2);       // Average of all reviews
 

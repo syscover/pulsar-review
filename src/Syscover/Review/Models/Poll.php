@@ -26,4 +26,35 @@ class Poll extends CoreModel
     {
         return $query;
     }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class, 'poll_id');
+    }
+
+    public function reviews()
+    {
+        return $this->morphMany(
+            Review::class,
+            'object',
+            'object_type',
+            'object_id',
+            'id'
+        )
+            ->where('admin_attachment.lang_id', $this->lang_id)
+            ->orderBy('sort', 'asc');
+    }
+
+    public function attachments()
+    {
+        return $this->morphMany(
+            Attachment::class,
+            'object',
+            'object_type',
+            'object_id',
+            'id'
+        )
+            ->where('admin_attachment.lang_id', $this->lang_id)
+            ->orderBy('sort', 'asc');
+    }
 }
