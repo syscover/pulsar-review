@@ -21,18 +21,13 @@ Syscover\Review\ReviewServiceProvider::class,
 php artisan vendor:publish --provider="Syscover\Review\ReviewServiceProvider"
 ```
 
-**3 - Execute optimize command load new classes**
-```
-php artisan optimize
-```
-
-**4 - And execute migrations and seed database**
+**3 - And execute migrations and seed database**
 ```
 php artisan migrate
 php artisan db:seed --class="ReviewTableSeeder"
 ```
 
-**5 - Execute command to load all updates**
+**4 - Execute command to load all updates**
 ```
 php artisan migrate --path=vendor/syscover/pulsar-review/src/database/migrations/updates
 ```
