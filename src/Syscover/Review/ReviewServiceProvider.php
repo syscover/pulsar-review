@@ -1,4 +1,4 @@
-<?php namespace Syscover\Market;
+<?php namespace Syscover\Review;
 
 use Illuminate\Support\ServiceProvider;
 use Syscover\Review\GraphQL\ReviewGraphQLServiceProvider;
