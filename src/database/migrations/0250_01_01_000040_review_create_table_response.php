@@ -26,6 +26,17 @@ class ReviewCreateTableResponse extends Migration {
 
                 $table->timestamps();
                 $table->softDeletes();
+
+                $table->foreign('review_id', 'fk01_review_response')
+                    ->references('id')
+                    ->on('review_review')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
+                $table->foreign('question_id', 'fk02_review_response')
+                    ->references('id')
+                    ->on('review_question')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
             });
         }
     }

@@ -36,6 +36,15 @@ class ReviewCreateTableReview extends Migration {
 
                 $table->timestamps();
                 $table->softDeletes();
+
+                $table->index('object_id', 'ix01_review_review');
+                $table->index('object_type', 'ix02_review_review');
+
+                $table->foreign('poll_id', 'fk01_review_review')
+                    ->references('id')
+                    ->on('review_poll')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
             });
         }
     }

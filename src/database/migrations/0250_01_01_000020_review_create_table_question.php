@@ -33,6 +33,20 @@ class ReviewCreateTableQuestion extends Migration {
 
                 $table->timestamps();
                 $table->softDeletes();
+
+                $table->index(['id'], 'ix01_review_question');
+
+                $table->foreign('lang_id', 'fk01_review_question')
+                    ->references('id')
+                    ->on('admin_lang')
+                    ->onDelete('restrict')
+                    ->onUpdate('cascade');
+
+                $table->foreign('poll_id', 'fk02_review_question')
+                    ->references('id')
+                    ->on('review_poll')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
             });
         }
     }

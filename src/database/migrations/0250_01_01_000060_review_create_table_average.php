@@ -27,6 +27,15 @@ class ReviewCreateTableAverage extends Migration {
 
                 $table->timestamps();
                 $table->softDeletes();
+
+                $table->index('object_id', 'ix01_review_average');
+                $table->index('object_type', 'ix02_review_average');
+
+                $table->foreign('poll_id', 'fk01_review_average')
+                    ->references('id')
+                    ->on('review_poll')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
             });
         }
     }
