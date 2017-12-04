@@ -2,8 +2,6 @@
     "name": "syscover/pulsar-review",
     "description": "Review package",
     "keywords": ["laravel","language","review"],
-    "license": "MIT",
-    "type": "project",
     "authors": [
         {
             "name": "SYSCOVER SL",
@@ -20,12 +18,5 @@
         "classmap": [
             "src/Syscover/Review"
         ]
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Syscover\\Review\\ReviewServiceProvider"
-            ]
-        }
     }
 }
