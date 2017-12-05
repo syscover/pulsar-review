@@ -9,9 +9,7 @@ class ReviewTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call(CmsPackageTableSeeder::class);
-        $this->call(CmsResourceTableSeeder::class);
-        $this->call(CmsAttachmentMimeSeeder::class);
+        $this->call(ReviewPackageTableSeeder::class);
 
         Model::reguard();
     }
@@ -19,5 +17,5 @@ class ReviewTableSeeder extends Seeder
 
 /*
  * Command to run:
- * php artisan db:seed --class="CmsTableSeeder"
+ * php artisan db:seed --class="ReviewTableSeeder"
  */
