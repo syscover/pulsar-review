@@ -24,7 +24,7 @@ class PollService
         Poll::where('id', $object->get('id'))->update([
             'name'                  => $object->get('name'),
             'email_template'        => $object->get('email_template'),
-            'default_score'         => $object->get('default_score', 5),
+            'default_high_score'    => $object->get('default_high_score', 5),
             'mailing_days'          => $object->get('mailing_days', 0),
             'expiration_days'       => $object->get('expiration_days', 30)
         ]);

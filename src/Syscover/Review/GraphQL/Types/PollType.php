@@ -25,7 +25,7 @@ class PollType extends GraphQLType {
                 'type' => Type::string(),
                 'description' => 'Email template that will be used'
             ],
-            'default_score' => [
+            'default_high_score' => [
                 'type' => Type::int(),
                 'description' => 'Max score by default for response'
             ],

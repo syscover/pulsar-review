@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Validator;
 use Syscover\Core\Models\CoreModel;
+use Syscover\Admin\Traits\Translatable;
 
 /**
  * Class Question
@@ -10,6 +11,8 @@ use Syscover\Core\Models\CoreModel;
 
 class Question extends CoreModel
 {
+    use Translatable;
+
 	protected $table        = 'review_question';
     protected $fillable     = ['id', 'lang_id', 'poll_id', 'name', 'description', 'type_id', 'high_score'];
 

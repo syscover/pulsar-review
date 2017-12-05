@@ -30,6 +30,7 @@ class ReviewCreateTableQuestion extends Migration {
                 $table->tinyInteger('type_id')->unsigned();
                 // Max score that can to contain the review
                 $table->tinyInteger('high_score')->unsigned()->nullable();
+                $table->json('data_lang')->nullable();
 
                 $table->timestamps();
                 $table->softDeletes();
