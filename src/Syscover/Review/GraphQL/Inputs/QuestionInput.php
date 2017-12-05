@@ -1,0 +1,52 @@
+<?php namespace Syscover\Review\GraphQL\Inputs;
+
+use GraphQL\Type\Definition\Type;
+use Folklore\GraphQL\Support\Type as GraphQLType;
+
+class QuestionInput extends GraphQLType
+{
+    protected $attributes = [
+        'name'          => 'QuestionInput',
+        'description'   => 'Question for poll'
+    ];
+
+    protected $inputObject = true;
+
+    public function fields()
+    {
+        return [
+            'id' => [
+                'type' => Type::int(),
+                'description' => 'The id of question'
+            ],
+            'lang_id' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'Lang of question'
+            ],
+            'poll_id' => [
+                'type' => Type::nonNull(Type::int()),
+                'description' => 'Poll that belong this question'
+            ],
+            'name' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'Name of question'
+            ],
+            'description' => [
+                'type' => Type::string(),
+                'description' => 'Description of question'
+            ],
+            'type_id' => [
+                'type' => Type::nonNull(Type::int()),
+                'description' => 'Question type, score, text or select'
+            ],
+            'high_score' => [
+                'type' => Type::int(),
+                'description' => 'Max score that can to contain the review'
+            ],
+            'data_lang' => [
+                'type' => Type::listOf(Type::string()),
+                'description' => 'JSON string that contain information about object translations'
+            ]
+        ];
+    }
+}

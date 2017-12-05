@@ -9,6 +9,9 @@ class ReviewGraphQLServiceProvider
         // POLL
         GraphQL::addType(\Syscover\Review\GraphQL\Types\PollType::class, 'ReviewPoll');
         GraphQL::addType(\Syscover\Review\GraphQL\Inputs\PollInput::class, 'ReviewPollInput');
+
+        // QUESTION
+        GraphQL::addType(\Syscover\Review\GraphQL\Types\QuestionType::class, 'ReviewQuestion');
     }
 
     public static function bootGraphQLSchema()
