@@ -21,7 +21,7 @@ class Review extends Mailable
      */
     public function __construct($mSubject, $mView, $mData)
     {
-        $this->subject  = $mSubject;
+        $this->mSubject = $mSubject;
         $this->mView    = $mView;
         $this->mData    = collect($mData);
     }
