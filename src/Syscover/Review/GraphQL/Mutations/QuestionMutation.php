@@ -71,6 +71,10 @@ class DeleteQuestionMutation extends QuestionMutation
     public function args()
     {
         return [
+            'lang_id' => [
+                'name' => 'lang_id',
+                'type' => Type::nonNull(Type::string())
+            ],
             'id' => [
                 'name' => 'id',
                 'type' => Type::nonNull(Type::int())
@@ -80,7 +84,7 @@ class DeleteQuestionMutation extends QuestionMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], Question::class);
+        $object = SQLService::destroyRecord($args['id'], Question::class, $args['lang_id']);
 
         return $object;
     }

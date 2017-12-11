@@ -21,6 +21,11 @@ class QuestionsPaginationQuery extends Query
     public function args()
     {
         return [
+            'filters' => [
+                'name'          => 'filters',
+                'type'          => Type::listOf(GraphQL::type('CoreSQLQueryInput')),
+                'description'   => 'to filter queries'
+            ],
             'sql' => [
                 'name'          => 'sql',
                 'type'          => Type::listOf(GraphQL::type('CoreSQLQueryInput')),
@@ -31,13 +36,13 @@ class QuestionsPaginationQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = SQLService::getQueryFiltered(Question::builder(), $args['sql']);
+        $query = SQLService::getQueryFiltered(Question::builder(), $args['sql'], $args['filters']);
 
         // count records filtered
         $filtered = $query->count();
 
         // N total records
-        $total = SQLService::countPaginateTotalRecords(Question::builder());
+        $total = SQLService::countPaginateTotalRecords(Question::builder(), $args['filters']);
 
         return (Object) [
             'total'     => $total,
