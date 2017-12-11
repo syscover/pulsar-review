@@ -12,6 +12,7 @@ class ReviewGraphQLServiceProvider
 
         // QUESTION
         GraphQL::addType(\Syscover\Review\GraphQL\Types\QuestionType::class, 'ReviewQuestion');
+        GraphQL::addType(\Syscover\Review\GraphQL\Inputs\QuestionInput::class, 'ReviewQuestionInput');
     }
 
     public static function bootGraphQLSchema()
@@ -19,15 +20,25 @@ class ReviewGraphQLServiceProvider
         GraphQL::addSchema('default', array_merge_recursive(GraphQL::getSchemas()['default'], [
             'query' => [
                 // POLL
-                'reviewPollsPagination'            => \Syscover\Review\GraphQL\Queries\PollsPaginationQuery::class,
-                'reviewPolls'                      => \Syscover\Review\GraphQL\Queries\PollsQuery::class,
-                'reviewPoll'                       => \Syscover\Review\GraphQL\Queries\PollQuery::class,
+                'reviewPollsPagination'             => \Syscover\Review\GraphQL\Queries\PollsPaginationQuery::class,
+                'reviewPolls'                       => \Syscover\Review\GraphQL\Queries\PollsQuery::class,
+                'reviewPoll'                        => \Syscover\Review\GraphQL\Queries\PollQuery::class,
+
+                // QUESTION
+                'reviewQuestionsPagination'         => \Syscover\Review\GraphQL\Queries\QuestionsPaginationQuery::class,
+                'reviewQuestions'                   => \Syscover\Review\GraphQL\Queries\QuestionsQuery::class,
+                'reviewQuestion'                    => \Syscover\Review\GraphQL\Queries\QuestionQuery::class,
             ],
             'mutation' => [
                 // POLL
                 'reviewAddPoll'                     => \Syscover\Review\GraphQL\Mutations\AddPollMutation::class,
                 'reviewUpdatePoll'                  => \Syscover\Review\GraphQL\Mutations\UpdatePollMutation::class,
                 'reviewDeletePoll'                  => \Syscover\Review\GraphQL\Mutations\DeletePollMutation::class,
+
+                // QUESTION
+                'reviewAddQuestion'                 => \Syscover\Review\GraphQL\Mutations\AddQuestionMutation::class,
+                'reviewUpdateQuestion'              => \Syscover\Review\GraphQL\Mutations\UpdateQuestionMutation::class,
+                'reviewDeleteQuestion'              => \Syscover\Review\GraphQL\Mutations\DeleteQuestionMutation::class,
             ]
         ]));
     }

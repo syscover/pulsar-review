@@ -29,6 +29,10 @@ class QuestionType extends GraphQLType {
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'Poll that belong this question'
             ],
+            'type_id' => [
+                'type' => Type::nonNull(Type::int()),
+                'description' => 'Question type, score, text or select'
+            ],
             'name' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Name of question'
@@ -36,10 +40,6 @@ class QuestionType extends GraphQLType {
             'description' => [
                 'type' => Type::string(),
                 'description' => 'Description of question'
-            ],
-            'type_id' => [
-                'type' => Type::nonNull(Type::int()),
-                'description' => 'Question type, score, text or select'
             ],
             'high_score' => [
                 'type' => Type::int(),

@@ -4,13 +4,13 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
 use Syscover\Core\Services\SQLService;
-use Syscover\Review\Models\Poll;
+use Syscover\Review\Models\Question;
 
-class PollsPaginationQuery extends Query
+class QuestionsPaginationQuery extends Query
 {
     protected $attributes = [
-        'name'          => 'PollsPaginationQuery',
-        'description'   => 'Query to get list polls'
+        'name'          => 'QuestionsPaginationQuery',
+        'description'   => 'Query to get list questions'
     ];
 
     public function type()
@@ -31,13 +31,13 @@ class PollsPaginationQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = SQLService::getQueryFiltered(Poll::builder(), $args['sql']);
+        $query = SQLService::getQueryFiltered(Question::builder(), $args['sql']);
 
         // count records filtered
         $filtered = $query->count();
 
         // N total records
-        $total = SQLService::countPaginateTotalRecords(Poll::builder());
+        $total = SQLService::countPaginateTotalRecords(Question::builder());
 
         return (Object) [
             'total'     => $total,

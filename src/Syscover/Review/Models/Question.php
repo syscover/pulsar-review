@@ -14,7 +14,12 @@ class Question extends CoreModel
     use Translatable;
 
 	protected $table        = 'review_question';
-    protected $fillable     = ['id', 'lang_id', 'poll_id', 'name', 'description', 'type_id', 'high_score'];
+    protected $primaryKey   = 'ix';
+    protected $fillable     = ['id', 'lang_id', 'poll_id', 'type_id', 'name', 'description', 'high_score', 'data_lang'];
+    protected $casts        = [
+        'data_lang' => 'array'
+    ];
+    public $with            = ['lang'];
 
     private static $rules   = [
         'name' => 'required'

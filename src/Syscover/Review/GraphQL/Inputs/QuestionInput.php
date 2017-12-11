@@ -15,6 +15,10 @@ class QuestionInput extends GraphQLType
     public function fields()
     {
         return [
+            'ix' => [
+                'type' => Type::int(),
+                'description' => 'The index of question'
+            ],
             'id' => [
                 'type' => Type::int(),
                 'description' => 'The id of question'
@@ -27,6 +31,10 @@ class QuestionInput extends GraphQLType
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'Poll that belong this question'
             ],
+            'type_id' => [
+                'type' => Type::nonNull(Type::int()),
+                'description' => 'Question type, score, text or select'
+            ],
             'name' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Name of question'
@@ -34,10 +42,6 @@ class QuestionInput extends GraphQLType
             'description' => [
                 'type' => Type::string(),
                 'description' => 'Description of question'
-            ],
-            'type_id' => [
-                'type' => Type::nonNull(Type::int()),
-                'description' => 'Question type, score, text or select'
             ],
             'high_score' => [
                 'type' => Type::int(),

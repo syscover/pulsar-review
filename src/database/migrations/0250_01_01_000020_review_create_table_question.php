@@ -21,13 +21,13 @@ class ReviewCreateTableQuestion extends Migration {
                 $table->integer('id')->unsigned();
                 $table->string('lang_id', 2);
                 $table->integer('poll_id')->unsigned();
-                $table->string('name');
-                $table->text('description')->nullable();
-
                 // 1 - score
                 // 2 - text
                 // 3 - select (inactivated)
                 $table->tinyInteger('type_id')->unsigned();
+                $table->string('name');
+                $table->text('description')->nullable();
+
                 // Max score that can to contain the review, nullable if is a text or select type question
                 $table->tinyInteger('high_score')->unsigned()->nullable();
                 $table->json('data_lang')->nullable();

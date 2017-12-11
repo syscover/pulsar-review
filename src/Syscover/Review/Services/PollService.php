@@ -10,6 +10,10 @@ class PollService
      */
     public static function create($object)
     {
+        if($object['default_high_score'] === null) unset($object['default_high_score']);
+        if($object['mailing_days'] === null) unset($object['mailing_days']);
+        if($object['expiration_days'] === null) unset($object['expiration_days']);
+
         return Poll::create($object);
     }
 
