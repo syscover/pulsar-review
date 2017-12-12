@@ -12,7 +12,7 @@ class Poll extends CoreModel
 {
 	protected $table        = 'review_poll';
     protected $fillable     = ['name', 'email_template', 'default_score', 'mailing_days', 'expiration_days'];
-
+    public $with            = ['questions'];
     private static $rules   = [
         'name' => 'required'
     ];

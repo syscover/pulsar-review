@@ -1,9 +1,10 @@
-<?php namespace App\Mail;
+<?php namespace Syscover\Review\Mails;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Crypt;
 
 class Review extends Mailable
 {
@@ -11,19 +12,21 @@ class Review extends Mailable
 
     public $mSubject;
     public $mView;
-    public $mData;
+    public $review;
+    public $url;
 
     /**
      * Review constructor.
      * @param $mSubject
      * @param $mView
-     * @param $mData
+     * @param $review
      */
-    public function __construct($mSubject, $mView, $mData)
+    public function __construct($mSubject, $mView, $review)
     {
         $this->mSubject = $mSubject;
         $this->mView    = $mView;
-        $this->mData    = collect($mData);
+        $this->review   = $review;
+        $this->url      = route('show.review-' . user_lang(), ['slug' => Crypt::encryptString($review->id)]);
     }
 
     /**

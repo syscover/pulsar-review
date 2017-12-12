@@ -21,6 +21,9 @@ class ReviewServiceProvider extends ServiceProvider
         // register translations
         $this->loadTranslationsFrom(__DIR__ . '/../../lang', 'review');
 
+        // register views
+        $this->loadViewsFrom(__DIR__ . '/../../views', 'review');
+
         // register seeds
         $this->publishes([
             __DIR__ . '/../../database/seeds/' => base_path('/database/seeds')

@@ -12,9 +12,9 @@ class Review extends CoreModel
 {
 	protected $table        = 'review_review';
     protected $fillable     = ['date', 'poll_id', 'object_id', 'object_type', 'customer_id', 'customer_name', 'customer_email', 'email_subject', 'verified', 'average', 'completed', 'mailing', 'expiration'];
+    public $with            = ['poll'];
 
-    private static $rules   = [
-    ];
+    private static $rules   = [];
 
     public static function validate($data)
     {
@@ -24,5 +24,10 @@ class Review extends CoreModel
     public function scopeBuilder($query)
     {
         return $query;
+    }
+
+    public function poll()
+    {
+        return $this->hasOne(Poll::class, 'id', 'poll_id');
     }
 }
