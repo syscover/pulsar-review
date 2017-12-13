@@ -27,6 +27,7 @@ class ReviewCreateTableQuestion extends Migration {
                 $table->tinyInteger('type_id')->unsigned();
                 $table->string('name');
                 $table->text('description')->nullable();
+                $table->integer('sort')->unsigned()->nullable();
 
                 // Max score that can to contain the review, nullable if is a text or select type question
                 $table->tinyInteger('high_score')->unsigned()->nullable();

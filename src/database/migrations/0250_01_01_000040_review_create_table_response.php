@@ -22,7 +22,7 @@ class ReviewCreateTableResponse extends Migration {
                 $table->integer('question_id')->unsigned();
 
                 $table->integer('score')->unsigned()->nullable();
-                $table->string('text');
+                $table->string('text')->nullable();
 
                 $table->timestamps();
                 $table->softDeletes();

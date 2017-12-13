@@ -41,6 +41,7 @@ class QuestionService
             ->update([
                 'poll_id'       => $object->get('poll_id'),
                 'type_id'       => $object->get('type_id'),
+                'sort'          => $object->get('sort'),
                 'high_score'    => $object->get('high_score')
             ]);
 

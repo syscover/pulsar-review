@@ -20,19 +20,21 @@ class ReviewCreateTableReview extends Migration {
                 $table->increments('id');
                 $table->timestamp('date')->nullable();
                 $table->integer('poll_id')->unsigned();
-                $table->integer('object_id')->unsigned()->nullable();
+                $table->integer('object_id')->unsigned();
                 $table->string('object_type');
+                $table->string('object_name');
                 $table->integer('customer_id')->unsigned()->nullable();                     // nullable to allow anonymous reviews
                 $table->string('customer_name');
                 $table->string('customer_email');
-                $table->string('email_subject')->nullable();                                // Email subject for this review
-                $table->boolean('verified')->default(false);                                // check if is a verified customer
+                $table->boolean('customer_verified')->default(false);                       // check if is a verified customer
+                $table->string('email_subject')->nullable();                                // email subject for this review
+                $table->boolean('completed')->default(false);                               // check if the review was completed for the customer
+                $table->boolean('validated')->default(false);                               // check if review is added
                 $table->decimal('average', 6,2)->nullable();                   // average of all responses
 
                 // cron columns
-                $table->boolean('completed')->default(false);                               // check if the review was completed for the customer
                 $table->timestamp('mailing')->default(DB::raw('CURRENT_TIMESTAMP'));        // date when review will be send to customer
-                $table->timestamp('expiration')->default(DB::raw('CURRENT_TIMESTAMP'));     // data when review will be delete if is not completed
+                $table->timestamp('expiration')->default(DB::raw('CURRENT_TIMESTAMP'));     // date when review will be delete if is not completed
 
                 $table->timestamps();
                 $table->softDeletes();

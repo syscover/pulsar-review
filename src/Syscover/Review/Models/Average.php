@@ -11,7 +11,7 @@ use Syscover\Core\Models\CoreModel;
 class Average extends CoreModel
 {
 	protected $table        = 'review_average';
-    protected $fillable     = ['poll_id', 'object_id', 'object_type', 'name', 'reviews', 'average'];
+    protected $fillable     = ['poll_id', 'object_id', 'object_type', 'object_name', 'reviews', 'total', 'average'];
 
     private static $rules   = [
     ];

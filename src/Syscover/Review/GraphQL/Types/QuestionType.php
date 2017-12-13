@@ -41,6 +41,10 @@ class QuestionType extends GraphQLType {
                 'type' => Type::string(),
                 'description' => 'Description of question'
             ],
+            'sort' => [
+                'type' => Type::int(),
+                'description' => 'Sort of question'
+            ],
             'high_score' => [
                 'type' => Type::int(),
                 'description' => 'Max score that can to contain the review'

@@ -13,6 +13,10 @@ class ReviewGraphQLServiceProvider
         // QUESTION
         GraphQL::addType(\Syscover\Review\GraphQL\Types\QuestionType::class, 'ReviewQuestion');
         GraphQL::addType(\Syscover\Review\GraphQL\Inputs\QuestionInput::class, 'ReviewQuestionInput');
+
+        // REVIEW
+        GraphQL::addType(\Syscover\Review\GraphQL\Types\ReviewType::class, 'ReviewReview');
+        GraphQL::addType(\Syscover\Review\GraphQL\Inputs\ReviewInput::class, 'ReviewReviewInput');
     }
 
     public static function bootGraphQLSchema()
@@ -28,6 +32,11 @@ class ReviewGraphQLServiceProvider
                 'reviewQuestionsPagination'         => \Syscover\Review\GraphQL\Queries\QuestionsPaginationQuery::class,
                 'reviewQuestions'                   => \Syscover\Review\GraphQL\Queries\QuestionsQuery::class,
                 'reviewQuestion'                    => \Syscover\Review\GraphQL\Queries\QuestionQuery::class,
+
+                // REVIEW
+                'reviewReviewsPagination'           => \Syscover\Review\GraphQL\Queries\ReviewsPaginationQuery::class,
+                'reviewReviews'                     => \Syscover\Review\GraphQL\Queries\ReviewsQuery::class,
+                'reviewReview'                      => \Syscover\Review\GraphQL\Queries\ReviewQuery::class,
             ],
             'mutation' => [
                 // POLL
@@ -39,6 +48,12 @@ class ReviewGraphQLServiceProvider
                 'reviewAddQuestion'                 => \Syscover\Review\GraphQL\Mutations\AddQuestionMutation::class,
                 'reviewUpdateQuestion'              => \Syscover\Review\GraphQL\Mutations\UpdateQuestionMutation::class,
                 'reviewDeleteQuestion'              => \Syscover\Review\GraphQL\Mutations\DeleteQuestionMutation::class,
+
+                // REVIEW
+                'reviewAddReview'                   => \Syscover\Review\GraphQL\Mutations\AddReviewMutation::class,
+                'reviewUpdateReview'                => \Syscover\Review\GraphQL\Mutations\UpdateReviewMutation::class,
+                'reviewActionReview'                => \Syscover\Review\GraphQL\Mutations\ActionReviewMutation::class,
+                'reviewDeleteReview'                => \Syscover\Review\GraphQL\Mutations\DeleteReviewMutation::class,
             ]
         ]));
     }

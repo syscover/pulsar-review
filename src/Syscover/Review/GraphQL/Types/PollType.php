@@ -15,7 +15,7 @@ class PollType extends GraphQLType {
         return [
             'id' => [
                 'type' => Type::nonNull(Type::int()),
-                'description' => 'The index of article'
+                'description' => 'The index of poll'
             ],
             'name' => [
                 'type' => Type::nonNull(Type::string()),

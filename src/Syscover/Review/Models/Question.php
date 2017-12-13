@@ -15,7 +15,7 @@ class Question extends CoreModel
 
 	protected $table        = 'review_question';
     protected $primaryKey   = 'ix';
-    protected $fillable     = ['id', 'lang_id', 'poll_id', 'type_id', 'name', 'description', 'high_score', 'data_lang'];
+    protected $fillable     = ['id', 'lang_id', 'poll_id', 'type_id', 'name', 'description', 'sort', 'high_score', 'data_lang'];
     protected $casts        = [
         'data_lang' => 'array'
     ];
