@@ -5,9 +5,9 @@ use Carbon\Carbon;
 use Syscover\Core\Controllers\CoreController;
 use Syscover\Admin\Services\ActionService;
 use Syscover\Admin\Models\Action;
-use Syscover\Review\Models\Average;
 use Syscover\Review\Models\Review;
 use Syscover\Review\Models\Response;
+use Syscover\Review\Services\AverageService;
 
 class ResponseController extends CoreController
 {
@@ -80,40 +80,16 @@ class ResponseController extends CoreController
 
         Response::insert($responses);
 
-        // Update review
+        // update review
         $responses          = collect($responses);
         $totalScore         = $responses->sum('score');
         $review->average    = $totalScore /  $scoreQuestions;
         $review->completed  = true;
         $review->save();
 
-        // Update or create average
-        $average = Average::where('poll_id', $review->poll_id)
-            ->where('object_id', $review->object_id)
-            ->where('object_type', $review->object_type)
-            ->first();
 
-        if($average)
-        {
-            $average->reviews   = $average->reviews + 1;
-            $average->total     = $average->total + $review->average;
-            $average->average   = $average->total / $average->reviews;
-            $average->save();
-
-        }
-        else
-        {
-            Average::create([
-                'poll_id'       => $review->poll_id,
-                'object_id'     => $review->object_id,
-                'object_type'   => $review->object_type,
-                'name'          => 'Nombre del hotel',
-                'reviews'       => 1,
-                'total'         => $review->average,
-                'average'       => $review->average
-            ]);
-        }
-
+        // SETTINGS NO VALIDATE REVIEWS
+        //AverageService::addAverage($review);
 
         return redirect()->route($request->input('route'));
     }

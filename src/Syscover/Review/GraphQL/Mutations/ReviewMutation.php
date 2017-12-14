@@ -4,6 +4,7 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use Syscover\Review\Models\Review;
+use Syscover\Review\Services\AverageService;
 use Syscover\Review\Services\ReviewService;
 use Syscover\Core\Services\SQLService;
 
@@ -109,15 +110,18 @@ class ActionReviewMutation extends ReviewMutation
 
     public function resolve($root, $args)
     {
-        // 1 - Validate and add score
-        // 2 - Invalidate and subtract score
-
-        $args['id'];
-        $args['action_id'];
-
         $review = Review::find($args['id']);
 
-        var_dump($args);
-        exit;
+        // 1 - Validate and add score
+        // 2 - Invalidate and subtract score
+        switch ($args['action_id'])
+        {
+            case 1:
+                AverageService::addAverage($review);
+                break;
+            case 2:
+                AverageService::removeAverage($review);
+                break;
+        }
     }
 }
