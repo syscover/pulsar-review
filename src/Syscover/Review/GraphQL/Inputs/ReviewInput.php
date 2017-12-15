@@ -39,6 +39,10 @@ class ReviewInput extends GraphQLType {
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Object name that belong this review'
             ],
+            'object_email' => [
+                'type' => Type::string(),
+                'description' => 'Email where will be sent the notifications and comments if has data'
+            ],
             'customer_id' => [
                 'type' => Type::int(),
                 'description' => 'Customer that belong this review'

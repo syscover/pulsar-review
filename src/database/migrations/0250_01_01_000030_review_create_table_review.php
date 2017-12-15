@@ -23,6 +23,7 @@ class ReviewCreateTableReview extends Migration {
                 $table->integer('object_id')->unsigned();
                 $table->string('object_type');
                 $table->string('object_name');
+                $table->string('object_email')->nullable();                                 // email where will be sent the notifications and comments if has data
                 $table->integer('customer_id')->unsigned()->nullable();                     // nullable to allow anonymous reviews
                 $table->string('customer_name');
                 $table->string('customer_email');
