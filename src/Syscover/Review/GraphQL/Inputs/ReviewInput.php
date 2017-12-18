@@ -2,6 +2,7 @@
 
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
+use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
 
 class ReviewInput extends GraphQLType {
 
@@ -24,19 +25,19 @@ class ReviewInput extends GraphQLType {
                 'description' => 'Date of review'
             ],
             'poll_id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'Poll that belong this review'
             ],
             'object_id' => [
-                'type' =>  Type::nonNull(Type::int()),
+                'type' =>  Type::int(),
                 'description' => 'Object that belong this review'
             ],
             'object_type' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'Object class name that belong this review'
             ],
             'object_name' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'Object name that belong this review'
             ],
             'object_email' => [
@@ -48,11 +49,11 @@ class ReviewInput extends GraphQLType {
                 'description' => 'Customer that belong this review'
             ],
             'customer_name' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'Customer name that belong this review'
             ],
             'customer_email' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'Customer email that belong this review'
             ],
             'customer_verified' => [
@@ -86,7 +87,11 @@ class ReviewInput extends GraphQLType {
             'expiration' => [
                 'type' => Type::string(),
                 'description' => 'Date when review will be delete if is not completed'
-            ]
+            ],
+            'responses' => [
+                'type' => Type::listOf(app(ObjectType::class)),
+                'description' => 'List of attachments added to article'
+            ],
         ];
     }
 }

@@ -3,6 +3,7 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
+use Syscover\Review\Models\Response;
 use Syscover\Review\Models\Review;
 use Syscover\Review\Services\AverageService;
 use Syscover\Review\Services\ReviewService;
@@ -97,9 +98,9 @@ class ActionReviewMutation extends ReviewMutation
     public function args()
     {
         return [
-            'id' => [
-                'name' => 'id',
-                'type' => Type::nonNull(Type::int())
+            'object' => [
+                'name' => 'object',
+                'type' => Type::nonNull(GraphQL::type('ReviewReviewInput'))
             ],
             'action_id' => [
                 'name' => 'action_id',
@@ -110,7 +111,33 @@ class ActionReviewMutation extends ReviewMutation
 
     public function resolve($root, $args)
     {
-        $review = Review::find($args['id']);
+        $review         = Review::find($args['object']['id']);
+        $questions      = $review->poll->questions;
+        $scoreQuestions = 0;
+
+        if(is_array($args['object']['responses']) && count($args['object']['responses']) > 0)
+        {
+            $responses = collect($args['object']['responses']);
+
+            foreach ($responses as $response)
+            {
+                $response = collect($response);
+
+                Response::where('id', $response->get('id'))->update([
+                    'score'     => $response->get('score'),
+                    'text'      => $response->get('text')
+                ]);
+
+                if($questions->where('id', $response->get('question_id'))->first()->type_id === 1)
+                {
+                    $scoreQuestions++;
+                }
+            }
+            
+            $totalScore         = $responses->sum('score');
+            $review->average    = $totalScore /  $scoreQuestions;
+            $review->save();
+        }
 
         // 1 - Validate and add score
         // 2 - Invalidate and subtract score
