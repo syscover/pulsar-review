@@ -20,19 +20,19 @@ class AverageInput extends GraphQLType {
                 'description' => 'The index of review'
             ],
             'poll_id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'Poll that belong this review'
             ],
             'object_id' => [
-                'type' =>  Type::nonNull(Type::int()),
+                'type' =>  Type::int(),
                 'description' => 'Object that belong this review'
             ],
             'object_type' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'Object class name that belong this review'
             ],
             'object_name' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'Object name that belong this review'
             ],
             'reviews' => [

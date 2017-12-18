@@ -1,5 +1,6 @@
 <?php namespace Syscover\Review\GraphQL\Types;
 
+use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
@@ -20,6 +21,10 @@ class AverageType extends GraphQLType {
             'poll_id' => [
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'Poll that belong this review'
+            ],
+            'poll' => [
+                'type' => Type::nonNull(GraphQL::type('ReviewPoll')),
+                'description' => 'Poll of average'
             ],
             'object_id' => [
                 'type' =>  Type::nonNull(Type::int()),

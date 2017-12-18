@@ -79,6 +79,10 @@ class ReviewInput extends GraphQLType {
                 'type' => Type::string(),
                 'description' => 'Date when review will be send to customer'
             ],
+            'sent' => [
+                'type' => Type::boolean(),
+                'description' => 'Check if was sent email to customer'
+            ],
             'expiration' => [
                 'type' => Type::string(),
                 'description' => 'Date when review will be delete if is not completed'

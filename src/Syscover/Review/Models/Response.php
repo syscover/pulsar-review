@@ -12,9 +12,9 @@ class Response extends CoreModel
 {
 	protected $table        = 'review_response';
     protected $fillable     = ['review_id', 'question_id', 'score', 'text'];
+    public $with            = ['questions'];
 
-    private static $rules   = [
-    ];
+    private static $rules   = [];
 
     public static function validate($data)
     {
@@ -24,5 +24,10 @@ class Response extends CoreModel
     public function scopeBuilder($query)
     {
         return $query;
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class, 'id', 'question_id');
     }
 }

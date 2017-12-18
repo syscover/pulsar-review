@@ -21,6 +21,9 @@ class ReviewGraphQLServiceProvider
         // AVERAGE
         GraphQL::addType(\Syscover\Review\GraphQL\Types\AverageType::class, 'ReviewAverage');
         GraphQL::addType(\Syscover\Review\GraphQL\Inputs\AverageInput::class, 'ReviewAverageInput');
+
+        // RESPONSE
+        GraphQL::addType(\Syscover\Review\GraphQL\Types\ResponseType::class, 'ReviewResponse');
     }
 
     public static function bootGraphQLSchema()

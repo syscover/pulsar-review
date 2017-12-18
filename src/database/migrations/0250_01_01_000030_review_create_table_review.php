@@ -35,6 +35,7 @@ class ReviewCreateTableReview extends Migration {
 
                 // cron columns
                 $table->timestamp('mailing')->default(DB::raw('CURRENT_TIMESTAMP'));        // date when review will be send to customer
+                $table->boolean('sent')->default(false);                                    // check if review was sent
                 $table->timestamp('expiration')->default(DB::raw('CURRENT_TIMESTAMP'));     // date when review will be delete if is not completed
 
                 $table->timestamps();

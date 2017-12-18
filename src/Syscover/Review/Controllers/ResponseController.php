@@ -1,13 +1,14 @@
 <?php namespace Syscover\Review\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Carbon\Carbon;
 use Syscover\Core\Controllers\CoreController;
 use Syscover\Admin\Services\ActionService;
 use Syscover\Admin\Models\Action;
 use Syscover\Review\Models\Review;
 use Syscover\Review\Models\Response;
-use Syscover\Review\Services\AverageService;
+use Syscover\Review\Notifications\Review as ReviewNotification;
 
 class ResponseController extends CoreController
 {
@@ -89,7 +90,10 @@ class ResponseController extends CoreController
 
 
         // SETTINGS NO VALIDATE REVIEWS
-        //AverageService::addAverage($review);
+        // AverageService::addAverage($review);
+
+        Notification::route('mail', 'cpalacin@digitalh2.com')
+            ->notify(new ReviewNotification($review));
 
         return redirect()->route($request->input('route'));
     }

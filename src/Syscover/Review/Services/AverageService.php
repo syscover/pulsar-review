@@ -15,7 +15,7 @@ class AverageService
 //        if($object['mailing_days'] === null) unset($object['mailing_days']);
 //        if($object['expiration_days'] === null) unset($object['expiration_days']);
 
-        return Average::create($object);
+        //return Average::create($object);
     }
 
     /**
@@ -26,13 +26,9 @@ class AverageService
     {
         $object = collect($object);
 
-        Review::where('id', $object->get('id'))->update([
-            'name'                  => $object->get('name'),
-            'email_template'        => $object->get('email_template'),
-            'default_high_score'    => $object->get('default_high_score', 5),
-            'mailing_days'          => $object->get('mailing_days', 0),
-            'expiration_days'       => $object->get('expiration_days', 30)
-        ]);
+        Average::where('id', $object->get('id'))->update(
+            $object->only((new Average())->getFillable())->toArray()
+        );
 
         return Average::find($object->get('id'));
     }

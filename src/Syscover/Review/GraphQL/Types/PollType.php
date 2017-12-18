@@ -1,5 +1,6 @@
 <?php namespace Syscover\Review\GraphQL\Types;
 
+use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
@@ -40,7 +41,11 @@ class PollType extends GraphQLType {
             'expiration_days' => [
                 'type' => Type::int(),
                 'description' => 'Days that after register review, it will be delete if is not completed'
-            ]
+            ],
+            'questions' => [
+                'type' => Type::nonNull(Type::listOf(GraphQL::type('ReviewQuestion'))),
+                'description' => 'Questions multi-languages object that belong this response'
+            ],
         ];
     }
 }

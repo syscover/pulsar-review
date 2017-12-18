@@ -1,5 +1,6 @@
 <?php namespace Syscover\Review\GraphQL\Types;
 
+use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
@@ -24,6 +25,14 @@ class ReviewType extends GraphQLType {
             'poll_id' => [
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'Poll that belong this review'
+            ],
+            'poll' => [
+                'type' => Type::nonNull(GraphQL::type('ReviewPoll')),
+                'description' => 'Poll of review'
+            ],
+            'responses' => [
+                'type' => Type::nonNull(Type::listOf(GraphQL::type('ReviewResponse'))),
+                'description' => 'Responses of review'
             ],
             'object_id' => [
                 'type' =>  Type::nonNull(Type::int()),
@@ -76,6 +85,10 @@ class ReviewType extends GraphQLType {
             'mailing' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Date when review will be send to customer'
+            ],
+            'sent' => [
+                'type' => Type::nonNull(Type::boolean()),
+                'description' => 'Check if was sent email to customer'
             ],
             'expiration' => [
                 'type' => Type::nonNull(Type::string()),

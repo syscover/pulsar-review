@@ -23,7 +23,8 @@ class ReviewCreateTableQuestion extends Migration {
                 $table->integer('poll_id')->unsigned();
                 // 1 - score
                 // 2 - text
-                // 3 - select (inactivated)
+                // 3 - booleano (inactivated)
+                // 4 - select (inactivated)
                 $table->tinyInteger('type_id')->unsigned();
                 $table->string('name');
                 $table->text('description')->nullable();

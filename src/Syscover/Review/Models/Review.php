@@ -11,8 +11,8 @@ use Syscover\Core\Models\CoreModel;
 class Review extends CoreModel
 {
 	protected $table        = 'review_review';
-    protected $fillable     = ['date', 'poll_id', 'object_id', 'object_type', 'object_name', 'object_email', 'customer_id', 'customer_name', 'customer_email', 'customer_verified', 'email_subject', 'completed', 'validated', 'average', 'mailing', 'expiration'];
-    public $with            = ['poll'];
+    protected $fillable     = ['date', 'poll_id', 'object_id', 'object_type', 'object_name', 'object_email', 'customer_id', 'customer_name', 'customer_email', 'customer_verified', 'email_subject', 'completed', 'validated', 'average', 'mailing', 'sent', 'expiration'];
+    public $with            = ['poll', 'responses'];
 
     private static $rules   = [];
 
@@ -29,5 +29,10 @@ class Review extends CoreModel
     public function poll()
     {
         return $this->hasOne(Poll::class, 'id', 'poll_id');
+    }
+
+    public function responses()
+    {
+        return $this->hasMany(Response::class, 'review_id', 'id');
     }
 }

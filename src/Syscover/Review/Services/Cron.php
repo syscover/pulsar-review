@@ -11,6 +11,7 @@ class Cron
     {
         $reviews = Review::builder()
             ->where('completed', false)
+            ->where('sent', false)
             //->where('mailing', '<', Carbon::now(config('app.timezone'))->toDateTimeString())
             ->limit(50) // TODO, set config to limit 10/50/100/200/500
             ->get();
@@ -19,11 +20,16 @@ class Cron
         {
             Mail::to($review->customer_email)
                 ->send(new MailReview(
-                    'hola mundo',
+                    $review->email_subject,
                     'review::emails.review',
                     $review
                 ));
         }
+
+        // mark review like sent true
+        Review::whereIn('id', $reviews->pluck('id'))->update([
+            'sent' => true
+        ]);
     }
     
     public static function checkDeleteReview()
