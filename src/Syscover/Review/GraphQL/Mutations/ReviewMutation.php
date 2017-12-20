@@ -133,7 +133,7 @@ class ActionReviewMutation extends ReviewMutation
                     $scoreQuestions++;
                 }
             }
-            
+
             $totalScore         = $responses->sum('score');
             $review->average    = $totalScore /  $scoreQuestions;
             $review->save();
