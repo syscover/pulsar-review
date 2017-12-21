@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ReviewCreateTableAverage extends Migration {
+class ReviewCreateTableObjectAverage extends Migration {
 
     /**
      * Run the migrations.
@@ -12,9 +12,9 @@ class ReviewCreateTableAverage extends Migration {
      */
     public function up()
     {
-        if(! Schema::hasTable('review_average'))
+        if(! Schema::hasTable('review_object_average'))
         {
-            Schema::create('review_average', function (Blueprint $table) {
+            Schema::create('review_object_average', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
 
                 $table->increments('id');
@@ -29,10 +29,10 @@ class ReviewCreateTableAverage extends Migration {
                 $table->timestamps();
                 $table->softDeletes();
 
-                $table->index('object_id', 'ix01_review_average');
-                $table->index('object_type', 'ix02_review_average');
+                $table->index('object_id', 'ix01_review_object_average');
+                $table->index('object_type', 'ix02_review_object_average');
 
-                $table->foreign('poll_id', 'fk01_review_average')
+                $table->foreign('poll_id', 'fk01_review_object_average')
                     ->references('id')
                     ->on('review_poll')
                     ->onDelete('cascade')
@@ -48,6 +48,6 @@ class ReviewCreateTableAverage extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('review_average');
+        Schema::dropIfExists('review_object_average');
     }
 }

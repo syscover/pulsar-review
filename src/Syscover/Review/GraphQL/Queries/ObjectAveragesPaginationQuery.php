@@ -4,9 +4,9 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
 use Syscover\Core\Services\SQLService;
-use Syscover\Review\Models\Average;
+use Syscover\Review\Models\ObjectAverage;
 
-class AveragesPaginationQuery extends Query
+class ObjectAveragesPaginationQuery extends Query
 {
     protected $attributes = [
         'name'          => 'AveragesPaginationQuery',
@@ -31,13 +31,13 @@ class AveragesPaginationQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = SQLService::getQueryFiltered(Average::builder(), $args['sql']);
+        $query = SQLService::getQueryFiltered(ObjectAverage::builder(), $args['sql']);
 
         // count records filtered
         $filtered = $query->count();
 
         // N total records
-        $total = SQLService::countPaginateTotalRecords(Average::builder());
+        $total = SQLService::countPaginateTotalRecords(ObjectAverage::builder());
 
         return (Object) [
             'total'     => $total,

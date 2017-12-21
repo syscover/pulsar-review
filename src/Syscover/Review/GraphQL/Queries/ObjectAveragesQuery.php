@@ -4,18 +4,18 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
 use Syscover\Core\Services\SQLService;
-use Syscover\Review\Models\Average;
+use Syscover\Review\Models\ObjectAverage;
 
-class AverageQuery extends Query
+class ObjectAveragesQuery extends Query
 {
     protected $attributes = [
-        'name'          => 'AverageQuery',
-        'description'   => 'Query to get average'
+        'name'          => 'AveragesQuery',
+        'description'   => 'Query to get averages list'
     ];
 
     public function type()
     {
-        return GraphQL::type('ReviewAverage');
+        return Type::listOf(GraphQL::type('ReviewAverage'));
     }
 
     public function args()
@@ -31,8 +31,14 @@ class AverageQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = SQLService::getQueryFiltered(Average::builder(), $args['sql']);
+        $query = ObjectAverage::builder();
 
-        return $query->first();
+        if(isset($args['sql']))
+        {
+            $query = SQLService::getQueryFiltered($query, $args['sql']);
+            $query = SQLService::getQueryOrderedAndLimited($query, $args['sql']);
+        }
+
+        return $query->get();
     }
 }

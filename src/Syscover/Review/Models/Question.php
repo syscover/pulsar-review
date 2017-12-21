@@ -19,7 +19,7 @@ class Question extends CoreModel
     protected $casts        = [
         'data_lang' => 'array'
     ];
-    public $with            = ['lang'];
+    public $with            = ['lang', 'question'];
 
     private static $rules   = [
         'name' => 'required'
@@ -33,5 +33,10 @@ class Question extends CoreModel
     public function scopeBuilder($query)
     {
         return $query;
+    }
+
+    public function average()
+    {
+        return $this->hasOne(QuestionAverage::class, 'question_id', 'id');
     }
 }

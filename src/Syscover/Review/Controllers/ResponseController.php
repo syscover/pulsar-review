@@ -3,12 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Carbon\Carbon;
+use Syscover\Admin\Models\User;
 use Syscover\Core\Controllers\CoreController;
 use Syscover\Admin\Services\ActionService;
 use Syscover\Admin\Models\Action;
 use Syscover\Review\Models\Review;
 use Syscover\Review\Models\Response;
 use Syscover\Review\Notifications\Review as ReviewNotification;
+use Syscover\Review\Services\ObjectAverageService;
 
 class ResponseController extends CoreController
 {
@@ -65,12 +67,17 @@ class ResponseController extends CoreController
                 'updated_at'    => $now,
             ];
 
+            // question with score
             if($question->type_id === 1)
             {
                 $response['score'] = $request->input('q' . $question->id);
                 $scoreQuestions++;
+
+                // add question average
+                //$question->average->
             }
 
+            // question with text
             if($question->type_id === 2)
             {
                 $response['text'] = $request->input('q' . $question->id);
@@ -86,14 +93,23 @@ class ResponseController extends CoreController
         $totalScore         = $responses->sum('score');
         $review->average    = $totalScore /  $scoreQuestions;
         $review->completed  = true;
+
+        if(! $review->poll->validate)
+        {
+            // review is not validated by moderator
+            ObjectAverageService::addAverage($review);
+
+            // set review how validated
+            $review->validated = true;
+        }
         $review->save();
 
-
-        // SETTINGS NO VALIDATE REVIEWS
-        // AverageService::addAverage($review);
-
-        Notification::route('mail', 'cpalacin@digitalh2.com')
-            ->notify(new ReviewNotification($review));
+        if($review->poll->validate)
+        {
+            $moderators = User::whereIn('id', cache('review_moderators'))->get();
+            Notification::route('mail', $moderators->pluck('email'))
+                ->notify(new ReviewNotification($review));
+        }
 
         return redirect()->route($request->input('route'));
     }

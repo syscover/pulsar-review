@@ -19,8 +19,8 @@ class ReviewGraphQLServiceProvider
         GraphQL::addType(\Syscover\Review\GraphQL\Inputs\ReviewInput::class, 'ReviewReviewInput');
 
         // AVERAGE
-        GraphQL::addType(\Syscover\Review\GraphQL\Types\AverageType::class, 'ReviewAverage');
-        GraphQL::addType(\Syscover\Review\GraphQL\Inputs\AverageInput::class, 'ReviewAverageInput');
+        GraphQL::addType(\Syscover\Review\GraphQL\Types\ObjectAverageType::class, 'ReviewObjectAverage');
+        GraphQL::addType(\Syscover\Review\GraphQL\Inputs\ObjectAverageInput::class, 'ReviewObjectAverageInput');
 
         // RESPONSE
         GraphQL::addType(\Syscover\Review\GraphQL\Types\ResponseType::class, 'ReviewResponse');
@@ -46,9 +46,9 @@ class ReviewGraphQLServiceProvider
                 'reviewReview'                      => \Syscover\Review\GraphQL\Queries\ReviewQuery::class,
 
                 // AVERAGE
-                'reviewAveragesPagination'           => \Syscover\Review\GraphQL\Queries\AveragesPaginationQuery::class,
-                'reviewAverages'                     => \Syscover\Review\GraphQL\Queries\AveragesQuery::class,
-                'reviewAverage'                      => \Syscover\Review\GraphQL\Queries\AverageQuery::class,
+                'reviewAveragesPagination'           => \Syscover\Review\GraphQL\Queries\ObjectAveragesPaginationQuery::class,
+                'reviewAverages'                     => \Syscover\Review\GraphQL\Queries\ObjectAveragesQuery::class,
+                'reviewAverage'                      => \Syscover\Review\GraphQL\Queries\ObjectAverageQuery::class,
             ],
             'mutation' => [
                 // POLL
@@ -68,9 +68,9 @@ class ReviewGraphQLServiceProvider
                 'reviewActionReview'                => \Syscover\Review\GraphQL\Mutations\ActionReviewMutation::class,
 
                 // AVERAGE
-                'reviewAddAverage'                  => \Syscover\Review\GraphQL\Mutations\AddAverageMutation::class,
-                'reviewUpdateAverage'               => \Syscover\Review\GraphQL\Mutations\UpdateAverageMutation::class,
-                'reviewDeleteAverage'               => \Syscover\Review\GraphQL\Mutations\DeleteAverageMutation::class,
+                'reviewAddAverage'                  => \Syscover\Review\GraphQL\Mutations\AddObjectAverageMutation::class,
+                'reviewUpdateAverage'               => \Syscover\Review\GraphQL\Mutations\UpdateObjectAverageMutation::class,
+                'reviewDeleteAverage'               => \Syscover\Review\GraphQL\Mutations\DeleteObjectAverageMutation::class,
             ]
         ]));
     }

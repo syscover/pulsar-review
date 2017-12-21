@@ -1,9 +1,9 @@
 <?php namespace Syscover\Review\Services;
 
-use Syscover\Review\Models\Average;
+use Syscover\Review\Models\ObjectAverage;
 use Syscover\Review\Models\Review;
 
-class AverageService
+class ObjectAverageService
 {
     /**
      * @param array     $object     contain properties of poll
@@ -15,7 +15,7 @@ class AverageService
 //        if($object['mailing_days'] === null) unset($object['mailing_days']);
 //        if($object['expiration_days'] === null) unset($object['expiration_days']);
 
-        //return Average::create($object);
+        //return ObjectAverage::create($object);
     }
 
     /**
@@ -26,22 +26,22 @@ class AverageService
     {
         $object = collect($object);
 
-        Average::where('id', $object->get('id'))->update(
-            $object->only((new Average())->getFillable())->toArray()
+        ObjectAverage::where('id', $object->get('id'))->update(
+            $object->only((new ObjectAverage())->getFillable())->toArray()
         );
 
-        return Average::find($object->get('id'));
+        return ObjectAverage::find($object->get('id'));
     }
 
     /**
      * Add or create average
      *
      * @param \Syscover\Review\Models\Review $review
-     * @return \Syscover\Review\Models\Average
+     * @return \Syscover\Review\Models\ObjectAverage
      */
     public static function addAverage(Review $review)
     {
-        $average = Average::where('poll_id', $review->poll_id)
+        $average = ObjectAverage::where('poll_id', $review->poll_id)
             ->where('object_id', $review->object_id)
             ->where('object_type', $review->object_type)
             ->first();
@@ -57,7 +57,7 @@ class AverageService
             }
             else
             {
-                $average = Average::create([
+                $average = ObjectAverage::create([
                     'poll_id'       => $review->poll_id,
                     'object_id'     => $review->object_id,
                     'object_type'   => $review->object_type,
@@ -79,11 +79,11 @@ class AverageService
      * Remove average
      *
      * @param \Syscover\Review\Models\Review $review
-     * @return \Syscover\Review\Models\Average
+     * @return \Syscover\Review\Models\ObjectAverage
      */
     public static function removeAverage(Review $review)
     {
-        $average = Average::where('poll_id', $review->poll_id)
+        $average = ObjectAverage::where('poll_id', $review->poll_id)
             ->where('object_id', $review->object_id)
             ->where('object_type', $review->object_type)
             ->first();

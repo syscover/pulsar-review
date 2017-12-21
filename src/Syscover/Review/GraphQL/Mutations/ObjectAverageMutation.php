@@ -3,11 +3,11 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
-use Syscover\Review\Models\Average;
-use Syscover\Review\Services\AverageService;
+use Syscover\Review\Models\ObjectAverage;
+use Syscover\Review\Services\ObjectAverageService;
 use Syscover\Core\Services\SQLService;
 
-class AverageMutation extends Mutation
+class ObjectAverageMutation extends Mutation
 {
     public function type()
     {
@@ -15,7 +15,7 @@ class AverageMutation extends Mutation
     }
 }
 
-class AddAverageMutation extends AverageMutation
+class AddObjectAverageMutation extends ObjectAverageMutation
 {
     protected $attributes = [
         'name' => 'addAverage',
@@ -34,11 +34,11 @@ class AddAverageMutation extends AverageMutation
 
     public function resolve($root, $args)
     {
-        return AverageService::create($args['object']);
+        return ObjectAverageService::create($args['object']);
     }
 }
 
-class UpdateAverageMutation extends AverageMutation
+class UpdateObjectAverageMutation extends ObjectAverageMutation
 {
     protected $attributes = [
         'name' => 'updateAverage',
@@ -57,11 +57,11 @@ class UpdateAverageMutation extends AverageMutation
 
     public function resolve($root, $args)
     {
-        return AverageService::update($args['object']);
+        return ObjectAverageService::update($args['object']);
     }
 }
 
-class DeleteAverageMutation extends AverageMutation
+class DeleteObjectAverageMutation extends ObjectAverageMutation
 {
     protected $attributes = [
         'name' => 'deleteAverage',
@@ -80,13 +80,13 @@ class DeleteAverageMutation extends AverageMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], Average::class);
+        $object = SQLService::destroyRecord($args['id'], ObjectAverage::class);
 
         return $object;
     }
 }
 
-class ActionAverageMutation extends AverageMutation
+class ActionObjectAverageMutation extends ObjectAverageMutation
 {
     protected $attributes = [
         'name' => 'actionAverage',
@@ -109,17 +109,17 @@ class ActionAverageMutation extends AverageMutation
 
     public function resolve($root, $args)
     {
-        $average = Average::find($args['id']);
+        $average = ObjectAverage::find($args['id']);
 
         // 1 - Validate and add score
         // 2 - Invalidate and subtract score
         switch ($args['action_id'])
         {
             case 1:
-                AverageService::addAverage($average);
+                ObjectAverageService::addAverage($average);
                 break;
             case 2:
-                AverageService::removeAverage($average);
+                ObjectAverageService::removeAverage($average);
                 break;
         }
     }

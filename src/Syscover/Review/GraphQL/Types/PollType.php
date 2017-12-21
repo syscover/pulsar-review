@@ -30,6 +30,10 @@ class PollType extends GraphQLType {
                 'type' => Type::boolean(),
                 'description' => 'Check if sends notification to object_mail field from review table'
             ],
+            'validate' => [
+                'type' => Type::boolean(),
+                'description' => 'Check if has validate review by moderator'
+            ],
             'default_high_score' => [
                 'type' => Type::int(),
                 'description' => 'Max score by default for response'

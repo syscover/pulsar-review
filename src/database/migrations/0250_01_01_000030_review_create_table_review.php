@@ -23,20 +23,21 @@ class ReviewCreateTableReview extends Migration {
                 $table->integer('object_id')->unsigned();
                 $table->string('object_type');
                 $table->string('object_name');
-                $table->string('object_email')->nullable();                                 // email where will be sent the notifications and comments if has data
-                $table->integer('customer_id')->unsigned()->nullable();                     // nullable to allow anonymous reviews
+                $table->string('object_email')->nullable();                                 // Email where will be sent the notifications and comments if has data
+                $table->integer('customer_id')->unsigned()->nullable();                     // Nullable to allow anonymous reviews
                 $table->string('customer_name');
                 $table->string('customer_email');
-                $table->boolean('customer_verified')->default(false);                       // check if is a verified customer
-                $table->string('email_subject')->nullable();                                // email subject for this review
-                $table->boolean('completed')->default(false);                               // check if the review was completed for the customer
-                $table->boolean('validated')->default(false);                               // check if review is added
-                $table->decimal('average', 6,2)->nullable();                   // average of all responses
+                $table->boolean('customer_verified')->default(false);                       // Check if is a verified customer
+                $table->string('email_template')->nullable();                               // Email template that will sent to the customer
+                $table->string('email_subject')->nullable();                                // Email subject for this review
+                $table->boolean('completed')->default(false);                               // Check if the review was completed for the customer
+                $table->boolean('validated')->default(false);                               // Check if review is added
+                $table->decimal('average', 6,2)->nullable();                   // Average of all responses
 
                 // cron columns
-                $table->timestamp('mailing')->default(DB::raw('CURRENT_TIMESTAMP'));        // date when review will be send to customer
-                $table->boolean('sent')->default(false);                                    // check if review was sent
-                $table->timestamp('expiration')->default(DB::raw('CURRENT_TIMESTAMP'));     // date when review will be delete if is not completed
+                $table->timestamp('mailing')->default(DB::raw('CURRENT_TIMESTAMP'));        // Date when review will be send to customer
+                $table->boolean('sent')->default(false);                                    // Check if review was sent
+                $table->timestamp('expiration')->default(DB::raw('CURRENT_TIMESTAMP'));     // Date when review will be delete if is not completed
 
                 $table->timestamps();
                 $table->softDeletes();

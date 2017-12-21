@@ -1,41 +1,38 @@
-<?php namespace Syscover\Review\GraphQL\Types;
+<?php namespace Syscover\Review\GraphQL\Inputs;
 
-use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
-class AverageType extends GraphQLType {
+class ObjectAverageInput extends GraphQLType {
 
     protected $attributes = [
-        'name'          => 'AverageType',
+        'name'          => 'AverageInput',
         'description'   => 'Average for review'
     ];
+
+    protected $inputObject = true;
 
     public function fields()
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'The index of review'
             ],
             'poll_id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'Poll that belong this review'
             ],
-            'poll' => [
-                'type' => Type::nonNull(GraphQL::type('ReviewPoll')),
-                'description' => 'Poll of average'
-            ],
             'object_id' => [
-                'type' =>  Type::nonNull(Type::int()),
+                'type' =>  Type::int(),
                 'description' => 'Object that belong this review'
             ],
             'object_type' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'Object class name that belong this review'
             ],
             'object_name' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'Object name that belong this review'
             ],
             'reviews' => [

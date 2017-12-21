@@ -4,15 +4,15 @@ use Illuminate\Support\Facades\Validator;
 use Syscover\Core\Models\CoreModel;
 
 /**
- * Class Average
+ * Class QuestionAverage
  * @package Syscover\Review\Models
  */
 
-class Average extends CoreModel
+class QuestionAverage extends CoreModel
 {
-	protected $table        = 'review_average';
-    protected $fillable     = ['poll_id', 'object_id', 'object_type', 'object_name', 'reviews', 'total', 'average'];
-    public $with            = ['poll'];
+	protected $table        = 'review_question_average';
+    protected $fillable     = ['question_id', 'reviews', 'total', 'average'];
+    public $with            = ['question'];
 
     private static $rules   = [];
 
@@ -26,8 +26,8 @@ class Average extends CoreModel
         return $query;
     }
 
-    public function poll()
+    public function question()
     {
-        return $this->hasOne(Poll::class, 'id', 'poll_id');
+        return $this->hasOne(Question::class, 'id', 'question_id');
     }
 }
