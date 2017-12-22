@@ -11,7 +11,7 @@ class ObjectAverageMutation extends Mutation
 {
     public function type()
     {
-        return GraphQL::type('ReviewAverage');
+        return GraphQL::type('ReviewObjectAverage');
     }
 }
 
@@ -27,7 +27,7 @@ class AddObjectAverageMutation extends ObjectAverageMutation
         return [
             'object' => [
                 'name' => 'object',
-                'type' => Type::nonNull(GraphQL::type('ReviewAverageInput'))
+                'type' => Type::nonNull(GraphQL::type('ReviewObjectAverageInput'))
             ]
         ];
     }
@@ -50,7 +50,7 @@ class UpdateObjectAverageMutation extends ObjectAverageMutation
         return [
             'object' => [
                 'name' => 'object',
-                'type' => Type::nonNull(GraphQL::type('ReviewAverageInput'))
+                'type' => Type::nonNull(GraphQL::type('ReviewObjectAverageInput'))
             ]
         ];
     }

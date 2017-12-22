@@ -19,7 +19,7 @@ class Question extends CoreModel
     protected $casts        = [
         'data_lang' => 'array'
     ];
-    public $with            = ['lang', 'question'];
+    public $with            = ['lang', 'average'];
 
     private static $rules   = [
         'name' => 'required'

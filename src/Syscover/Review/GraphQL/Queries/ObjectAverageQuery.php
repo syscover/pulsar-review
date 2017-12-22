@@ -15,7 +15,7 @@ class ObjectAverageQuery extends Query
 
     public function type()
     {
-        return GraphQL::type('ReviewAverage');
+        return GraphQL::type('ReviewObjectAverage');
     }
 
     public function args()
