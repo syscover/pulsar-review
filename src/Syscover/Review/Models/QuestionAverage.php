@@ -12,7 +12,6 @@ class QuestionAverage extends CoreModel
 {
 	protected $table        = 'review_question_average';
     protected $fillable     = ['question_id', 'reviews', 'total', 'average'];
-    public $with            = ['question'];
 
     private static $rules   = [];
 

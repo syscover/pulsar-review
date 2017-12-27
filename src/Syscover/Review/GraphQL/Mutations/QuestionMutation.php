@@ -4,6 +4,7 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use Syscover\Review\Models\Question;
+use Syscover\Review\Models\QuestionAverage;
 use Syscover\Review\Services\QuestionService;
 use Syscover\Core\Services\SQLService;
 
@@ -84,7 +85,12 @@ class DeleteQuestionMutation extends QuestionMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], Question::class, $args['lang_id']);
+        $object = QuestionService::delete($args['id'], $args['lang_id']);
+
+        if($args['lang_id'] === base_lang())
+        {
+            QuestionAverage::where('question_id', $args['id'])->delete();
+        }
 
         return $object;
     }

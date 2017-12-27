@@ -6,21 +6,17 @@ use Syscover\Review\Models\Review;
 class ObjectAverageService
 {
     /**
-     * @param array     $object     contain properties of poll
-     * @return \Syscover\Review\Models\Review
+     * @param array     $object     contain properties of objectAverage
+     * @return \Syscover\Review\Models\ObjectAverage
      */
     public static function create($object)
     {
-//        if($object['default_high_score'] === null) unset($object['default_high_score']);
-//        if($object['mailing_days'] === null) unset($object['mailing_days']);
-//        if($object['expiration_days'] === null) unset($object['expiration_days']);
-
-        //return ObjectAverage::create($object);
+        return ObjectAverage::create($object);
     }
 
     /**
-     * @param array     $object     contain properties of poll
-     * @return \Syscover\Review\Models\Review
+     * @param array     $object     contain properties of objectAverage
+     * @return \Syscover\Review\Models\ObjectAverage
      */
     public static function update($object)
     {
@@ -57,7 +53,7 @@ class ObjectAverageService
             }
             else
             {
-                $average = ObjectAverage::create([
+                $average = ObjectAverageService::create([
                     'poll_id'       => $review->poll_id,
                     'object_id'     => $review->object_id,
                     'object_type'   => $review->object_type,
@@ -92,9 +88,9 @@ class ObjectAverageService
         {
             if ($average)
             {
-                $average->reviews = $average->reviews - 1;
-                $average->total = $average->total - $review->average;
-                $average->average = $average->reviews === 0? 0 : $average->total / $average->reviews;
+                $average->reviews   = $average->reviews - 1;
+                $average->total     = $average->total - $review->average;
+                $average->average   = $average->reviews === 0? 0 : $average->total / $average->reviews;
                 $average->save();
             }
 

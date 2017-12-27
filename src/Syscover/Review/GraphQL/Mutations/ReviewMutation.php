@@ -6,6 +6,7 @@ use Folklore\GraphQL\Support\Mutation;
 use Syscover\Review\Models\Response;
 use Syscover\Review\Models\Review;
 use Syscover\Review\Services\ObjectAverageService;
+use Syscover\Review\Services\QuestionAverageService;
 use Syscover\Review\Services\ReviewService;
 use Syscover\Core\Services\SQLService;
 
@@ -118,7 +119,11 @@ class ActionReviewMutation extends ReviewMutation
         if(is_array($args['object']['responses']) && count($args['object']['responses']) > 0)
         {
             // if review is validated, remove you score from average, before add new score
-            if($args['action_id'] === 1 && $review->validated) ObjectAverageService::removeAverage($review);
+            if($args['action_id'] === 1 && $review->validated)
+            {
+                ObjectAverageService::removeAverage($review);
+                QuestionAverageService::removeAverage($review);
+            }
 
             $responses = collect($args['object']['responses']);
 
@@ -149,9 +154,11 @@ class ActionReviewMutation extends ReviewMutation
         {
             case 1:
                 ObjectAverageService::addAverage($review);
+                QuestionAverageService::addAverage($review);
                 break;
             case 2:
                 ObjectAverageService::removeAverage($review);
+                QuestionAverageService::removeAverage($review);
                 break;
             case 3:
                 break;

@@ -11,6 +11,7 @@ use Syscover\Review\Models\Review;
 use Syscover\Review\Models\Response;
 use Syscover\Review\Notifications\Review as ReviewNotification;
 use Syscover\Review\Services\ObjectAverageService;
+use Syscover\Review\Services\QuestionAverageService;
 
 class ResponseController extends CoreController
 {
@@ -47,8 +48,9 @@ class ResponseController extends CoreController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function storeResponses(Request $request)
     {
@@ -72,9 +74,6 @@ class ResponseController extends CoreController
             {
                 $response['score'] = $request->input('q' . $question->id);
                 $scoreQuestions++;
-
-                // add question average
-                //$question->average->
             }
 
             // question with text
@@ -98,6 +97,7 @@ class ResponseController extends CoreController
         {
             // review is not validated by moderator
             ObjectAverageService::addAverage($review);
+            QuestionAverageService::addAverage($review);
 
             // set review how validated
             $review->validated = true;
