@@ -15,6 +15,24 @@ class QuestionAverageService
     }
 
     /**
+     * @param array     $object     contain properties of questionAverage
+     * @return \Syscover\Review\Models\QuestionAverage
+     */
+    public static function update($object)
+    {
+        $object = collect($object);
+
+        QuestionAverage::where('id', $object->get('id'))
+            ->update([
+                'reviews'   => $object->get('reviews'),
+                'total'     => $object->get('total'),
+                'average'   => $object->get('average')
+            ]);
+
+        return QuestionAverage::find($object->get('id'));
+    }
+
+    /**
      * Add or create average
      *
      * @param   \Syscover\Review\Models\Review $review

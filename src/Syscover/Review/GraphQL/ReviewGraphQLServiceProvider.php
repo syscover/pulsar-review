@@ -18,9 +18,13 @@ class ReviewGraphQLServiceProvider
         GraphQL::addType(\Syscover\Review\GraphQL\Types\ReviewType::class, 'ReviewReview');
         GraphQL::addType(\Syscover\Review\GraphQL\Inputs\ReviewInput::class, 'ReviewReviewInput');
 
-        // AVERAGE
+        // OBJECT AVERAGE
         GraphQL::addType(\Syscover\Review\GraphQL\Types\ObjectAverageType::class, 'ReviewObjectAverage');
         GraphQL::addType(\Syscover\Review\GraphQL\Inputs\ObjectAverageInput::class, 'ReviewObjectAverageInput');
+
+        // QUESTION AVERAGE
+        GraphQL::addType(\Syscover\Review\GraphQL\Types\QuestionAverageType::class, 'ReviewQuestionAverage');
+        GraphQL::addType(\Syscover\Review\GraphQL\Inputs\QuestionAverageInput::class, 'ReviewQuestionAverageInput');
 
         // RESPONSE
         GraphQL::addType(\Syscover\Review\GraphQL\Types\ResponseType::class, 'ReviewResponse');

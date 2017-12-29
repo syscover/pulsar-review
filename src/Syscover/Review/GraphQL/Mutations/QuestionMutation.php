@@ -3,10 +3,9 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
-use Syscover\Review\Models\Question;
 use Syscover\Review\Models\QuestionAverage;
+use Syscover\Review\Services\QuestionAverageService;
 use Syscover\Review\Services\QuestionService;
-use Syscover\Core\Services\SQLService;
 
 class QuestionMutation extends Mutation
 {
@@ -58,6 +57,9 @@ class UpdateQuestionMutation extends QuestionMutation
 
     public function resolve($root, $args)
     {
+        if(isset($args['object']['average']))
+            QuestionAverageService::update($args['object']['average']);
+
         return QuestionService::update($args['object']);
     }
 }

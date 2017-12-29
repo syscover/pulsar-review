@@ -1,5 +1,6 @@
 <?php namespace Syscover\Review\GraphQL\Types;
 
+use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
@@ -52,6 +53,10 @@ class QuestionType extends GraphQLType {
             'data_lang' => [
                 'type' => Type::listOf(Type::string()),
                 'description' => 'JSON string that contain information about object translations'
+            ],
+            'average' => [
+                'type' => GraphQL::type('ReviewQuestionAverage'),
+                'description' => 'Average of question'
             ]
         ];
     }

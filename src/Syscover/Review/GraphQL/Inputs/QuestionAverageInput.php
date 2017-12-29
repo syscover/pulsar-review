@@ -3,11 +3,11 @@
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
-class ObjectAverageInput extends GraphQLType {
+class QuestionAverageInput extends GraphQLType {
 
     protected $attributes = [
-        'name'          => 'AverageInput',
-        'description'   => 'Average for object'
+        'name'          => 'QuestionAverageInput',
+        'description'   => 'Average for question'
     ];
 
     protected $inputObject = true;
@@ -19,21 +19,9 @@ class ObjectAverageInput extends GraphQLType {
                 'type' => Type::int(),
                 'description' => 'The index of review'
             ],
-            'poll_id' => [
+            'question_id' => [
                 'type' => Type::int(),
-                'description' => 'Poll that belong this average'
-            ],
-            'object_id' => [
-                'type' =>  Type::int(),
-                'description' => 'Object that belong this average'
-            ],
-            'object_type' => [
-                'type' => Type::string(),
-                'description' => 'Object class name that belong this average'
-            ],
-            'object_name' => [
-                'type' => Type::string(),
-                'description' => 'Object name that belong this average'
+                'description' => 'Question that belong this average'
             ],
             'reviews' => [
                 'type' => Type::nonNull(Type::int()),
