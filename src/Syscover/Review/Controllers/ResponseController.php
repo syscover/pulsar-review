@@ -10,6 +10,7 @@ use Syscover\Admin\Models\Action;
 use Syscover\Review\Models\Review;
 use Syscover\Review\Models\Response;
 use Syscover\Review\Notifications\Review as ReviewNotification;
+use Syscover\Review\Notifications\ReviewOwnerObject as ReviewOwnerObjectNotification;
 use Syscover\Review\Services\ObjectAverageService;
 use Syscover\Review\Services\QuestionAverageService;
 
@@ -101,7 +102,15 @@ class ResponseController extends CoreController
 
             // set review how validated
             $review->validated = true;
+
+            if($review->poll->send_notification)
+            {
+                // send email notification to owner object
+                Notification::route('mail', $review->object_email)
+                    ->notify(new ReviewOwnerObjectNotification($review));
+            }
         }
+
         $review->save();
 
         if($review->poll->validate)

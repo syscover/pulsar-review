@@ -1,5 +1,6 @@
 <?php namespace Syscover\Review\GraphQL\Mutations;
 
+use Illuminate\Support\Facades\Notification;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
@@ -9,6 +10,7 @@ use Syscover\Review\Services\ObjectAverageService;
 use Syscover\Review\Services\QuestionAverageService;
 use Syscover\Review\Services\ReviewService;
 use Syscover\Core\Services\SQLService;
+use Syscover\Review\Notifications\ReviewOwnerObject as ReviewOwnerObjectNotification;
 
 class ReviewMutation extends Mutation
 {
@@ -123,6 +125,14 @@ class ActionReviewMutation extends ReviewMutation
             {
                 ObjectAverageService::removeAverage($review);
                 QuestionAverageService::removeAverage($review);
+            }
+
+            // if review is not validated, and will be validated
+            if($args['action_id'] === 1 && ! $review->validated && $review->poll->send_notification)
+            {
+                // send email notification to owner object
+                Notification::route('mail', $review->object_email)
+                    ->notify(new ReviewOwnerObjectNotification($review));
             }
 
             $responses = collect($args['object']['responses']);

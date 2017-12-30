@@ -20,9 +20,14 @@ class ReviewCreateTableComment extends Migration {
                 $table->increments('id');
                 $table->integer('review_id')->unsigned();
                 $table->timestamp('date')->default(DB::raw('CURRENT_TIMESTAMP'));
-                $table->string('customer_name');
-                $table->string('customer_email');
-                $table->string('text');
+
+                // set if is a customer or owner object
+                // 1 - object
+                // 2 - customer
+                $table->tinyInteger('owner_id')->unsigned();
+                $table->string('name');
+                $table->string('email');
+                $table->string('comment');
 
                 $table->timestamps();
                 $table->softDeletes();
