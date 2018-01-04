@@ -28,6 +28,7 @@ class ReviewCreateTableComment extends Migration {
                 $table->string('name');
                 $table->string('email');
                 $table->string('comment');
+                $table->boolean('validated')->default(false); // Check if comment is validate by moderator
 
                 $table->timestamps();
                 $table->softDeletes();

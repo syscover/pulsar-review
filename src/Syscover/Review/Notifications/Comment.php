@@ -4,22 +4,22 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Syscover\Review\Models\Review as ReviewModel;
+use Syscover\Review\Models\Comment as CommentModel;
 
-class Review extends Notification
+class Comment extends Notification
 {
     use Queueable;
 
-    private $review;
+    private $comment;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(ReviewModel $review)
+    public function __construct(CommentModel $comment)
     {
-        $this->review = $review;
+        $this->comment = $comment;
     }
 
     /**
@@ -43,11 +43,11 @@ class Review extends Notification
     {
         return (new MailMessage)
                     ->level('info')
-                    ->subject('Hay una review pendiente de validar, Review: ' . $this->review->id)
+                    ->subject('Hay un nuevo comentario que validar, Comment: ' . $this->comment->id)
                     ->greeting('Holaaaa!')
-                    ->line('Tienes una review pendiente de validar.')
+                    ->line('Tienes un comentario pendiente de validar.')
 
-                    ->action('Ver Review', 'http://localhost:4200/pulsar/review/review/show/' . $this->review->id)
+                    ->action('Ver comment', 'http://localhost:4200/pulsar/review/comment/show/' . $this->comment->id)
 
                     ->line('Thank you for using our application!')
                     ->salutation('Hasta luego lucas');

@@ -127,7 +127,7 @@ class ActionReviewMutation extends ReviewMutation
                 QuestionAverageService::removeAverage($review);
             }
 
-            // if review is not validated, and will be validated
+            // if review is not validated and will be validated and we must send notification to owner
             if($args['action_id'] === 1 && ! $review->validated && $review->poll->send_notification)
             {
                 // send email notification to owner object

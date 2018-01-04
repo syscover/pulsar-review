@@ -43,13 +43,13 @@ class ReviewOwnerObject extends Notification
     {
         return (new MailMessage)
                     ->level('info')
-                    ->subject('Hay una review pendiente de validar, Review: ' . $this->review->id)
-                    ->greeting('Holaaaa!')
-                    ->line('Tienes una review pendiente de validar.')
-                    //->action('Ver Review', url('pulsar/review/review/show/' . $this->review->id))
-                    ->action('Responder al cliente', 'http://localhost:4200/pulsar/review/review/show/' . $this->review->id)
-                    ->line('Thank you for using our application!')
-                    ->salutation('Hasta luego lucas');
+                    ->subject('Tienes una nueva review: ' . $this->review->id)
+                    ->greeting('¡Hola!')
+                    ->line('Tienes una nueva review.')
+                    ->line('Para verla pulsa en el siguiente enlace.')
+                    ->action('Ver review', route('pulsar.review.review.show', ['slug' => encrypt($this->review->id)]))
+                    ->line('Cualquier duda quedamos a vuestra disposición')
+                    ->salutation('Gracias');
     }
 
     /**

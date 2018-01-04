@@ -1,12 +1,10 @@
 <?php namespace Syscover\Review\Controllers;
 
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Carbon\Carbon;
 use Syscover\Admin\Models\User;
-use Syscover\Core\Controllers\CoreController;
-use Syscover\Admin\Services\ActionService;
-use Syscover\Admin\Models\Action;
 use Syscover\Review\Models\Review;
 use Syscover\Review\Models\Response;
 use Syscover\Review\Notifications\Review as ReviewNotification;
@@ -14,38 +12,8 @@ use Syscover\Review\Notifications\ReviewOwnerObject as ReviewOwnerObjectNotifica
 use Syscover\Review\Services\ObjectAverageService;
 use Syscover\Review\Services\QuestionAverageService;
 
-class ResponseController extends CoreController
+class ResponseController extends BaseController
 {
-    protected $model = Action::class;
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $response['status'] = "success";
-        $response['data']   = ActionService::create($request->all());
-
-        return response()->json($response);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param   \Illuminate\Http\Request  $request
-     * @return  \Illuminate\Http\JsonResponse
-     */
-    public function update(Request $request)
-    {
-        $response['status'] = "success";
-        $response['data']   = ActionService::update($request->all());
-
-        return response()->json($response);
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -53,9 +21,11 @@ class ResponseController extends CoreController
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function storeResponses(Request $request)
+    public function store(Request $request)
     {
-        $review         = Review::find($request->input('review'));
+        $review = Review::where('completed', false)->where('id', $request->input('review'))->first();
+        if(! $review) abort(404);
+
         $now            = Carbon::now(config('app.timezone'))->toDateTimeString();
         $responses      = [];
         $scoreQuestions = 0;

@@ -11,7 +11,7 @@ use Syscover\Core\Models\CoreModel;
 class Comment extends CoreModel
 {
 	protected $table        = 'review_comment';
-    protected $fillable     = ['review_id', 'date', 'customer_name', 'customer_email', 'text'];
+    protected $fillable     = ['review_id', 'date', 'owner_id', 'name', 'email', 'comment', 'validated'];
 
     private static $rules   = [
         'customer_name' => 'required',
