@@ -21,7 +21,7 @@ class Cron
             Mail::to($review->customer_email)
                 ->send(new MailReview(
                     $review->email_subject,
-                    $review->email_template ? $review->email_template : 'review::emails.content.review',
+                    $review->email_template ? $review->email_template : 'review::mails.content.review',
                     $review
                 ));
         }

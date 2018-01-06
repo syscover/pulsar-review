@@ -11,7 +11,17 @@ class ReviewController extends BaseController
         // get parameters from url route
         $parameters = $request->route()->parameters();
 
-        $response['review'] = Review::where('id', decrypt($parameters['slug']))->first();
+        // decrypt data, that contain owner_id and review_id
+        $data = decrypt($parameters['slug']);
+
+        // check data
+        if(! is_array($data)) abort(404);
+        if(! isset($data['review_id'])) abort(404);
+        if(! isset($data['owner_id'])) abort(404);
+
+        $response['review']     = Review::where('id', $data['review_id'])->first();
+        $response['owner_id']   = $data['owner_id'];
+
         if(! $response['review']) abort(404);
 
         return view('review::web.content.review', $response);

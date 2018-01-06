@@ -35,4 +35,9 @@ class Review extends CoreModel
     {
         return $this->hasMany(Response::class, 'review_id', 'id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'review_id', 'id');
+    }
 }

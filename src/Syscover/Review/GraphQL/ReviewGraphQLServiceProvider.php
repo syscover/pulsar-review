@@ -18,6 +18,10 @@ class ReviewGraphQLServiceProvider
         GraphQL::addType(\Syscover\Review\GraphQL\Types\ReviewType::class, 'ReviewReview');
         GraphQL::addType(\Syscover\Review\GraphQL\Inputs\ReviewInput::class, 'ReviewReviewInput');
 
+        // COMMENT
+        GraphQL::addType(\Syscover\Review\GraphQL\Types\CommentType::class, 'ReviewComment');
+        GraphQL::addType(\Syscover\Review\GraphQL\Inputs\CommentInput::class, 'ReviewCommentInput');
+
         // OBJECT AVERAGE
         GraphQL::addType(\Syscover\Review\GraphQL\Types\ObjectAverageType::class, 'ReviewObjectAverage');
         GraphQL::addType(\Syscover\Review\GraphQL\Inputs\ObjectAverageInput::class, 'ReviewObjectAverageInput');
@@ -49,6 +53,11 @@ class ReviewGraphQLServiceProvider
                 'reviewReviews'                     => \Syscover\Review\GraphQL\Queries\ReviewsQuery::class,
                 'reviewReview'                      => \Syscover\Review\GraphQL\Queries\ReviewQuery::class,
 
+                // COMMENT
+                'reviewCommentsPagination'          => \Syscover\Review\GraphQL\Queries\CommentsPaginationQuery::class,
+                'reviewComments'                    => \Syscover\Review\GraphQL\Queries\CommentsQuery::class,
+                'reviewComment'                     => \Syscover\Review\GraphQL\Queries\CommentQuery::class,
+
                 // OBJECT AVERAGE
                 'reviewObjectAveragesPagination'    => \Syscover\Review\GraphQL\Queries\ObjectAveragesPaginationQuery::class,
                 'reviewObjectAverages'              => \Syscover\Review\GraphQL\Queries\ObjectAveragesQuery::class,
@@ -70,6 +79,12 @@ class ReviewGraphQLServiceProvider
                 'reviewUpdateReview'                => \Syscover\Review\GraphQL\Mutations\UpdateReviewMutation::class,
                 'reviewDeleteReview'                => \Syscover\Review\GraphQL\Mutations\DeleteReviewMutation::class,
                 'reviewActionReview'                => \Syscover\Review\GraphQL\Mutations\ActionReviewMutation::class,
+
+                // REVIEW
+                'reviewAddComment'                  => \Syscover\Review\GraphQL\Mutations\AddCommentMutation::class,
+                'reviewUpdateComment'               => \Syscover\Review\GraphQL\Mutations\UpdateCommentMutation::class,
+                'reviewDeleteComment'               => \Syscover\Review\GraphQL\Mutations\DeleteCommentMutation::class,
+                'reviewActionComment'               => \Syscover\Review\GraphQL\Mutations\ActionCommentMutation::class,
 
                 // OBJECT AVERAGE
                 'reviewAddAverage'                  => \Syscover\Review\GraphQL\Mutations\AddObjectAverageMutation::class,

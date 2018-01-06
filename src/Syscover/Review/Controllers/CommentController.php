@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
 use Syscover\Admin\Models\User;
-use Syscover\Review\Models\Review;
 use Syscover\Review\Services\CommentService;
 use Syscover\Review\Notifications\Comment as CommentNotification;
 use Syscover\Review\Mails\Comment as MailComment;
@@ -17,7 +16,7 @@ class CommentController extends BaseController
         $data = $request->all();
         $data['validated'] = ! cache('review_validate_comments');
 
-        $comment = CommentService::create($data);
+        $comment = CommentService::create($data)->fresh(); // fresh object to get date created in database
 
         // check if moderatos has to validate comment
         if(cache('review_validate_comments'))
@@ -29,15 +28,12 @@ class CommentController extends BaseController
         }
         else
         {
-            // notification to customer or object owner
-            $review = Review::find($request->input('review_id'));
-
             // TODO, check that  customer_email or object_email exist, and been a validate email
-            Mail::to($comment->owner_id === 1 ? $review->customer_email : $review->object_email)
+            Mail::to($comment->owner_id === 1 ? $comment->review->customer_email : $comment->review->object_email)
                 ->send(new MailComment(
                     'Ruralka: Tienes un comentario de ' . $comment->name,
-                    'review::emails.content.comment',
-                    //$review->email_template ? $review->email_template : 'review::emails.content.review',
+                    'review::mails.content.comment',
+                    //$review->email_template ? $review->email_template : 'review::mails.content.review',
                     $comment
                 ));
         }

@@ -93,7 +93,11 @@ class ReviewType extends GraphQLType {
             'expiration' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Date when review will be delete if is not completed'
-            ]
+            ],
+            'comments' => [
+                'type' => Type::nonNull(Type::listOf(GraphQL::type('ReviewComment'))),
+                'description' => 'Comments that belong this review'
+            ],
         ];
     }
 }

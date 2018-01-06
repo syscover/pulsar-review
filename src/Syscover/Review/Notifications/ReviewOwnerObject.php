@@ -47,7 +47,10 @@ class ReviewOwnerObject extends Notification
                     ->greeting('¡Hola!')
                     ->line('Tienes una nueva review.')
                     ->line('Para verla pulsa en el siguiente enlace.')
-                    ->action('Ver review', route('pulsar.review.review.show', ['slug' => encrypt($this->review->id)]))
+                    ->action('Ver review', route('pulsar.review.review.show', ['slug' => encrypt([
+                        'review_id' => $this->review->id,
+                        'owner_id' => 1
+                    ])]))
                     ->line('Cualquier duda quedamos a vuestra disposición')
                     ->salutation('Gracias');
     }

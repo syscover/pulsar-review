@@ -11,7 +11,11 @@ use Syscover\Core\Models\CoreModel;
 class Comment extends CoreModel
 {
 	protected $table        = 'review_comment';
-    protected $fillable     = ['review_id', 'date', 'owner_id', 'name', 'email', 'comment', 'validated'];
+    protected $fillable     = ['review_id', 'date', 'owner_id', 'name', 'email', 'text', 'validated'];
+    protected $casts        = [
+        'owner_id' => 'int'
+    ];
+    public $with            = ['review'];
 
     private static $rules   = [
         'customer_name' => 'required',
@@ -27,5 +31,10 @@ class Comment extends CoreModel
     public function scopeBuilder($query)
     {
         return $query;
+    }
+
+    public function review()
+    {
+        return $this->hasOne(Review::class, 'id', 'review_id');
     }
 }

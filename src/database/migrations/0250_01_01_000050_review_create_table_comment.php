@@ -27,7 +27,7 @@ class ReviewCreateTableComment extends Migration {
                 $table->tinyInteger('owner_id')->unsigned();
                 $table->string('name');
                 $table->string('email');
-                $table->string('comment');
+                $table->string('text');
                 $table->boolean('validated')->default(false); // Check if comment is validate by moderator
 
                 $table->timestamps();
