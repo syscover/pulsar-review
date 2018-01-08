@@ -17,7 +17,11 @@ class QuestionAverageInput extends GraphQLType {
         return [
             'id' => [
                 'type' => Type::int(),
-                'description' => 'The index of review'
+                'description' => 'The index of average'
+            ],
+            'poll_id' => [
+                'type' => Type::int(),
+                'description' => 'Poll that belong this average'
             ],
             'question_id' => [
                 'type' => Type::int(),

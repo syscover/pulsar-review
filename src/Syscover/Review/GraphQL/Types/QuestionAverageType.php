@@ -15,11 +15,15 @@ class QuestionAverageType extends GraphQLType {
         return [
             'id' => [
                 'type' => Type::nonNull(Type::int()),
-                'description' => 'The index of review'
+                'description' => 'The index of average'
+            ],
+            'poll_id' => [
+                'type' => Type::nonNull(Type::int()),
+                'description' => 'Poll that belong this average'
             ],
             'question_id' => [
                 'type' => Type::nonNull(Type::int()),
-                'description' => 'Poll that belong this review'
+                'description' => 'Question   that belong this average'
             ],
             'reviews' => [
                 'type' => Type::nonNull(Type::int()),

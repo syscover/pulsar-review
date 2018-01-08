@@ -11,7 +11,7 @@ use Syscover\Core\Models\CoreModel;
 class QuestionAverage extends CoreModel
 {
 	protected $table        = 'review_question_average';
-    protected $fillable     = ['question_id', 'reviews', 'total', 'average'];
+    protected $fillable     = ['poll_id', 'question_id', 'reviews', 'total', 'average'];
 
     private static $rules   = [];
 
@@ -28,5 +28,10 @@ class QuestionAverage extends CoreModel
     public function question()
     {
         return $this->hasOne(Question::class, 'id', 'question_id');
+    }
+
+    public function poll()
+    {
+        return $this->hasOne(Poll::class, 'id', 'poll_id');
     }
 }

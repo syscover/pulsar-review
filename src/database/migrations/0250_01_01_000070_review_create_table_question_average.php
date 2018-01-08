@@ -18,6 +18,7 @@ class ReviewCreateTableQuestionAverage extends Migration {
                 $table->engine = 'InnoDB';
 
                 $table->increments('id');
+                $table->integer('poll_id')->unsigned();
                 $table->integer('question_id')->unsigned();
                 $table->integer('reviews')->unsigned()->default(0);                 // Total reviews
                 $table->decimal('total', 10,2)->default(0);            // Total score, sum of all average reviews
@@ -29,6 +30,12 @@ class ReviewCreateTableQuestionAverage extends Migration {
                 // question_id is not a foreign key because questions is a multi language table
                 // onDelete('cascade') will delete review_question_average record, the registration still exists
                 $table->index('question_id', 'ix01_review_question_average');
+
+                $table->foreign('poll_id', 'fk01_review_question_average')
+                    ->references('id')
+                    ->on('review_poll')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
             });
         }
     }

@@ -12,12 +12,14 @@ class QuestionService
      */
     public static function create($object)
     {
+        $isNew = false;
         if(empty($object['id']))
         {
             $id = Question::max('id');
             $id++;
 
             $object['id'] = $id;
+            $isNew = true;
         }
 
         $object['data_lang'] = Question::addDataLang($object['lang_id'], $object['id']);
@@ -25,9 +27,10 @@ class QuestionService
         $question = Question::create($object);
 
         // Register question average if is a new element
-        if(empty($object['id']) && $question->type_id === 1)
+        if($isNew && $question->type_id === 1)
         {
             QuestionAverageService::create([
+                'poll_id' => $object['poll_id'],
                 'question_id' => $id
             ]);
         }
@@ -67,6 +70,7 @@ class QuestionService
             if(! $questionAverage)
             {
                 QuestionAverageService::create([
+                    'poll_id' => $object->get('poll_id'),
                     'question_id' => $object->get('id')
                 ]);
             }
