@@ -10,10 +10,6 @@ class ReviewService
      */
     public static function create($object)
     {
-        if($object['default_high_score'] === null) unset($object['default_high_score']);
-        if($object['mailing_days'] === null) unset($object['mailing_days']);
-        if($object['expiration_days'] === null) unset($object['expiration_days']);
-
         return Review::create($object);
     }
 
@@ -26,14 +22,8 @@ class ReviewService
         $object = collect($object);
 
         Review::where('id', $object->get('id'))->update([
-            'name'                  => $object->get('name'),
-            'email_template'        => $object->get('email_template'),
-            'send_notification'     => $object->get('send_notification'),
-            'poll_url'              => $object->get('poll_url'),
-            'validate'              => $object->get('validate'),
-            'default_high_score'    => $object->get('default_high_score', 5),
-            'mailing_days'          => $object->get('mailing_days', 0),
-            'expiration_days'       => $object->get('expiration_days', 30)
+            'customer_name'         => $object->get('customer_name'),
+            'poll_url'              => $object->get('poll_url')
         ]);
 
         return Review::find($object->get('id'));
