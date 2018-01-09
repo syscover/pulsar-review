@@ -11,7 +11,7 @@ use Syscover\Core\Models\CoreModel;
 class Review extends CoreModel
 {
 	protected $table        = 'review_review';
-    protected $fillable     = ['date', 'poll_id', 'object_id', 'object_type', 'object_name', 'object_email', 'customer_id', 'customer_name', 'customer_email', 'customer_verified', 'email_template', 'email_subject', 'completed', 'validated', 'average', 'mailing', 'sent', 'expiration'];
+    protected $fillable     = ['date', 'poll_id', 'object_id', 'object_type', 'object_name', 'object_email', 'customer_id', 'customer_name', 'customer_email', 'customer_verified', 'email_template', 'email_subject', 'poll_route', 'completed', 'validated', 'average', 'mailing', 'sent', 'expiration'];
     public $with            = ['poll', 'responses'];
 
     private static $rules   = [];

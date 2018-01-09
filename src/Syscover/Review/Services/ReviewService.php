@@ -28,6 +28,9 @@ class ReviewService
         Review::where('id', $object->get('id'))->update([
             'name'                  => $object->get('name'),
             'email_template'        => $object->get('email_template'),
+            'send_notification'     => $object->get('send_notification'),
+            'poll_route'            => $object->get('poll_route'),
+            'validate'              => $object->get('validate'),
             'default_high_score'    => $object->get('default_high_score', 5),
             'mailing_days'          => $object->get('mailing_days', 0),
             'expiration_days'       => $object->get('expiration_days', 30)

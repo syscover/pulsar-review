@@ -70,6 +70,10 @@ class ReviewType extends GraphQLType {
                 'type' => Type::string(),
                 'description' => 'Subject of email sent to customer'
             ],
+            'poll_route' => [
+                'type' => Type::string(),
+                'description' => 'Route to access poll'
+            ],
             'completed' => [
                 'type' => Type::nonNull(Type::boolean()),
                 'description' => 'Check if the review was completed for the customer'

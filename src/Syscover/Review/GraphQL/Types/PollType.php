@@ -30,6 +30,10 @@ class PollType extends GraphQLType {
                 'type' => Type::boolean(),
                 'description' => 'Check if sends notification to object_mail field from review table'
             ],
+            'poll_route' => [
+                'type' => Type::string(),
+                'description' => 'Route to access poll'
+            ],
             'validate' => [
                 'type' => Type::boolean(),
                 'description' => 'Check if has validate review by moderator'
