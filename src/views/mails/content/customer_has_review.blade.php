@@ -1,5 +1,5 @@
 <p>REVIEW</p>
 
-Hola {{ $review->customer_name }} tienes un review:<br>
+Hola {{ $review->customer_name }} tienes una review:<br>
 
 <a href="{{ $url }}"> Hacer review</a>

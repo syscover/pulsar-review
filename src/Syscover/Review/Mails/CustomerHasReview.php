@@ -11,21 +11,22 @@ class CustomerHasReview extends Mailable
 
     public $mSubject;
     public $mView;
-    public $review;
     public $url;
+    public $review;
 
     /**
      * Review constructor.
      * @param $mSubject
      * @param $mView
+     * @param $url
      * @param $review
      */
-    public function __construct($mSubject, $mView, $review)
+    public function __construct($mSubject, $mView, $url, $review)
     {
         $this->mSubject = $mSubject;
         $this->mView    = $mView;
+        $this->url      = $url;
         $this->review   = $review;
-        $this->url      = route('fill.review-' . user_lang(), ['slug' => encrypt($review->id)]);
     }
 
     /**
