@@ -2,4 +2,4 @@
 
 Hola {{ $review->customer_name }} tienes una review:<br>
 
-<a href="{{ $url }}"> Hacer review</a>
+<a href="{{ $review->poll_url }}"> Hacer review</a>

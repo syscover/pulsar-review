@@ -23,6 +23,12 @@ class ReviewService
 
         Review::where('id', $object->get('id'))->update([
             'customer_name'         => $object->get('customer_name'),
+            'email_template'        => $object->get('email_template'),
+            'object_name'           => $object->get('object_name'),
+            'object_email'          => $object->get('object_email'),
+            'customer_name'         => $object->get('customer_name'),
+            'customer_email'        => $object->get('customer_email'),
+            'email_subject'         => $object->get('email_subject'),
             'poll_url'              => $object->get('poll_url')
         ]);
 
