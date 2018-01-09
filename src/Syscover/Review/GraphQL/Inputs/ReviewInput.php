@@ -64,9 +64,9 @@ class ReviewInput extends GraphQLType {
                 'type' => Type::string(),
                 'description' => 'Subject of email sent to customer'
             ],
-            'poll_route' => [
+            'poll_url' => [
                 'type' => Type::string(),
-                'description' => 'Route to access poll'
+                'description' => 'URL to access poll'
             ],
             'completed' => [
                 'type' => Type::boolean(),
