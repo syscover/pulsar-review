@@ -5,13 +5,13 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class Review extends Mailable
+class MemberHasComment extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $mSubject;
     public $mView;
-    public $review;
+    public $comment;
     public $url;
 
     /**
@@ -20,12 +20,12 @@ class Review extends Mailable
      * @param $mView
      * @param $review
      */
-    public function __construct($mSubject, $mView, $review)
+    public function __construct($mSubject, $mView, $comment)
     {
         $this->mSubject = $mSubject;
         $this->mView    = $mView;
-        $this->review   = $review;
-        $this->url      = route('fill.review-' . user_lang(), ['slug' => encrypt($review->id)]);
+        $this->comment   = $comment;
+        //$this->url      = route('fill.review-' . user_lang(), ['slug' => encrypt($review->id)]);
     }
 
     /**

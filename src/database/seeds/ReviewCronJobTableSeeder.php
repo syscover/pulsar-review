@@ -13,7 +13,7 @@ class ReviewCronJobTableSeeder extends Seeder
                 'name' => 'Check mailing review',
                 'package_id' => 250,
                 'cron_expression' => '0 * * * *', // Se ejecuta una vez cada hora
-                'command' => '\Syscover\Review\Services\Cron::checkMailingReview',
+                'command' => '\Syscover\Review\Services\CronService::checkMailingReview',
                 'active' => true
             ],
             [
@@ -21,7 +21,7 @@ class ReviewCronJobTableSeeder extends Seeder
                 'name' => 'Check delete review',
                 'package_id' => 250,
                 'cron_expression' => '0 0 * * *', // Se ejecuta una vez cada día
-                'command' => '\Syscover\Review\Services\Cron::checkDeleteReview',
+                'command' => '\Syscover\Review\Services\CronService::checkDeleteReview',
                 'active' => true
             ]
         ]);

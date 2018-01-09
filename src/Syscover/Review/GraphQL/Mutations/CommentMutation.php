@@ -7,7 +7,7 @@ use Folklore\GraphQL\Support\Mutation;
 use Syscover\Review\Models\Comment;
 use Syscover\Review\Services\CommentService;
 use Syscover\Core\Services\SQLService;
-use Syscover\Review\Mails\Comment as MailComment;
+use Syscover\Review\Mails\MemberHasComment as MailComment;
 
 
 class CommentMutation extends Mutation

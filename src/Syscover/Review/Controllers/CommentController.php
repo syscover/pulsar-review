@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Syscover\Admin\Models\User;
 use Syscover\Review\Services\CommentService;
 use Syscover\Review\Notifications\Comment as CommentNotification;
-use Syscover\Review\Mails\Comment as MailComment;
+use Syscover\Review\Mails\MemberHasComment;
 
 class CommentController extends BaseController
 {
@@ -30,9 +30,9 @@ class CommentController extends BaseController
         {
             // TODO, check that  customer_email or object_email exist, and been a validate email
             Mail::to($comment->owner_id === 1 ? $comment->review->customer_email : $comment->review->object_email)
-                ->send(new MailComment(
+                ->send(new MemberHasComment(
                     'Ruralka: Tienes un comentario de ' . $comment->name,
-                    'review::mails.content.comment',
+                    'review::mails.content.member_has_comment',
                     //$review->email_template ? $review->email_template : 'review::mails.content.review',
                     $comment
                 ));

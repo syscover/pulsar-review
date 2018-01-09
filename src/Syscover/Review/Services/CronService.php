@@ -3,9 +3,9 @@
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Syscover\Review\Models\Review;
-use Syscover\Review\Mails\Review as MailReview;
+use Syscover\Review\Mails\CustomerHasReview;
 
-class Cron
+class CronService
 {
     public static function checkMailingReview()
     {
@@ -19,9 +19,9 @@ class Cron
         foreach ($reviews as $review)
         {
             Mail::to($review->customer_email)
-                ->send(new MailReview(
+                ->send(new CustomerHasReview(
                     $review->email_subject,
-                    $review->email_template ? $review->email_template : 'review::mails.content.review',
+                    $review->email_template ? $review->email_template : 'review::mails.content.customer_has_review',
                     $review
                 ));
         }
