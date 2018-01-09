@@ -22,7 +22,7 @@ class CronService
                 ->send(new CustomerHasReview(
                     $review->email_subject,
                     $review->email_template ? $review->email_template : 'review::mails.content.customer_has_review',
-                    $review->poll_route ?
+                    $review->poll_url ?
                         route($review->poll_route, ['code' => encrypt($review->id)]) :
                         route('review.fill.poll', ['code' => encrypt($review->id)]), // default route poll
                     $review

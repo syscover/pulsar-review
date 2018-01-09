@@ -30,7 +30,7 @@ class ReviewCreateTableReview extends Migration {
                 $table->boolean('customer_verified')->default(false);                       // check if is a verified customer
                 $table->string('email_template')->nullable();                               // email template that will sent to the customer
                 $table->string('email_subject')->nullable();                                // email subject for this review
-                $table->string('poll_url', 2083);                                    // url to get public poll
+                $table->string('poll_url', 2083)->nullable();                        // url to get public poll
                 $table->boolean('completed')->default(false);                               // check if the review was completed for the customer
                 $table->boolean('validated')->default(false);                               // check if review is added
                 $table->decimal('average', 6,2)->nullable();                   // average of all responses
