@@ -90,6 +90,13 @@ class ResponseController extends BaseController
                 ->notify(new ReviewNotification($review));
         }
 
-        return redirect()->route($request->input('route'));
+        if($request->input('xhr'))
+        {
+            return response()->json([
+                'status' => 'success'
+            ]);
+        }
+
+        return redirect($request->input('url'));
     }
 }
