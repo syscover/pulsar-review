@@ -17,14 +17,7 @@ class CronService
             ->get();
 
         foreach ($reviews as $review)
-        {
-            Mail::to($review->customer_email)
-                ->send(new CustomerHasReview(
-                    $review->email_subject,
-                    $review->email_template ? $review->email_template : 'review::mails.content.customer_has_review',
-                    $review
-                ));
-        }
+            Mail::to($review->customer_email)->send(new CustomerHasReview($review));
 
         // mark review like sent true
         Review::whereIn('id', $reviews->pluck('id'))->update([

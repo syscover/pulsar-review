@@ -4,27 +4,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Syscover\Review\Models\Review;
 
 class CustomerHasReview extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $mSubject;
-    public $mView;
-    public $url;
     public $review;
 
     /**
      * Review constructor.
-     * @param $mSubject
-     * @param $mView
      * @param $review
      */
-    public function __construct($mSubject, $mView, $review)
+    public function __construct(Review $review)
     {
-        $this->mSubject = $mSubject;
-        $this->mView    = $mView;
-        $this->review   = $review;
+        $this->review = $review;
     }
 
     /**
@@ -34,8 +28,8 @@ class CustomerHasReview extends Mailable
      */
     public function build()
     {
-        $this->subject($this->mSubject);
+        $this->subject($this->review->email_subject);
 
-        return $this->view($this->mView);
+        return $this->view($this->review->email_template ? $this->review->email_template : 'review::mails.content.customer_has_review');
     }
 }
