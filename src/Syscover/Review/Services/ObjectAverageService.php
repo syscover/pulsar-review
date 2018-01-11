@@ -30,12 +30,12 @@ class ObjectAverageService
     }
 
     /**
-     * Add or create average
+     * Add or create average and validate review
      *
      * @param \Syscover\Review\Models\Review $review
      * @return \Syscover\Review\Models\ObjectAverage
      */
-    public static function addAverage(Review $review)
+    public static function addAverageValidate(Review $review)
     {
         $average = ObjectAverage::where('poll_id', $review->poll_id)
             ->where('object_id', $review->object_id)
@@ -77,7 +77,7 @@ class ObjectAverageService
      * @param \Syscover\Review\Models\Review $review
      * @return \Syscover\Review\Models\ObjectAverage
      */
-    public static function removeAverage(Review $review)
+    public static function removeAverageInvalidate(Review $review)
     {
         $average = ObjectAverage::where('poll_id', $review->poll_id)
             ->where('object_id', $review->object_id)

@@ -123,7 +123,7 @@ class ActionReviewMutation extends ReviewMutation
             // if review is validated, remove you score from average, before add new score
             if($args['action_id'] === 1 && $review->validated)
             {
-                ObjectAverageService::removeAverage($review);
+                ObjectAverageService::removeAverageInvalidate($review);
                 QuestionAverageService::removeAverage($review);
             }
 
@@ -163,11 +163,11 @@ class ActionReviewMutation extends ReviewMutation
         switch ($args['action_id'])
         {
             case 1:
-                ObjectAverageService::addAverage($review);
+                ObjectAverageService::addAverageValidate($review);
                 QuestionAverageService::addAverage($review);
                 break;
             case 2:
-                ObjectAverageService::removeAverage($review);
+                ObjectAverageService::removeAverageInvalidate($review);
                 QuestionAverageService::removeAverage($review);
                 break;
             case 3:

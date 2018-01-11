@@ -7,8 +7,8 @@ use Carbon\Carbon;
 use Syscover\Admin\Models\User;
 use Syscover\Review\Models\Review;
 use Syscover\Review\Models\Response;
-use Syscover\Review\Notifications\Review as ReviewNotification;
-use Syscover\Review\Notifications\ReviewOwnerObject as ReviewOwnerObjectNotification;
+use Syscover\Review\Notifications\ReviewModerator;
+use Syscover\Review\Notifications\ReviewOwnerObject;
 use Syscover\Review\Services\ObjectAverageService;
 use Syscover\Review\Services\QuestionAverageService;
 
@@ -62,33 +62,32 @@ class ResponseController extends BaseController
         // update review
         $responses          = collect($responses);
         $totalScore         = $responses->sum('score');
-        $review->average    = $totalScore /  $scoreQuestions;
+        $review->average    = $totalScore / $scoreQuestions;
         $review->completed  = true;
+        $review->save();
 
-        if(! $review->poll->validate)
+        // Validate by moderator
+        if($review->poll->validate)
         {
-            // review is not validated by moderator
-            ObjectAverageService::addAverage($review);
-            QuestionAverageService::addAverage($review);
+            $moderators = User::whereIn('id', cache('review_moderators'))->get();
+            Notification::route('mail', $moderators->pluck('email'))
+                ->notify(new ReviewModerator($review));
+        }
+        else
+        {
+            // refresh to load responses, previous created
+            $review->refresh();
 
-            // set review how validated
-            $review->validated = true;
+            // review is not validated by moderator
+            ObjectAverageService::addAverageValidate($review);
+            QuestionAverageService::addAverage($review);
 
             if($review->poll->send_notification)
             {
                 // send email notification to owner object
                 Notification::route('mail', $review->object_email)
-                    ->notify(new ReviewOwnerObjectNotification($review));
+                    ->notify(new ReviewOwnerObject($review));
             }
-        }
-
-        $review->save();
-
-        if($review->poll->validate)
-        {
-            $moderators = User::whereIn('id', cache('review_moderators'))->get();
-            Notification::route('mail', $moderators->pluck('email'))
-                ->notify(new ReviewNotification($review));
         }
 
         if($request->input('xhr'))
@@ -97,7 +96,9 @@ class ResponseController extends BaseController
                 'status' => 'success'
             ]);
         }
-
-        return redirect($request->input('url'));
+        elseif ($request->has('url'))
+        {
+            return redirect($request->input('url'));
+        }
     }
 }

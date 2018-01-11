@@ -36,7 +36,6 @@ class QuestionAverageService
      * Add or create average
      *
      * @param   \Syscover\Review\Models\Review $review
-     * @return \Syscover\Review\Models\QuestionAverage
      */
     public static function addAverage(Review $review)
     {
@@ -53,8 +52,6 @@ class QuestionAverageService
                 $average->save();
             }
         }
-
-        return $average;
     }
 
     /**
