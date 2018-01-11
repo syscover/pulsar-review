@@ -44,13 +44,11 @@ class Review extends Notification
         return (new MailMessage)
                     ->level('info')
                     ->subject('Hay una review pendiente de validar, Review: ' . $this->review->id)
-                    ->greeting('Holaaaa!')
+                    ->greeting('¡Hola!')
                     ->line('Tienes una review pendiente de validar.')
-
-                    ->action('Ver Review', 'http://localhost:4200/pulsar/review/review/show/' . $this->review->id)
-
-                    ->line('Thank you for using our application!')
-                    ->salutation('Hasta luego lucas');
+                    ->action('Validar Review', config('pulsar-admin.panel_url') . '/pulsar/review/review/show/' . $this->review->id)
+                    ->line('Gracias por tu tiempo')
+                    ->salutation('¡Hasta pronto!');
     }
 
     /**

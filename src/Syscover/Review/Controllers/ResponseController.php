@@ -30,6 +30,7 @@ class ResponseController extends BaseController
         $responses      = [];
         $scoreQuestions = 0;
 
+        // save responses
         foreach ($review->poll->questions->where('lang_id', user_lang()) as $question) {
             $response = [
                 'review_id'     => $review->id,
