@@ -61,8 +61,8 @@ class QuestionAverageService
                 $objectAverageQuestion = ObjectQuestionAverage::firstOrCreate([
                         'poll_id'       => $review->poll_id,
                         'question_id'   => $question->id,
-                        'object_id'     => $question->object_id,
-                        'object_type'   => $question->object_type
+                        'object_id'     => $review->object_id,
+                        'object_type'   => $review->object_type
                     ]);
 
                 $objectAverageQuestion->reviews   = $objectAverageQuestion->reviews + 1;
@@ -100,8 +100,8 @@ class QuestionAverageService
                 // remove object question average
                 $objectAverageQuestion = ObjectQuestionAverage::where('poll_id', $review->poll_id)
                     ->where('question_id', $question->id)
-                    ->where('object_id', $question->object_id)
-                    ->where('object_type', $question->object_type)
+                    ->where('object_id', $review->object_id)
+                    ->where('object_type', $review->object_type)
                     ->first();
 
                 $objectAverageQuestion->reviews   = $objectAverageQuestion->reviews - 1;
