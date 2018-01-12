@@ -60,10 +60,7 @@ class ResponseController extends BaseController
         Response::insert($responses);
 
         // update review
-        $responses          = collect($responses);
-        $totalScore         = $responses->sum('score');
-        $review->average    = $totalScore / $scoreQuestions;
-        $review->completed  = true;
+        $review->completed = true;
         $review->save();
 
         // Validate by moderator

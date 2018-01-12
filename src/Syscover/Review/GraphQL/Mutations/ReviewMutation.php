@@ -114,9 +114,7 @@ class ActionReviewMutation extends ReviewMutation
 
     public function resolve($root, $args)
     {
-        $review         = Review::find($args['object']['id']);
-        $questions      = $review->poll->questions;
-        $scoreQuestions = 0;
+        $review = Review::find($args['object']['id']);
 
         if(is_array($args['object']['responses']) && count($args['object']['responses']) > 0)
         {
@@ -142,19 +140,13 @@ class ActionReviewMutation extends ReviewMutation
                 $response = collect($response);
 
                 Response::where('id', $response->get('id'))->update([
-                    'score'     => $response->get('score'),
-                    'text'      => $response->get('text')
+                    'score' => $response->get('score'),
+                    'text'  => $response->get('text')
                 ]);
-
-                if($questions->where('id', $response->get('question_id'))->first()->type_id === 1)
-                {
-                    $scoreQuestions++;
-                }
             }
 
-            $totalScore         = $responses->sum('score');
-            $review->average    = $totalScore /  $scoreQuestions;
-            $review->save();
+            // reload new responses related
+            $review->refresh();
         }
 
         // 1 - Validate and add score

@@ -76,10 +76,6 @@ class ReviewInput extends GraphQLType {
                 'type' => Type::boolean(),
                 'description' => 'Check if review is added'
             ],
-            'average' => [
-                'type' => Type::float(),
-                'description' => 'Average of all responses'
-            ],
             'mailing' => [
                 'type' => Type::string(),
                 'description' => 'Date when review will be send to customer'

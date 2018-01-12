@@ -72,8 +72,8 @@
                     <div>{{ $comment->name }} ({{ $comment->date }})</div>
                     <div>{{ $comment->text }}</div>
                 </div>
-                <br>
             @endforeach
+            <hr>
 
             <form action="{{ route('pulsar.review.comment.store') }}" method="post">
                 {{ csrf_field() }}

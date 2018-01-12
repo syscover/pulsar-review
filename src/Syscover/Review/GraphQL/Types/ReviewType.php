@@ -101,7 +101,12 @@ class ReviewType extends GraphQLType {
             'comments' => [
                 'type' => Type::nonNull(Type::listOf(GraphQL::type('ReviewComment'))),
                 'description' => 'Comments that belong this review'
-            ],
+            ]
         ];
+    }
+
+    public function resolveAverageField($object, $args)
+    {
+        return $object->average;
     }
 }

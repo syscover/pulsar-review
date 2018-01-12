@@ -11,10 +11,38 @@ use Syscover\Core\Models\CoreModel;
 class Review extends CoreModel
 {
 	protected $table        = 'review_review';
-    protected $fillable     = ['date', 'poll_id', 'object_id', 'object_type', 'object_name', 'object_email', 'customer_id', 'customer_name', 'customer_email', 'customer_verified', 'email_template', 'email_subject', 'poll_url', 'completed', 'validated', 'average', 'mailing', 'sent', 'expiration'];
+    protected $fillable     = ['date', 'poll_id', 'object_id', 'object_type', 'object_name', 'object_email', 'customer_id', 'customer_name', 'customer_email', 'customer_verified', 'email_template', 'email_subject', 'poll_url', 'completed', 'validated', 'mailing', 'sent', 'expiration'];
     public $with            = ['poll', 'responses'];
 
     private static $rules   = [];
+
+    public function __get($name)
+    {
+        switch ($name) {
+            case 'average':
+                $scoreQuestions = 0;
+
+                foreach($this->responses as $response)
+                {
+                    // is response type score
+                    if($response->questions->first()->type_id === 1) $scoreQuestions++;
+                }
+                return $scoreQuestions ===  0 ? 0 : $this->total / $scoreQuestions;
+                break;
+
+            case 'total':
+                $total = 0;
+                foreach($this->responses as $response)
+                {
+                    // is response type score
+                    if($response->questions->first()->type_id === 1) $total += $response->score;
+                }
+                return $total;
+                break;
+        }
+
+        return parent::__get($name);
+    }
 
     public static function validate($data)
     {

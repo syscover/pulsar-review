@@ -44,11 +44,15 @@ class QuestionAverageService
             $question   = $response->questions->first();
             $average    = $question->average;
 
+            // 1 - score
+            // 2 - text
+            // 3 - boolean (inactivated)
+            // 4 - select (inactivated)
             if($question->type_id === 1)
             {
                 $average->reviews   = $average->reviews + 1;
                 $average->total     = $average->total + $response->score;
-                $average->average   = $average->reviews === 0? 0 : $average->total / $average->reviews;
+                $average->average   = $average->reviews === 0 ? 0 : $average->total / $average->reviews;
                 $average->save();
             }
         }
@@ -67,11 +71,15 @@ class QuestionAverageService
             $question   = $response->questions->first();
             $average    = $question->average;
 
+            // 1 - score
+            // 2 - text
+            // 3 - boolean (inactivated)
+            // 4 - select (inactivated)
             if($question->type_id === 1)
             {
                 $average->reviews   = $average->reviews - 1;
                 $average->total     = $average->total - $response->score;
-                $average->average   = $average->reviews === 0? 0 : $average->total / $average->reviews;
+                $average->average   = $average->reviews === 0 ? 0 : $average->total / $average->reviews;
                 $average->save();
             }
         }

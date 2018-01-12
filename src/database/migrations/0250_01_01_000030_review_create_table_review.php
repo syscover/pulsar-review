@@ -33,7 +33,6 @@ class ReviewCreateTableReview extends Migration {
                 $table->string('poll_url', 2083)->nullable();                        // url to get public poll
                 $table->boolean('completed')->default(false);                               // check if the review was completed for the customer
                 $table->boolean('validated')->default(false);                               // check if review is added
-                $table->decimal('average', 6,2)->nullable();                   // average of all responses
 
                 // cron columns
                 $table->timestamp('mailing')->default(DB::raw('CURRENT_TIMESTAMP'));        // date when review will be send to customer

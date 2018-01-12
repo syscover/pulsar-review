@@ -90,7 +90,7 @@ class ObjectAverageService
             {
                 $average->reviews   = $average->reviews - 1;
                 $average->total     = $average->total - $review->average;
-                $average->average   = $average->reviews === 0? 0 : $average->total / $average->reviews;
+                $average->average   = $average->reviews === 0 ? 0 : $average->total / $average->reviews;
                 $average->save();
             }
 
