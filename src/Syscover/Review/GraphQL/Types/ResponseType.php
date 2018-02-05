@@ -4,8 +4,8 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
-class ResponseType extends GraphQLType {
-
+class ResponseType extends GraphQLType
+{
     protected $attributes = [
         'name'          => 'ResponseType',
         'description'   => 'Response for poll'

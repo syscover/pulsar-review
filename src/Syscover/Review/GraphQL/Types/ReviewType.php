@@ -84,7 +84,10 @@ class ReviewType extends GraphQLType {
             ],
             'average' => [
                 'type' => Type::float(),
-                'description' => 'Average of all responses'
+                'description' => 'Average of all responses',
+                'resolve' => function ($object, $args) {
+                    return $object->average;
+                }
             ],
             'total' => [
                 'type' => Type::float(),

@@ -15,6 +15,7 @@ class ReviewGraphQLServiceProvider
         GraphQL::addType(\Syscover\Review\GraphQL\Inputs\QuestionInput::class, 'ReviewQuestionInput');
 
         // REVIEW
+        GraphQL::addType(\Syscover\Review\GraphQL\Types\ReviewPaginationType::class, 'ReviewReviewPagination');
         GraphQL::addType(\Syscover\Review\GraphQL\Types\ReviewType::class, 'ReviewReview');
         GraphQL::addType(\Syscover\Review\GraphQL\Inputs\ReviewInput::class, 'ReviewReviewInput');
 

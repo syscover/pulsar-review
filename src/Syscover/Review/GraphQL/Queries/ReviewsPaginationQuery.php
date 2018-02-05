@@ -15,7 +15,7 @@ class ReviewsPaginationQuery extends Query
 
     public function type()
     {
-        return GraphQL::type('CoreObjectPagination');
+        return GraphQL::type('ReviewReviewPagination');
     }
 
     public function args()
