@@ -86,6 +86,10 @@ class ReviewType extends GraphQLType {
                 'type' => Type::float(),
                 'description' => 'Average of all responses'
             ],
+            'total' => [
+                'type' => Type::float(),
+                'description' => 'Total of all responses'
+            ],
             'mailing' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Date when review will be send to customer'
@@ -108,5 +112,10 @@ class ReviewType extends GraphQLType {
     public function resolveAverageField($object, $args)
     {
         return $object->average;
+    }
+
+    public function resolveTotalField($object, $args)
+    {
+        return $object->total;
     }
 }
