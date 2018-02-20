@@ -64,11 +64,15 @@ class ResponseController extends BaseController
         $review->save();
 
         // Validate by moderator
-        if($review->poll->validate)
+        if($review->poll->validate && is_array(cache('review_moderators')) && count(cache('review_moderators')) > 0)
         {
             $moderators = User::whereIn('id', cache('review_moderators'))->get();
-            Notification::route('mail', $moderators->pluck('email'))
-                ->notify(new ReviewModerator($review));
+
+            if($moderators->count() > 0)
+            {
+                Notification::route('mail', $moderators->pluck('email'))
+                    ->notify(new ReviewModerator($review));
+            }
         }
         else
         {
