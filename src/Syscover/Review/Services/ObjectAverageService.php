@@ -5,19 +5,11 @@ use Syscover\Review\Models\Review;
 
 class ObjectAverageService
 {
-    /**
-     * @param array     $object     contain properties of objectAverage
-     * @return \Syscover\Review\Models\ObjectAverage
-     */
     public static function create($object)
     {
         return ObjectAverage::create($object);
     }
 
-    /**
-     * @param array     $object     contain properties of objectAverage
-     * @return \Syscover\Review\Models\ObjectAverage
-     */
     public static function update($object)
     {
         $object = collect($object);
