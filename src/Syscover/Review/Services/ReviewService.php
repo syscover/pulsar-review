@@ -18,9 +18,59 @@ class ReviewService
         return Review::find($object['id']);
     }
 
-    public static function action($object)
+    public static function action($object, $actionId)
     {
+        $review = Review::find($object['id']);
 
+        if(is_array($object['responses']) && count($object['responses']) > 0)
+        {
+            // if review is validated, remove you score from average, before add new score
+            if($actionId === 1 && $review->validated)
+            {
+                ObjectAverageService::removeAverageInvalidate($review);
+                QuestionAverageService::removeAverage($review);
+            }
+
+            // if review is not validated and will be validated and we must send notification to owner
+            if($actionId === 1 && ! $review->validated && $review->poll->send_notification)
+            {
+                // send email notification to owner object
+                Notification::route('mail', $review->object_email)
+                    ->notify(new ReviewOwnerObjectNotification($review));
+            }
+
+            $responses = collect($object['responses']);
+
+            foreach ($responses as $response)
+            {
+                $response = collect($response);
+
+                Response::where('id', $response->get('id'))->update([
+                    'score' => $response->get('score'),
+                    'text'  => $response->get('text')
+                ]);
+            }
+
+            // reload new responses related
+            $review->refresh();
+        }
+
+        // 1 - Validate and add score
+        // 2 - Invalidate and subtract score
+        // 3 - Only update review
+        switch ($actionId)
+        {
+            case 1:
+                ObjectAverageService::addAverageValidate($review);
+                QuestionAverageService::addAverage($review);
+                break;
+            case 2:
+                ObjectAverageService::removeAverageInvalidate($review);
+                QuestionAverageService::removeAverage($review);
+                break;
+            case 3:
+                break;
+        }
     }
 
     private static function builder($object)
