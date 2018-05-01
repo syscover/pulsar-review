@@ -1,16 +1,11 @@
 <?php namespace Syscover\Review\GraphQL\Mutations;
 
-use Illuminate\Support\Facades\Notification;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
-use Syscover\Review\Models\Response;
 use Syscover\Review\Models\Review;
-use Syscover\Review\Services\ObjectAverageService;
-use Syscover\Review\Services\QuestionAverageService;
 use Syscover\Review\Services\ReviewService;
 use Syscover\Core\Services\SQLService;
-use Syscover\Review\Notifications\ReviewOwnerObject as ReviewOwnerObjectNotification;
 
 class ReviewMutation extends Mutation
 {

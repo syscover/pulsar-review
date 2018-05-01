@@ -1,6 +1,9 @@
 <?php namespace Syscover\Review\Services;
 
+use Illuminate\Support\Facades\Notification;
 use Syscover\Review\Models\Review;
+use Syscover\Review\Models\Response;
+use Syscover\Review\Notifications\ReviewOwnerObject as ReviewOwnerObjectNotification;
 
 class ReviewService
 {

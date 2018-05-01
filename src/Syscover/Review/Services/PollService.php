@@ -6,16 +6,14 @@ class PollService
 {
     public static function create($object)
     {
-        return Poll::create(PollService::builder(
-            PollService::check($object)
-        ));
+        $object = PollService::checkCreate($object);
+        return Poll::create(PollService::builder($object));
     }
 
     public static function update($object)
     {
-        Poll::where('id', $object['id'])->update(PollService::builder(
-            PollService::check($object)
-        ));
+        $object = PollService::checkUpdate($object);
+        Poll::where('id', $object['id'])->update(PollService::builder(PollService::builder($object)));
 
         return Poll::find($object['id']);
     }
@@ -23,23 +21,24 @@ class PollService
     private static function builder($object)
     {
         $object = collect($object);
-        $data = [];
-
-        if($object->has('name'))                $data['name'] = $object->get('name');
-        if($object->has('email_template'))      $data['email_template'] = $object->get('email_template');
-        if($object->has('poll_route'))          $data['poll_route'] = $object->get('poll_route');
-        if($object->has('send_notification'))   $data['send_notification'] = $object->get('send_notification');
-        if($object->has('validate'))            $data['validate'] = $object->get('validate');
-        if($object->has('default_high_score'))  $data['default_high_score'] = $object->get('default_high_score');
-        if($object->has('mailing_days'))        $data['mailing_days'] = $object->get('mailing_days');
-        if($object->has('expiration_days'))     $data['expiration_days'] = $object->get('expiration_days');
-
-        return $data;
+        return $object->only('name', 'email_template', 'poll_route', 'send_notification', 'validate', 'default_high_score', 'mailing_days', 'expiration_days')->toArray();
     }
 
-    private static function check($object)
+    private static function checkCreate($object)
     {
         if(empty($object['name'])) throw new \Exception('You have to define a name field to create a poll');
+
+        // delete index, this values has default values
+        if($object['default_high_score'] === null)  unset($object['default_high_score']);
+        if($object['mailing_days'] === null)        unset($object['mailing_days']);
+        if($object['expiration_days'] === null)     unset($object['expiration_days']);
+
+        return $object;
+    }
+
+    private static function checkUpdate($object)
+    {
+        if(empty($object['id'])) throw new \Exception('You have to define a id field to update a poll');
 
         // delete index, this values has default values
         if($object['default_high_score'] === null)  unset($object['default_high_score']);
