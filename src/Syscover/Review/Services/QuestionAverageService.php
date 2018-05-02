@@ -6,10 +6,6 @@ use Syscover\Review\Models\Review;
 
 class QuestionAverageService
 {
-    /**
-     * @param array     $object     contain properties of questionAverage
-     * @return \Syscover\Review\Models\QuestionAverage
-     */
     public static function create($object)
     {
         return QuestionAverage::create($object);

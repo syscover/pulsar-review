@@ -1,97 +1,79 @@
 <?php namespace Syscover\Review\Services;
 
-use Syscover\Core\Services\SQLService;
 use Syscover\Review\Models\Question;
-use Syscover\Review\Models\QuestionAverage;
 
 class QuestionService
 {
-    /**
-     * @param array     $object     contain properties of question
-     * @return \Syscover\Review\Models\Question
-     */
     public static function create($object)
     {
+        QuestionService::checkCreate($object);
+
         $isNew = false;
         if(empty($object['id']))
         {
-            $id = Question::max('id');
-            $id++;
-
-            $object['id'] = $id;
+            $object['id'] = next_id(Question::class);
             $isNew = true;
         }
 
         $object['data_lang'] = Question::addDataLang($object['lang_id'], $object['id']);
 
-        $question = Question::create($object);
+        $question = Question::create(QuestionService::builder($object));
 
         // Register question average if is a new element
         if($isNew && $question->type_id === 1)
         {
             QuestionAverageService::create([
-                'poll_id' => $object['poll_id'],
-                'question_id' => $id
+                'poll_id'       => $question->poll_id,
+                'question_id'   => $question->id
             ]);
         }
 
         return $question;
     }
 
-    /**
-     * @param array     $object     contain properties of question
-     * @return \Syscover\Review\Models\Question
-     */
     public static function update($object)
     {
-        $object = collect($object);
+        QuestionService::checkUpdate($object);
+        Question::where('ix', $object['ix'])->update(QuestionService::builder($object));
+        Question::where('id', $object['id'])->update(QuestionService::builder($object, ['poll_id', 'type_id', 'sort', 'high_score']));
 
-        Question::where('ix', $object->get('ix'))
-            ->update([
-                'name'          => $object->get('name'),
-                'description'   => $object->get('description')
-            ]);
-
-        Question::where('id', $object->get('id'))
-            ->update([
-                'poll_id'       => $object->get('poll_id'),
-                'type_id'       => $object->get('type_id'),
-                'sort'          => $object->get('sort'),
-                'high_score'    => $object->get('high_score')
-            ]);
-
-
-        // Question average operations
-        $questionAverage = QuestionAverage::where('question_id', $object->get('id'))->first();
+        $question = Question::find($object['ix']);
 
         // if is a score
-        if($object->get('type_id') === 1)
+        if($object['type_id'] === 1 && ! $question->average)
         {
-            if(! $questionAverage)
-            {
-                QuestionAverageService::create([
-                    'poll_id' => $object->get('poll_id'),
-                    'question_id' => $object->get('id')
-                ]);
-            }
+            QuestionAverageService::create([
+                'poll_id'       => $question->poll_id,
+                'question_id'   => $question->id
+            ]);
         }
-        elseif($questionAverage)
+        elseif($object['type_id'] !== 1 && $question->average)
         {
-            $questionAverage->delete();
+            $question->average->delete();
         }
 
-        return Question::find($object->get('ix'));
+        return $question;
     }
 
-    /**
-     * @param   $id
-     * @param   $lang
-     * @return  \Syscover\Review\Models\Question
-     */
-    public static function delete($id, $lang)
+    private static function builder($object, $filterKeys = null)
     {
-        $object = SQLService::destroyRecord($id, Question::class, $lang);
+        $object = collect($object);
+        if($filterKeys) $object = $object->only($filterKeys);
 
-        return $object;
+        return $object->only('id', 'lang_id', 'poll_id', 'type_id', 'name', 'description', 'sort', 'high_score', 'data_lang')->toArray();
+    }
+
+    private static function checkCreate($object)
+    {
+        if(empty($object['lang_id']))   throw new \Exception('You have to define a lang_id field to create a question');
+        if(empty($object['poll_id']))   throw new \Exception('You have to define a poll_id field to create a question');
+        if(empty($object['type_id']))   throw new \Exception('You have to define a type_id field to create a question');
+        if(empty($object['name']))      throw new \Exception('You have to define a name field to create a question');
+    }
+
+    private static function checkUpdate($object)
+    {
+        if(empty($object['ix'])) throw new \Exception('You have to define a ix field to update a question');
+        if(empty($object['id'])) throw new \Exception('You have to define a id field to update a question');
     }
 }
