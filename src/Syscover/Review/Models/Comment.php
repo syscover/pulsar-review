@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Validator;
 use Syscover\Core\Models\CoreModel;
+use Carbon;
 
 /**
  * Class Comment
@@ -36,5 +37,12 @@ class Comment extends CoreModel
     public function review()
     {
         return $this->hasOne(Review::class, 'id', 'review_id');
+    }
+
+    // Accessors
+    public function getDateAttribute($value)
+    {
+        // return (new Carbon($value))->toW3cString();
+        return (new Carbon($value))->format('Y-m-d\TH:i:s');
     }
 }
