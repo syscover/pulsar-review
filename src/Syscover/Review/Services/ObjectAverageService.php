@@ -7,18 +7,35 @@ class ObjectAverageService
 {
     public static function create($object)
     {
-        return ObjectAverage::create($object);
+        ObjectAverageService::checkCreate($object);
+        return ObjectAverage::create(ObjectAverageService::builder($object));
     }
 
     public static function update($object)
     {
+        ObjectAverageService::checkUpdate($object);
+        ObjectAverage::where('id', $object['id'])->update(ObjectAverageService::builder($object));
+
+        return ObjectAverage::find($object['id']);
+    }
+
+    private static function builder($object)
+    {
         $object = collect($object);
+        return $object->only('poll_id', 'object_id', 'object_type', 'object_name', 'reviews', 'total', 'average')->toArray();
+    }
 
-        ObjectAverage::where('id', $object->get('id'))->update(
-            $object->only((new ObjectAverage())->getFillable())->toArray()
-        );
+    private static function checkCreate($object)
+    {
+        if(empty($object['poll_id']))       throw new \Exception('You have to define a poll_id field to create a object average');
+        if(empty($object['object_id']))     throw new \Exception('You have to define a object_id field to create a object average');
+        if(empty($object['object_type']))   throw new \Exception('You have to define a object_type field to create a object average');
+        if(empty($object['object_name']))   throw new \Exception('You have to define a object_name field to create a object average');
+    }
 
-        return ObjectAverage::find($object->get('id'));
+    private static function checkUpdate($object)
+    {
+        if(empty($object['id'])) throw new \Exception('You have to define a id field to update a object average');
     }
 
     /**
