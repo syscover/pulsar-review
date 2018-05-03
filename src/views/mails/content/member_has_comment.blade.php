@@ -7,4 +7,4 @@ Comentario ({{ $comment->date }}):
 {{ $comment->text }}
 
 <br><br><br>
-<a href="{{ route('pulsar.review.review.show', ['slug' => encrypt(['review_id' => $comment->review->id, 'owner_id' => $comment->owner_id === 1 ? 2 : 1 ])]) }}"> Responder al comentario</a>
+<a href="{{ route('pulsar.review.review_show', ['slug' => encrypt(['review_id' => $comment->review->id, 'owner_id' => $comment->owner_id === 1 ? 2 : 1 ])]) }}"> Responder al comentario</a>

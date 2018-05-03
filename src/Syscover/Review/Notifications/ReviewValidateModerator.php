@@ -4,22 +4,22 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Syscover\Review\Models\Comment as CommentModel;
+use Syscover\Review\Models\Review as ReviewModel;
 
-class Comment extends Notification
+class ReviewValidateModerator extends Notification
 {
     use Queueable;
 
-    private $comment;
+    private $review;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(CommentModel $comment)
+    public function __construct(ReviewModel $review)
     {
-        $this->comment = $comment;
+        $this->review = $review;
     }
 
     /**
@@ -43,14 +43,12 @@ class Comment extends Notification
     {
         return (new MailMessage)
                     ->level('info')
-                    ->subject('Hay un nuevo comentario que validar, Comment: ' . $this->comment->id)
-                    ->greeting('Holaaaa!')
-                    ->line('Tienes un comentario pendiente de validar.')
-
-                    ->action('Ver comment', 'http://localhost:4200/pulsar/review/comment/show/' . $this->comment->id)
-
-                    ->line('Thank you for using our application!')
-                    ->salutation('Hasta luego lucas');
+                    ->subject(__('review::pulsar.review_validate_moderator_01', ['id' => $this->review->id]))
+                    ->greeting(__('review::pulsar.review_validate_moderator_02'))
+                    ->line(__('review::pulsar.review_validate_moderator_03'))
+                    ->action(__('review::pulsar.review_validate_moderator_04'), config('pulsar-admin.panel_url') . '/apps/review/review/show/' . $this->review->id)
+                    ->line(__('review::pulsar.review_validate_moderator_05'))
+                    ->salutation(__('review::pulsar.review_validate_moderator_06'));
     }
 
     /**

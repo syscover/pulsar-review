@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
 use Syscover\Admin\Models\User;
 use Syscover\Review\Services\CommentService;
-use Syscover\Review\Notifications\Comment as CommentNotification;
+use Syscover\Review\Notifications\CommentValidateModerator as CommentNotification;
 use Syscover\Review\Mails\MemberHasComment;
 
 class CommentController extends BaseController

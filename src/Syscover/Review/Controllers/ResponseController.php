@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Syscover\Admin\Models\User;
 use Syscover\Review\Models\Review;
 use Syscover\Review\Models\Response;
-use Syscover\Review\Notifications\ReviewModerator;
+use Syscover\Review\Notifications\ReviewValidateModerator;
 use Syscover\Review\Notifications\ReviewOwnerObject;
 use Syscover\Review\Services\ObjectAverageService;
 use Syscover\Review\Services\QuestionAverageService;
@@ -18,7 +18,7 @@ class ResponseController extends BaseController
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Exception
      */
     public function store(Request $request)
@@ -31,7 +31,8 @@ class ResponseController extends BaseController
         $scoreQuestions = 0;
 
         // save responses
-        foreach ($review->poll->questions->where('lang_id', user_lang()) as $question) {
+        foreach ($review->poll->questions->where('lang_id', user_lang()) as $question)
+        {
             $response = [
                 'review_id'     => $review->id,
                 'question_id'   => $question->id,
@@ -71,7 +72,7 @@ class ResponseController extends BaseController
             if($moderators->count() > 0)
             {
                 Notification::route('mail', $moderators->pluck('email'))
-                    ->notify(new ReviewModerator($review));
+                    ->notify(new ReviewValidateModerator($review));
             }
         }
         else

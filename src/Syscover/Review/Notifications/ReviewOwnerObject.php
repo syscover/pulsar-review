@@ -43,16 +43,16 @@ class ReviewOwnerObject extends Notification
     {
         return (new MailMessage)
                     ->level('info')
-                    ->subject('Tienes una nueva review: ' . $this->review->id)
-                    ->greeting('¡Hola!')
-                    ->line('Tienes una nueva review.')
-                    ->line('Para verla pulsa en el siguiente enlace.')
-                    ->action('Ver review', route('pulsar.review.review.show', ['slug' => encrypt([
+                    ->subject(__('review::pulsar.review_owner_object_01', ['id' => $this->review->id]))
+                    ->greeting(__('review::pulsar.review_owner_object_02'))
+                    ->line(__('review::pulsar.review_owner_object_03'))
+                    ->line(__('review::pulsar.review_owner_object_04'))
+                    ->action(__('review::pulsar.review_owner_object_05'), route('pulsar.review.review_show', ['slug' => encrypt([
                         'review_id' => $this->review->id,
                         'owner_id' => 1
                     ])]))
-                    ->line('Cualquier duda quedamos a vuestra disposición')
-                    ->salutation('Gracias');
+                    ->line(__('review::pulsar.review_owner_object_06'))
+                    ->salutation(__('review::pulsar.review_owner_object_07'));
     }
 
     /**

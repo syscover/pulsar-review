@@ -1,7 +1,9 @@
 <?php namespace Syscover\Review;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Console\Scheduling\Schedule;
 use Syscover\Review\GraphQL\ReviewGraphQLServiceProvider;
+use Syscover\Review\Services\CronService;
 
 class ReviewServiceProvider extends ServiceProvider
 {
@@ -38,6 +40,23 @@ class ReviewServiceProvider extends ServiceProvider
         // register GraphQL types and schema
         ReviewGraphQLServiceProvider::bootGraphQLTypes();
         ReviewGraphQLServiceProvider::bootGraphQLSchema();
+
+        // call code after boot application
+        $this->app->booted(function () {
+            // declare schedule
+            $schedule = app(Schedule::class);
+
+            // send new reviews
+            $schedule->call(function () {
+                CronService::checkMailingReview();
+            })->hourly();
+
+            // delete reviews expired
+            $schedule->call(function () {
+                CronService::checkDeleteReview();
+            })->daily();
+
+        });
 	}
 
 	/**

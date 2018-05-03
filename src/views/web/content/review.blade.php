@@ -75,7 +75,7 @@
             @endforeach
             <hr>
 
-            <form action="{{ route('pulsar.review.comment.store') }}" method="post">
+            <form action="{{ route('pulsar.review.comment_store') }}" method="post">
                 {{ csrf_field() }}
                 <input type="hidden" name="review_id" value="{{ $review->id }}">
                 <input type="hidden" name="owner_id" value="{{ $owner_id }}">
