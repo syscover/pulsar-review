@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Validator;
 use Syscover\Core\Models\CoreModel;
-use Carbon;
+use Carbon\Carbon;
 
 /**
  * Class Comment

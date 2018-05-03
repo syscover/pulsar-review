@@ -8,13 +8,13 @@ class CommentService
 {
     public static function create($object)
     {
-        $object = CommentService::checkCreate($object);
+        CommentService::checkCreate($object);
         return Comment::create(CommentService::builder($object));
     }
 
     public static function update($object)
     {
-        $object = CommentService::checkUpdate($object);
+        CommentService::checkUpdate($object);
         Comment::where('id', $object['id'])->update(CommentService::builder($object));
 
         return Comment::find($object['id']);
