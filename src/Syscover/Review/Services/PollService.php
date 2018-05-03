@@ -13,7 +13,7 @@ class PollService
     public static function update($object)
     {
         $object = PollService::checkUpdate($object);
-        Poll::where('id', $object['id'])->update(PollService::builder(PollService::builder($object)));
+        Poll::where('id', $object['id'])->update(PollService::builder($object));
 
         return Poll::find($object['id']);
     }

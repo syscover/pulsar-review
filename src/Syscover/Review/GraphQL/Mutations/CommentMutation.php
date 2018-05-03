@@ -9,7 +9,6 @@ use Syscover\Review\Services\CommentService;
 use Syscover\Core\Services\SQLService;
 use Syscover\Review\Mails\MemberHasComment as MailComment;
 
-
 class CommentMutation extends Mutation
 {
     public function type()
@@ -112,34 +111,6 @@ class ActionCommentMutation extends CommentMutation
 
     public function resolve($root, $args)
     {
-        $comment        = Comment::find($args['object']['id']);
-        $comment->text  = $args['object']['text'];
-
-        // 1 - Update, validate comment and send email
-        // 2 - Update, validate comment
-        // 3 - Update, invalidate comment
-        switch ($args['action_id'])
-        {
-            case 1:
-                $comment->validated = true;
-                $comment->save();
-
-                Mail::to($comment->owner_id === 1 ? $comment->review->customer_email : $comment->review->object_email)
-                    ->send(new MailComment(
-                        'Ruralka: Tienes un comentario de ' . $comment->name,
-                        'review::mails.content.member_has_comment',
-                        //$review->email_template ? $review->email_template : 'review::mails.content.review',
-                        $comment
-                    ));
-                break;
-            case 2:
-                $comment->validated = true;
-                $comment->save();
-                break;
-            case 3:
-                $comment->validated = false;
-                $comment->save();
-                break;
-        }
+        CommentService::action($args['object'], $args['action_id']);
     }
 }
