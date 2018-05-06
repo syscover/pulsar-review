@@ -6,7 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Syscover\Review\Models\Comment as CommentModel;
 
-class CommentValidateModerator extends Notification
+class CommentValidateModerator extends Notification implements ShouldQueue
 {
     use Queueable;
 

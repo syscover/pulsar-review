@@ -20,7 +20,7 @@ class CronService
 
         foreach ($reviews as $review)
         {
-            Mail::to($review->customer_email)->send(new CustomerHasReview($review));
+            Mail::to($review->customer_email)->queue(new CustomerHasReview($review));
         }
 
         // mark review like sent true

@@ -6,7 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Syscover\Review\Models\Review as ReviewModel;
 
-class ReviewOwnerObject extends Notification
+class ReviewOwnerObject extends Notification implements ShouldQueue
 {
     use Queueable;
 
