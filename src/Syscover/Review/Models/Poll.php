@@ -11,7 +11,7 @@ use Syscover\Core\Models\CoreModel;
 class Poll extends CoreModel
 {
 	protected $table        = 'review_poll';
-    protected $fillable     = ['name', 'email_template', 'send_notification', 'poll_route', 'validate', 'default_score', 'mailing_days', 'expiration_days'];
+    protected $fillable     = ['name', 'review_email_template', 'send_notification', 'poll_route', 'validate', 'default_score', 'mailing_days', 'expiration_days'];
     public $with            = ['questions'];
     private static $rules   = [
         'name' => 'required'

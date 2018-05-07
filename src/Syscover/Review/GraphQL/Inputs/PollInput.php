@@ -23,7 +23,7 @@ class PollInput extends GraphQLType
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Name of poll'
             ],
-            'email_template' => [
+            'review_email_template' => [
                 'type' => Type::string(),
                 'description' => 'Email template that will be used'
             ],

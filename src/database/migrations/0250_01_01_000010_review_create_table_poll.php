@@ -19,9 +19,17 @@ class ReviewCreateTablePoll extends Migration {
 
                 $table->increments('id');
                 $table->string('name');
-                $table->string('email_template')->nullable();                           // email template that will set in review to send to the customer
                 $table->boolean('send_notification')->default(true);                    // check if sends notification to object_mail field from review table
                 $table->string('poll_route')->nullable();                               // route to get public poll
+
+
+                // $table->string('email_template')->nullable();                           // email template that will set in review to send to the customer
+                $table->string('review_email_template')->nullable();                    // email template that will set the review to send to the customer
+                $table->string('comment_email_template')->nullable();                   // email template that will set the comment to send to the customer
+                $table->string('comment_email_subject')->nullable();                   // email template that will set the comment to send to the customer
+
+
+
                 $table->boolean('validate')->default(true);                             // check if you want validate reviews before add to average
                 $table->tinyInteger('default_high_score')->unsigned()->default(5);
                 $table->smallInteger('mailing_days')->unsigned()->default(0);           // days that review will be sent to the customer

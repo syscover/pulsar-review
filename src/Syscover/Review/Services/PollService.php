@@ -21,7 +21,7 @@ class PollService
     private static function builder($object)
     {
         $object = collect($object);
-        return $object->only('name', 'email_template', 'poll_route', 'send_notification', 'validate', 'default_high_score', 'mailing_days', 'expiration_days')->toArray();
+        return $object->only('name', 'review_email_template', 'poll_route', 'send_notification', 'validate', 'default_high_score', 'mailing_days', 'expiration_days')->toArray();
     }
 
     private static function checkCreate($object)

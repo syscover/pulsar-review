@@ -30,7 +30,7 @@ class CommentController extends BaseController
         {
             // TODO, check that  customer_email or object_email exist, and been a validate email
             Mail::to($comment->owner_id === 1 ? $comment->review->customer_email : $comment->review->object_email)
-                ->send(new MemberHasComment(
+                ->queue(new MemberHasComment(
                     'Ruralka: Tienes un comentario de ' . $comment->name,
                     'review::mails.content.member_has_comment',
                     //$review->email_template ? $review->email_template : 'review::mails.content.review',
