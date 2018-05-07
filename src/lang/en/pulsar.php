@@ -30,4 +30,7 @@ return [
     'comment_validate_moderator_04'     => 'Validate comment',
     'comment_validate_moderator_05'     => 'Thanks for your time',
     'comment_validate_moderator_06'     => 'See you soon!',
+
+    // Syscover\Review\Mails\MemberHasComment
+    'comment_to_member_01'              => 'Hi!, You have a new comment of :name',
 ];
