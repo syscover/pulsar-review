@@ -39,13 +39,21 @@ class CommentInput extends GraphQLType {
                 'type' => Type::string(),
                 'description' => 'Email of owner of this comment'
             ],
-            'text' => [
+            'comment' => [
                 'type' => Type::string(),
                 'description' => 'Text of comment'
             ],
             'validated' => [
                 'type' => Type::boolean(),
                 'description' => 'Check if comment is validated'
+            ],
+            'email_template' => [
+                'type' => Type::string(),
+                'description' => 'Email template that the client or owner will receive to see comments'
+            ],
+            'email_subject' => [
+                'type' => Type::string(),
+                'description' => 'Route to generate the url to access the comments from the email sent to the client / owner'
             ]
         ];
     }

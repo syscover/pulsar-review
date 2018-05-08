@@ -13,10 +13,19 @@ class CommentController extends BaseController
 {
     public function store(Request $request)
     {
-        $data = $request->all();
-        $data['validated'] = ! cache('review_validate_comments');
+        $comment = CommentService::create([
+                'review_id' => $request->input('review_id'),
+                'owner_id'  => $request->input('owner_id'),
+                'name'      => $request->input('name'),
+                'email'     => $request->input('email'),
+                'text'      => $request->input('text'),
+                'validated' => ! cache('review_validate_comments')
+            ])
+            ->fresh(); // fresh object to get date created in database
 
-        $comment = CommentService::create($data)->fresh(); // fresh object to get date created in database
+
+
+
 
         // check if moderatos has to validate comment
         if(cache('review_validate_comments'))

@@ -11,7 +11,7 @@ use Syscover\Core\Models\CoreModel;
 class Poll extends CoreModel
 {
 	protected $table        = 'review_poll';
-    protected $fillable     = ['name', 'send_notification', 'validate', 'default_score', 'mailing_days', 'expiration_days','review_email_template', 'poll_route', 'comment_email_template', 'comment_email_subject'];
+    protected $fillable     = ['name', 'send_notification', 'validate', 'default_score', 'mailing_days', 'expiration_days','review_email_template', 'review_route', 'comment_email_template', 'comment_route'];
     public $with            = ['questions'];
     private static $rules   = [
         'name' => 'required'
@@ -35,25 +35,12 @@ class Poll extends CoreModel
     public function reviews()
     {
         return $this->morphMany(
-            Review::class,
-            'object',
-            'object_type',
-            'object_id',
-            'id'
-        )
-            ->where('admin_attachment.lang_id', $this->lang_id)
-            ->orderBy('sort', 'asc');
-    }
-
-    public function attachments()
-    {
-        return $this->morphMany(
-            Attachment::class,
-            'object',
-            'object_type',
-            'object_id',
-            'id'
-        )
+                Review::class,
+                'object',
+                'object_type',
+                'object_id',
+                'id'
+            )
             ->where('admin_attachment.lang_id', $this->lang_id)
             ->orderBy('sort', 'asc');
     }

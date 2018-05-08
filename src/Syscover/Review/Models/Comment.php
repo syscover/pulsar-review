@@ -12,16 +12,16 @@ use Carbon\Carbon;
 class Comment extends CoreModel
 {
 	protected $table        = 'review_comment';
-    protected $fillable     = ['review_id', 'date', 'owner_id', 'name', 'email', 'text', 'validated'];
+    protected $fillable     = ['review_id', 'date', 'owner_id', 'name', 'email', 'comment', 'validated', 'email_template', 'email_subject'];
     protected $casts        = [
         'owner_id' => 'int'
     ];
     public $with            = ['review'];
 
     private static $rules   = [
-        'customer_name' => 'required',
-        'customer_email' => 'required|email',
-        'text' => 'required'
+        'customer_name'     => 'required',
+        'customer_email'    => 'required|email',
+        'comment'           => 'required'
     ];
 
     public static function validate($data)
