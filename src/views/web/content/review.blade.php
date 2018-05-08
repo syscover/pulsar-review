@@ -84,7 +84,7 @@
 
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">¿Desea enviar un comentario al {{ $owner_id === 1? 'Cliente' : 'Object' }}?</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="text"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
