@@ -32,7 +32,7 @@ class CommentService
         if(empty($object['owner_id']))      throw new \Exception('You have to define a owner_id field to create a comment');
         if(empty($object['name']))          throw new \Exception('You have to define a name field to create a comment');
         if(empty($object['email']))         throw new \Exception('You have to define a email field to create a comment');
-        if(empty($object['text']))          throw new \Exception('You have to define a text field to create a comment');
+        if(empty($object['comment']))       throw new \Exception('You have to define a comment field to create a comment');
     }
 
     private static function checkUpdate($object)
