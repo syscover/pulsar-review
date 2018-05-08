@@ -22,7 +22,7 @@ class CommentController extends BaseController
                 'owner_id'          => $request->input('owner_id'),
                 'name'              => $request->input('name'),
                 'email'             => $request->input('email'),
-                'text'              => $request->input('text'),
+                'comment'           => $request->input('comment'),
                 'validated'         => ! cache('review_validate_comments'),
                 'email_template'    => $review->poll->comment_email_template ? $review->poll->comment_email_template : 'review::mails.content.member_has_comment',
                 'email_subject'     => $request->input('email_subject'),
