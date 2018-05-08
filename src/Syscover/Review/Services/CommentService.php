@@ -42,8 +42,8 @@ class CommentService
 
     public static function action($object, $actionId)
     {
-        $comment        = Comment::find($object['id']);
-        $comment->text  = $object['text'];
+        $comment            = Comment::find($object['id']);
+        $comment->comment   = $object['comment'];
 
         // 1 - Update, validate comment and send email
         // 2 - Update, validate comment

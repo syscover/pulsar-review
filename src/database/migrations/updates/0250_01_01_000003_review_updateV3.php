@@ -15,7 +15,7 @@ class ReviewUpdateV3 extends Migration
         if(! Schema::hasColumn('review_comment', 'comment_url'))
         {
             Schema::table('review_comment', function (Blueprint $table) {
-                $table->string('comment_url')->nullable()->after('email_subject');
+                $table->string('comment_url', 2083)->nullable()->after('email_subject');
             });
         }
 	}
