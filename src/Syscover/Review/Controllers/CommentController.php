@@ -2,6 +2,7 @@
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
 use Syscover\Admin\Models\User;
@@ -27,6 +28,17 @@ class CommentController extends BaseController
                 'email_subject'     => $request->input('email_subject'),
             ])
             ->fresh(); // fresh object to get date created in database
+
+        Log::info('Create new Syscover\Review\Models\Comment from Syscover\Review\Controllers\CommentController.', ['id' => $comment->id]);
+
+        // create url for comment
+        $comment->comment_url = $review->poll->comment_route ?
+            route($review->poll->comment_route, ['slug' =>encrypt(['review_id' => $comment->review->id, 'owner_id' => $comment->owner_id === 1 ? 2 : 1 ])]) :
+            route('pulsar.review.review_show', ['slug' => encrypt(['review_id' => $comment->review->id, 'owner_id' => $comment->owner_id === 1 ? 2 : 1 ])]); // default route
+
+        $comment->save();
+
+        // TODO, create event to change comment_url from public web?
 
         // check if moderatos has to validate comment
         if(cache('review_validate_comments'))

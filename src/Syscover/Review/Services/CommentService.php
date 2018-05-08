@@ -1,6 +1,5 @@
 <?php namespace Syscover\Review\Services;
 
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Mail;
 use Syscover\Review\Models\Comment;
 use Syscover\Review\Mails\MemberHasComment as MailComment;
