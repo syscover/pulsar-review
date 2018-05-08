@@ -57,6 +57,10 @@ class CommentType extends GraphQLType {
             'email_subject' => [
                 'type' => Type::string(),
                 'description' => 'Route to generate the url to access the comments from the email sent to the client / owner'
+            ],
+            'comment_url' => [
+                'type' => Type::string(),
+                'description' => 'Url to show the comment'
             ]
         ];
     }

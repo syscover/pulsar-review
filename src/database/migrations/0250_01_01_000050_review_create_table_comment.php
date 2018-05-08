@@ -32,6 +32,7 @@ class ReviewCreateTableComment extends Migration {
 
                 $table->string('email_template')->nullable();
                 $table->string('email_subject')->nullable();
+                $table->string('comment_url')->nullable();
 
                 $table->timestamps();
                 $table->softDeletes();

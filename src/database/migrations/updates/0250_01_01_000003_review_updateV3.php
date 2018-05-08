@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ReviewUpdateV2 extends Migration
+class ReviewUpdateV3 extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -12,18 +12,10 @@ class ReviewUpdateV2 extends Migration
 	 */
 	public function up()
 	{
-        if(! Schema::hasColumn('review_comment', 'email_template'))
+        if(! Schema::hasColumn('review_comment', 'comment_url'))
         {
-            Schema::table('review_poll', function (Blueprint $table) {
-                $table->dropColumn('comment_email_subject');
-                $table->string('comment_route')->nullable()->after('poll_route');
-                $table->renameColumn('poll_route', 'review_route');
-            });
-
             Schema::table('review_comment', function (Blueprint $table) {
-                $table->renameColumn('text', 'comment');
-                $table->string('email_template')->nullable()->after('validated');
-                $table->string('email_subject')->nullable()->after('email_template');
+                $table->string('comment_url')->nullable()->after('email_subject');
             });
         }
 	}
