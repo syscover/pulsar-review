@@ -4,28 +4,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Syscover\Review\Models\Comment;
 
 class MemberHasComment extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $mSubject;
-    public $mView;
     public $comment;
-    public $url;
 
     /**
      * Review constructor.
-     * @param $mSubject
-     * @param $mView
-     * @param $review
+     * @param $comment
      */
-    public function __construct($mSubject, $mView, $comment)
+    public function __construct(Comment $comment)
     {
-        $this->mSubject = $mSubject;
-        $this->mView    = $mView;
-        $this->comment   = $comment;
-        //$this->url      = route('fill.review-' . user_lang(), ['slug' => encrypt($review->id)]);
+        $this->comment = $comment;
     }
 
     /**
@@ -35,8 +28,8 @@ class MemberHasComment extends Mailable
      */
     public function build()
     {
-        $this->subject($this->mSubject);
+        $this->subject($this->comment->email_subject);
 
-        return $this->view($this->mView);
+        return $this->view($this->comment->email_template ? $this->comment->email_template : 'review::mails.content.member_has_comment');
     }
 }

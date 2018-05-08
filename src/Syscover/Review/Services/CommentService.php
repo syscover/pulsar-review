@@ -56,28 +56,24 @@ class CommentService
                 $comment->save();
 
                 // set the comment subject
-                if($comment->review->poll->comment_email_subject)
-                {
-                    if(Lang::has($comment->review->poll->comment_email_subject))
-                    {
-                        $subject = __($comment->review->poll->comment_email_subject, ['id' => $comment->id, 'name' => $comment->owner_id === 1 ? $comment->review->object_name : $comment->review->customer_name, 'email' => $comment->owner_id === 1 ? $comment->review->object_email : $comment->review->customer_email]);
-                    }
-                    else
-                    {
-                        $subject = $comment->review->poll->comment_email_subject;
-                    }
-                }
-                else
-                {
-                    $subject = __('review::pulsar.comment_to_member_01', ['id' => $comment->id, 'name' => $comment->owner_id === 1 ? $comment->review->object_name : $comment->review->customer_name, 'email' => $comment->owner_id === 1 ? $comment->review->object_email : $comment->review->customer_email]);
-                }
+//                if($comment->review->poll->comment_email_subject)
+//                {
+//                    if(Lang::has($comment->review->poll->comment_email_subject))
+//                    {
+//                        $subject = __($comment->review->poll->comment_email_subject, ['id' => $comment->id, 'name' => $comment->owner_id === 1 ? $comment->review->object_name : $comment->review->customer_name, 'email' => $comment->owner_id === 1 ? $comment->review->object_email : $comment->review->customer_email]);
+//                    }
+//                    else
+//                    {
+//                        $subject = $comment->review->poll->comment_email_subject;
+//                    }
+//                }
+//                else
+//                {
+//                    $subject = __('review::pulsar.comment_to_member_01', ['id' => $comment->id, 'name' => $comment->owner_id === 1 ? $comment->review->object_name : $comment->review->customer_name, 'email' => $comment->owner_id === 1 ? $comment->review->object_email : $comment->review->customer_email]);
+//                }
 
                 Mail::to($comment->owner_id === 1 ? $comment->review->customer_email : $comment->review->object_email)
-                    ->queue(new MailComment(
-                        $subject,
-                        $comment->review->poll->comment_email_template ? $comment->review->poll->comment_email_template : 'review::mails.content.member_has_comment',
-                        $comment
-                    ));
+                    ->queue(new MailComment($comment));
                 break;
             case 2:
                 $comment->validated = true;
