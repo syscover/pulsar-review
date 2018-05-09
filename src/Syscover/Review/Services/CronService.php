@@ -1,7 +1,6 @@
 <?php namespace Syscover\Review\Services;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Syscover\Review\Models\Review;
 use Syscover\Review\Mails\CustomerHasReview;
@@ -10,7 +9,7 @@ class CronService
 {
     public static function checkMailingReview()
     {
-        Log::info('Call Syscover\Review\Services\CronService::checkMailingReview function');
+        info('Call Syscover\Review\Services\CronService::checkMailingReview function');
 
         $reviews = Review::builder()
             ->where('completed', false)
@@ -31,7 +30,7 @@ class CronService
     
     public static function checkDeleteReview()
     {
-        Log::info('Call Syscover\Review\Services\CronService::checkDeleteReview function');
+        info('Call Syscover\Review\Services\CronService::checkDeleteReview function');
 
         Review::builder()
             ->where('completed', false)

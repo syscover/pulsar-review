@@ -1,8 +1,14 @@
 <?php namespace Syscover\Review\Services;
 
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
+use Syscover\Admin\Models\User;
+use Syscover\Review\Events\CommentStored;
 use Syscover\Review\Models\Comment;
 use Syscover\Review\Mails\MemberHasComment as MailComment;
+use Syscover\Review\Models\Review;
+use Syscover\Review\Notifications\CommentValidateModerator as CommentNotification;
+use Syscover\Review\Mails\MemberHasComment;
 
 class CommentService
 {
@@ -65,6 +71,54 @@ class CommentService
                 $comment->validated = false;
                 $comment->save();
                 break;
+        }
+    }
+
+    public static function store($object)
+    {
+        CommentService::checkCreate($object);
+
+        // get review of comment
+        $review = Review::find($object['review_id']);
+
+        $comment = CommentService::create([
+                'review_id'         => $object['review_id'],
+                'owner_id'          => $object['owner_id'],
+                'name'              => $object['name'],
+                'email'             => $object['email'],
+                'comment'           => $object['comment'],
+                'validated'         => ! cache('review_validate_comments'),
+                'email_template'    => $review->poll->comment_email_template ? $review->poll->comment_email_template : 'review::mails.content.member_has_comment',
+                'email_subject'     => $object['email_subject']
+            ])
+            ->fresh(); // fresh object to get date created in database
+
+        // create url for comment
+        $comment->comment_url = $review->poll->comment_route ?
+            route($review->poll->comment_route, ['slug' => encrypt(['review_id' => $comment->review->id, 'owner_id' => $comment->owner_id === 1 ? 2 : 1 ])]) :
+            route('pulsar.review.review_show', ['slug' => encrypt(['review_id' => $comment->review->id, 'owner_id' => $comment->owner_id === 1 ? 2 : 1 ])]); // default route
+
+        $comment->save();
+
+        info('Create new Syscover\Review\Models\Comment from Syscover\Review\Controllers\CommentController.', ['id' => $comment->id]);
+
+        // Fire event to change comment from public web
+        event(new CommentStored($comment));
+
+        // check if moderatos has to validate comment
+        if(cache('review_validate_comments'))
+        {
+
+            // notification to moderators
+            $moderators = User::whereIn('id', cache('review_moderators'))->get();
+            Notification::route('mail', $moderators->pluck('email'))
+                ->notify(new CommentNotification($comment));
+        }
+        else
+        {
+            // TODO, check that customer_email or object_email exist, and been a validate email
+            Mail::to($comment->owner_id === 1 ? $comment->review->customer_email : $comment->review->object_email)
+                ->queue(new MemberHasComment($comment));
         }
     }
 }

@@ -81,6 +81,7 @@
                 <input type="hidden" name="owner_id" value="{{ $owner_id }}">
                 <input type="hidden" name="name" value="{{ $owner_id === 1 ? $review->object_name : $review->customer_name }}">
                 <input type="hidden" name="email" value="{{ $owner_id === 1 ? $review->object_email : $review->customer_email }}">
+                <input type="hidden" name="email_subject" value="Has a new comment from {{ $owner_id === 1 ? $review->object_name : $review->customer_name }}">
 
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">¿Desea enviar un comentario al {{ $owner_id === 1? 'Cliente' : 'Object' }}?</label>
