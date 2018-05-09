@@ -26,7 +26,7 @@ class CommentController extends BaseController
                 'comment'           => $request->input('comment'),
                 'validated'         => ! cache('review_validate_comments'),
                 'email_template'    => $review->poll->comment_email_template ? $review->poll->comment_email_template : 'review::mails.content.member_has_comment',
-                'email_subject'     => $request->input('email_subject'),
+                'email_subject'     => $request->input('email_subject')
             ])
             ->fresh(); // fresh object to get date created in database
 
@@ -39,6 +39,7 @@ class CommentController extends BaseController
 
         Log::info('Create new Syscover\Review\Models\Comment from Syscover\Review\Controllers\CommentController.', ['id' => $comment->id]);
 
+        // Fire event to change comment from public web
         event(new CommentStored($comment));
 
         // check if moderatos has to validate comment
