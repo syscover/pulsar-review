@@ -30,7 +30,7 @@ class CommentType extends GraphQLType {
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Date of comment'
             ],
-            'owner_id' => [
+            'owner_type_id' => [
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'Type of owner, object or customer'
             ],

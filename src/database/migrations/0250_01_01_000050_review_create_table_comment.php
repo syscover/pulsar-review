@@ -24,7 +24,7 @@ class ReviewCreateTableComment extends Migration {
                 // set if is a customer or owner object
                 // 1 - object
                 // 2 - customer
-                $table->tinyInteger('owner_id')->unsigned();
+                $table->tinyInteger('owner_type_id')->unsigned();
                 $table->string('name');
                 $table->string('email');
                 $table->string('text');

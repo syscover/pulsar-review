@@ -31,6 +31,19 @@
             margin-bottom: 15px;
             padding: 15px;
         }
+        .alert {
+            margin-top: 25px;
+        }
+        .comment {
+            margin: 10px 0;
+        }
+        .text-comment {
+            font-size: 18px;
+        }
+        .data-comment {
+            font-weight: bold;
+            font-size: 11px;
+        }
     </style>
 </head>
 
@@ -44,8 +57,22 @@
 
 <!-- Page Content -->
 <div class="container">
+
+    @if(session('status'))
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>¡Perfecto!</strong> Tu comentario ha sido enviado correctamente.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-12">
             @foreach($review->poll->questions->where('lang_id', user_lang())->sortBy('sort') as $question)
                 <div class="question">
                     <div class="container">
@@ -53,10 +80,10 @@
                         <p class="lead">{{ $question->description }}</p>
                         <div class="response">
                             @if($question->type_id === 1)
-                               {{ $review->responses->where('question_id', $question->id)->first()->score }}
+                                {{ $review->responses->where('question_id', $question->id)->first()->score }}
                             @endif
                             @if($question->type_id === 2)
-                               {{ $review->responses->where('question_id', $question->id)->first()->text }}
+                                {{ $review->responses->where('question_id', $question->id)->first()->text }}
                             @endif
                         </div>
                     </div>
@@ -68,9 +95,9 @@
             <h2>Comentarios</h2>
 
             @foreach($review->comments as $comment)
-                <div>
-                    <div>{{ $comment->name }} ({{ $comment->date }})</div>
-                    <div>{{ $comment->text }}</div>
+                <div class="comment">
+                    <div class="text-comment">{{ $comment->comment }}</div>
+                    <div class="data-comment">{{ $comment->name }} ({{ $comment->date }})</div>
                 </div>
             @endforeach
             <hr>
@@ -78,14 +105,14 @@
             <form action="{{ route('pulsar.review.comment_store') }}" method="post">
                 {{ csrf_field() }}
                 <input type="hidden" name="review_id" value="{{ $review->id }}">
-                <input type="hidden" name="owner_id" value="{{ $owner_id }}">
-                <input type="hidden" name="name" value="{{ $owner_id === 1 ? $review->object_name : $review->customer_name }}">
-                <input type="hidden" name="email" value="{{ $owner_id === 1 ? $review->object_email : $review->customer_email }}">
-                <input type="hidden" name="email_subject" value="Has a new comment from {{ $owner_id === 1 ? $review->object_name : $review->customer_name }}">
+                <input type="hidden" name="owner_type_id" value="{{ $owner_type_id }}">
+                <input type="hidden" name="name" value="{{ $review->object_name }}">
+                <input type="hidden" name="email" value="{{ $review->object_email }}">
+                <input type="hidden" name="email_subject" value="Tienes un nuevo comentario de {{ $review->object_name }}">
 
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">¿Desea enviar un comentario al {{ $owner_id === 1? 'Cliente' : 'Object' }}?</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"></textarea>
+                    <label for="exampleFormControlTextarea1">¿Desea enviar un comentario al {{ $owner_type_id === 1? 'Cliente' : 'Object' }}?</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>

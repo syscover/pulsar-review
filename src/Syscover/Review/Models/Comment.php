@@ -12,9 +12,9 @@ use Carbon\Carbon;
 class Comment extends CoreModel
 {
 	protected $table        = 'review_comment';
-    protected $fillable     = ['review_id', 'date', 'owner_id', 'name', 'email', 'comment', 'validated', 'email_template', 'email_subject', 'comment_url'];
+    protected $fillable     = ['review_id', 'date', 'owner_type_id', 'name', 'email', 'comment', 'validated', 'email_template', 'email_subject', 'comment_url'];
     protected $casts        = [
-        'owner_id' => 'int'
+        'owner_type_id' => 'int'
     ];
     public $with            = ['review'];
 

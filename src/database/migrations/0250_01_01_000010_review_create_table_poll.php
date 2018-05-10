@@ -25,11 +25,12 @@ class ReviewCreateTablePoll extends Migration {
                 $table->smallInteger('mailing_days')->unsigned()->default(0);           // days that review will be sent to the customer
                 $table->smallInteger('expiration_days')->unsigned()->default(30);       // days that review will be expired and will be deleted
 
+                // routes
+                $table->string('review_route')->nullable();                             // route to get public review to fill poll
+
                 // templates
                 $table->string('review_email_template')->nullable();                    // email template that will set the review to send to the customer
-                $table->string('review_route')->nullable();                             // route to get public review to fill poll
                 $table->string('comment_email_template')->nullable();                   // email template that will set the comment to send to the customer
-                $table->string('comment_route')->nullable();                            // route to get public comment
 
                 $table->timestamps();
                 $table->softDeletes();

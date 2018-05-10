@@ -29,13 +29,13 @@ class CommentService
     private static function builder($object)
     {
         $object = collect($object);
-        return $object->only('review_id', 'date', 'owner_id', 'name', 'email', 'comment', 'validated', 'email_template', 'email_subject', 'comment_url')->toArray();
+        return $object->only('review_id', 'date', 'owner_type_id', 'name', 'email', 'comment', 'validated', 'email_template', 'email_subject', 'comment_url')->toArray();
     }
 
     private static function checkCreate($object)
     {
         if(empty($object['review_id']))     throw new \Exception('You have to define a review_id field to create a comment');
-        if(empty($object['owner_id']))      throw new \Exception('You have to define a owner_id field to create a comment');
+        if(empty($object['owner_type_id'])) throw new \Exception('You have to define a owner_type_id field to create a comment');
         if(empty($object['name']))          throw new \Exception('You have to define a name field to create a comment');
         if(empty($object['email']))         throw new \Exception('You have to define a email field to create a comment');
         if(empty($object['comment']))       throw new \Exception('You have to define a comment field to create a comment');
@@ -60,7 +60,7 @@ class CommentService
                 $comment->validated = true;
                 $comment->save();
 
-                Mail::to($comment->owner_id === 1 ? $comment->review->customer_email : $comment->review->object_email)
+                Mail::to($comment->owner_type_id === 1 ? $comment->review->customer_email : $comment->review->object_email)
                     ->queue(new MailComment($comment));
                 break;
             case 2:
@@ -83,7 +83,7 @@ class CommentService
 
         $comment = CommentService::create([
                 'review_id'         => $object['review_id'],
-                'owner_id'          => $object['owner_id'],
+                'owner_type_id'     => $object['owner_type_id'],
                 'name'              => $object['name'],
                 'email'             => $object['email'],
                 'comment'           => $object['comment'],
@@ -95,8 +95,8 @@ class CommentService
 
         // create url for comment
         $comment->comment_url = $review->poll->comment_route ?
-            route($review->poll->comment_route, ['slug' => encrypt(['review_id' => $comment->review->id, 'owner_id' => $comment->owner_id === 1 ? 2 : 1 ])]) :
-            route('pulsar.review.review_show', ['slug' => encrypt(['review_id' => $comment->review->id, 'owner_id' => $comment->owner_id === 1 ? 2 : 1 ])]); // default route
+            route($review->poll->comment_route, ['slug' => encrypt(['review_id' => $comment->review->id, 'owner_type_id' => $comment->owner_type_id === 1 ? 2 : 1 ])]) :
+            route('pulsar.review.review_show', ['slug' => encrypt(['review_id' => $comment->review->id, 'owner_type_id' => $comment->owner_type_id === 1 ? 2 : 1 ])]); // default route
 
         $comment->save();
 
@@ -117,7 +117,7 @@ class CommentService
         else
         {
             // TODO, check that customer_email or object_email exist, and been a validate email
-            Mail::to($comment->owner_id === 1 ? $comment->review->customer_email : $comment->review->object_email)
+            Mail::to($comment->owner_type_id === 1 ? $comment->review->customer_email : $comment->review->object_email)
                 ->queue(new MemberHasComment($comment));
         }
     }

@@ -27,7 +27,7 @@ class CommentInput extends GraphQLType {
                 'type' => Type::string(),
                 'description' => 'Date of comment'
             ],
-            'owner_id' => [
+            'owner_type_id' => [
                 'type' => Type::int(),
                 'description' => 'Type of owner, object or customer'
             ],
