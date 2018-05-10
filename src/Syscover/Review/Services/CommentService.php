@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Route;
 use Syscover\Admin\Models\User;
 use Syscover\Review\Events\CommentStored;
 use Syscover\Review\Models\Comment;
@@ -94,7 +95,7 @@ class CommentService
             ->fresh(); // fresh object to get date created in database
 
         // create url for comment
-        $comment->comment_url = $review->poll->comment_route ?
+        $comment->comment_url = $review->poll->comment_route && Route::has($review->poll->comment_route) ?
             route($review->poll->comment_route, ['code' => encrypt(['review_id' => $comment->review->id, 'owner_type_id' => $comment->owner_type_id === 1 ? 2 : 1 ])]) :
             route('pulsar.review.review_show', ['code' => encrypt(['review_id' => $comment->review->id, 'owner_type_id' => $comment->owner_type_id === 1 ? 2 : 1 ])]); // default route
 
