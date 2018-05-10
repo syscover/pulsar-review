@@ -10,7 +10,7 @@ class CommentController extends BaseController
     {
         CommentService::store($request->all());
 
-        return redirect()->route('pulsar.review.review_show', ['slug' => encrypt([
+        return redirect()->route('pulsar.review.review_show', ['code' => encrypt([
             'review_id'         => $request->input('review_id'),
             'owner_type_id'     => $request->input('owner_type_id')
         ])])->with([

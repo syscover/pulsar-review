@@ -95,8 +95,8 @@ class CommentService
 
         // create url for comment
         $comment->comment_url = $review->poll->comment_route ?
-            route($review->poll->comment_route, ['slug' => encrypt(['review_id' => $comment->review->id, 'owner_type_id' => $comment->owner_type_id === 1 ? 2 : 1 ])]) :
-            route('pulsar.review.review_show', ['slug' => encrypt(['review_id' => $comment->review->id, 'owner_type_id' => $comment->owner_type_id === 1 ? 2 : 1 ])]); // default route
+            route($review->poll->comment_route, ['code' => encrypt(['review_id' => $comment->review->id, 'owner_type_id' => $comment->owner_type_id === 1 ? 2 : 1 ])]) :
+            route('pulsar.review.review_show', ['code' => encrypt(['review_id' => $comment->review->id, 'owner_type_id' => $comment->owner_type_id === 1 ? 2 : 1 ])]); // default route
 
         $comment->save();
 
