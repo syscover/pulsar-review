@@ -12,7 +12,7 @@ class ReviewController extends BaseController
         $parameters = $request->route()->parameters();
 
         // decrypt data, that contain owner_type_id and review_id
-        $data = decrypt($parameters['slug']);
+        $data = decrypt($parameters['code']);
 
         // check data
         if(! is_array($data)) abort(404);
