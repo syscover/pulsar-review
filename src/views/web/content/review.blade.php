@@ -95,9 +95,12 @@
             <h2>Comentarios</h2>
 
             @foreach($review->comments as $comment)
+                @php
+                    $date = (new \Carbon\Carbon($comment->date))
+                @endphp
                 <div class="comment">
                     <div class="text-comment">{{ $comment->comment }}</div>
-                    <div class="data-comment">{{ $comment->name }} ({{ $comment->date }})</div>
+                    <div class="data-comment">{{ $comment->name }} ({{ $date->format('d-m-Y H:m:s') }})</div>
                 </div>
             @endforeach
             <hr>
@@ -106,9 +109,9 @@
                 {{ csrf_field() }}
                 <input type="hidden" name="review_id" value="{{ $review->id }}">
                 <input type="hidden" name="owner_type_id" value="{{ $owner_type_id }}">
-                <input type="hidden" name="name" value="{{ $review->object_name }}">
-                <input type="hidden" name="email" value="{{ $review->object_email }}">
-                <input type="hidden" name="email_subject" value="Tienes un nuevo comentario de {{ $review->object_name }}">
+                <input type="hidden" name="name" value="{{ (int) $owner_type_id === 1 ? $review->object_name : $review->customer_name }}">
+                <input type="hidden" name="email" value="{{ (int) $owner_type_id === 1 ? $review->object_email : $review->customer_name }}">
+                <input type="hidden" name="email_subject" value="Tienes un nuevo comentario de {{ (int) $owner_type_id === 1 ? $review->object_name : $review->customer_name }}">
 
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">¿Desea enviar un comentario al {{ $owner_type_id === 1? 'Cliente' : 'Object' }}?</label>
