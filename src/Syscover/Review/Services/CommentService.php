@@ -94,8 +94,8 @@ class CommentService
             ->fresh(); // fresh object to get date created in database
 
         // create url for comment
-        $comment->comment_url = $review->poll->comment_route ?
-            route($review->poll->comment_route, ['slug' => encrypt(['review_id' => $comment->review->id, 'owner_type_id' => $comment->owner_type_id === 1 ? 2 : 1 ])]) :
+        $comment->comment_url = $review->poll->review_route ?
+            route($review->poll->review_route, ['slug' => encrypt(['review_id' => $comment->review->id, 'owner_type_id' => $comment->owner_type_id === 1 ? 2 : 1 ])]) :
             route('pulsar.review.review_show', ['slug' => encrypt(['review_id' => $comment->review->id, 'owner_type_id' => $comment->owner_type_id === 1 ? 2 : 1 ])]); // default route
 
         $comment->save();

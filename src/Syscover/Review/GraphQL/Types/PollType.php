@@ -42,26 +42,22 @@ class PollType extends GraphQLType {
                 'type' => Type::int(),
                 'description' => 'Days that after register review, it will be delete if is not completed'
             ],
-            'review_email_template' => [
-                'type' => Type::string(),
-                'description' => 'Email template that will set the review to send to the customer'
-            ],
             'review_route' => [
                 'type' => Type::string(),
                 'description' => 'Route to get public review to fill poll'
+            ],
+            'review_email_template' => [
+                'type' => Type::string(),
+                'description' => 'Email template that will set the review to send to the customer'
             ],
             'comment_email_template' => [
                 'type' => Type::string(),
                 'description' => 'Email template that will set the comment to send to the customer'
             ],
-            'comment_route' => [
-                'type' => Type::string(),
-                'description' => 'Route to get public comment'
-            ],
             'questions' => [
                 'type' => Type::nonNull(Type::listOf(GraphQL::type('ReviewQuestion'))),
                 'description' => 'Questions multi-languages object that belong this response'
-            ],
+            ]
         ];
     }
 }
