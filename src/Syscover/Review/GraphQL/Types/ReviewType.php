@@ -72,7 +72,11 @@ class ReviewType extends GraphQLType {
             ],
             'review_url' => [
                 'type' => Type::string(),
-                'description' => 'URL to access public review to fill poll'
+                'description' => 'URL to access public review to fill review for the customer'
+            ],
+            'review_completed_url' => [
+                'type' => Type::string(),
+                'description' => 'URL to access public review to show review for owner'
             ],
             'completed' => [
                 'type' => Type::nonNull(Type::boolean()),

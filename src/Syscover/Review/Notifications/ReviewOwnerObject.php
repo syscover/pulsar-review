@@ -47,10 +47,10 @@ class ReviewOwnerObject extends Notification implements ShouldQueue
                     ->greeting(__('review::pulsar.review_owner_object_02'))
                     ->line(__('review::pulsar.review_owner_object_03'))
                     ->line(__('review::pulsar.review_owner_object_04'))
-                    ->action(__('review::pulsar.review_owner_object_05'), route('pulsar.review.review_show', ['slug' => encrypt([
-                        'review_id' => $this->review->id,
-                        'owner_type_id' => 1
-                    ])]))
+                    ->action(__('review::pulsar.review_owner_object_05'),
+                        $this->review->review_completed_url ? $this->review->review_completed_url :
+                            route('pulsar.review.review_show', ['slug' => encrypt(['review_id' => $this->review->id])])
+                    )
                     ->line(__('review::pulsar.review_owner_object_06'))
                     ->salutation(__('review::pulsar.review_owner_object_07'));
     }

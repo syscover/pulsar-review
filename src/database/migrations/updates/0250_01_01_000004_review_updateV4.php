@@ -22,7 +22,7 @@ class ReviewUpdateV4 extends Migration
         if(! Schema::hasColumn('review_review', 'review_completed_url'))
         {
             Schema::table('review_review', function (Blueprint $table) {
-                $table->string('review_completed_url', 2083)->after('review_url');
+                $table->string('review_completed_url', 2083)->nullable()->after('review_url');
             });
         }
 	}

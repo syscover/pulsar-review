@@ -24,7 +24,7 @@ class ReviewService
     private static function builder($object)
     {
         $object = collect($object);
-        return $object->only('date', 'poll_id', 'object_id', 'object_type', 'object_name', 'object_email', 'customer_id', 'customer_name', 'customer_email', 'customer_verified', 'email_template', 'email_subject', 'review_url', 'completed', 'validated', 'mailing', 'sent', 'expiration')->toArray();
+        return $object->only('date', 'poll_id', 'object_id', 'object_type', 'object_name', 'object_email', 'customer_id', 'customer_name', 'customer_email', 'customer_verified', 'email_template', 'email_subject', 'review_url', 'review_completed_url', 'completed', 'validated', 'mailing', 'sent', 'expiration')->toArray();
     }
 
     private static function checkCreate($object)
