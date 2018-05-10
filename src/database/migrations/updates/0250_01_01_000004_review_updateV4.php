@@ -19,10 +19,10 @@ class ReviewUpdateV4 extends Migration
             });
         }
 
-        if(Schema::hasColumn('review_poll', 'comment_route'))
+        if(! Schema::hasColumn('review_review', 'review_completed_url'))
         {
-            Schema::table('review_poll', function (Blueprint $table) {
-                $table->dropColumn('comment_route');
+            Schema::table('review_review', function (Blueprint $table) {
+                $table->string('review_completed_url', 2083)->after('review_url');
             });
         }
 	}
