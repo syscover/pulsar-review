@@ -47,6 +47,10 @@ class PollInput extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'Route to get public review to fill poll'
             ],
+            'comment_route' => [
+                'type' => Type::string(),
+                'description' => 'Route to get public comment'
+            ],
             'review_email_template' => [
                 'type' => Type::string(),
                 'description' => 'Email template that will set the review to send to the customer'
@@ -54,7 +58,8 @@ class PollInput extends GraphQLType
             'comment_email_template' => [
                 'type' => Type::string(),
                 'description' => 'Email template that will set the comment to send to the customer'
-            ]
+            ],
+
         ];
     }
 }

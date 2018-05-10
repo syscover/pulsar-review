@@ -27,10 +27,12 @@ class ReviewCreateTablePoll extends Migration {
 
                 // routes
                 $table->string('review_route')->nullable();                             // route to get public review to fill poll
+                $table->string('comment_route')->nullable();                            // route to get public comments and reviews
 
                 // templates
                 $table->string('review_email_template')->nullable();                    // email template that will set the review to send to the customer
                 $table->string('comment_email_template')->nullable();                   // email template that will set the comment to send to the customer
+
 
                 $table->timestamps();
                 $table->softDeletes();
