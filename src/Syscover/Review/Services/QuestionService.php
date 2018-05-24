@@ -60,7 +60,7 @@ class QuestionService
         $object = collect($object);
         if($filterKeys) $object = $object->only($filterKeys);
 
-        return $object->only('id', 'lang_id', 'poll_id', 'type_id', 'name', 'description', 'sort', 'high_score', 'data_lang')->toArray();
+        return $object->only(['id', 'lang_id', 'poll_id', 'type_id', 'name', 'description', 'sort', 'high_score', 'data_lang'])->toArray();
     }
 
     private static function checkCreate($object)

@@ -30,7 +30,7 @@ class CommentService
     private static function builder($object)
     {
         $object = collect($object);
-        return $object->only('review_id', 'date', 'owner_type_id', 'name', 'email', 'comment', 'validated', 'email_template', 'email_subject', 'comment_url')->toArray();
+        return $object->only(['review_id', 'date', 'owner_type_id', 'name', 'email', 'comment', 'validated', 'email_template', 'email_subject', 'comment_url'])->toArray();
     }
 
     private static function checkCreate($object)
