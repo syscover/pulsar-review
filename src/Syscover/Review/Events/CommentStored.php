@@ -8,9 +8,6 @@ class CommentStored
 
     /**
      * Create a new event instance.
-     *
-     * @param  Booking  $booking
-     * @return void
      */
     public function __construct(Comment $comment)
     {
