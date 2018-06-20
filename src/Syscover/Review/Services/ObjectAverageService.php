@@ -22,7 +22,7 @@ class ObjectAverageService
     private static function builder($object)
     {
         $object = collect($object);
-        return $object->only('poll_id', 'object_id', 'object_type', 'object_name', 'reviews', 'total', 'average')->toArray();
+        return $object->only(['poll_id', 'object_id', 'object_type', 'object_name', 'reviews', 'total', 'average'])->toArray();
     }
 
     private static function checkCreate($object)
