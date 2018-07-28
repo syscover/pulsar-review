@@ -30,11 +30,6 @@ class Question extends CoreModel
         return Validator::make($data, static::$rules);
 	}
 
-    public function scopeBuilder($query)
-    {
-        return $query;
-    }
-
     public function average()
     {
         return $this->hasOne(QuestionAverage::class, 'question_id', 'id');

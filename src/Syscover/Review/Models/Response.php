@@ -21,11 +21,6 @@ class Response extends CoreModel
         return Validator::make($data, static::$rules);
 	}
 
-    public function scopeBuilder($query)
-    {
-        return $query;
-    }
-
     public function questions()
     {
         return $this->hasMany(Question::class, 'id', 'question_id');

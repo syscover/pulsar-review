@@ -29,11 +29,6 @@ class Comment extends CoreModel
         return Validator::make($data, static::$rules);
 	}
 
-    public function scopeBuilder($query)
-    {
-        return $query;
-    }
-
     public function review()
     {
         return $this->hasOne(Review::class, 'id', 'review_id');
