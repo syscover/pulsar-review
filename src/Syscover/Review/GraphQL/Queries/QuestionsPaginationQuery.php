@@ -37,7 +37,7 @@ class QuestionsPaginationQuery extends Query
     {
         return (Object) [
             // set setEagerLoads to clean eager loads to use FOUND_ROWS() MySql Function
-            'query' => Question::calculateFoundRows()->builder()
+            'query' => Question::calculateFoundRows()->builder()->setEagerLoads([])
         ];
     }
 }

@@ -32,7 +32,7 @@ class ReviewsPaginationQuery extends Query
     {
         return (Object) [
             // set setEagerLoads to clean eager loads to use FOUND_ROWS() MySql Function
-            'query' => Review::calculateFoundRows()->builder()
+            'query' => Review::calculateFoundRows()->builder()->setEagerLoads([])
         ];
     }
 }
