@@ -7,14 +7,14 @@ class ObjectAverageService
 {
     public static function create($object)
     {
-        ObjectAverageService::checkCreate($object);
-        return ObjectAverage::create(ObjectAverageService::builder($object));
+        self::checkCreate($object);
+        return ObjectAverage::create(self::builder($object));
     }
 
     public static function update($object)
     {
-        ObjectAverageService::checkUpdate($object);
-        ObjectAverage::where('id', $object['id'])->update(ObjectAverageService::builder($object));
+        self::checkUpdate($object);
+        ObjectAverage::where('id', $object['id'])->update(self::builder($object));
 
         return ObjectAverage::find($object['id']);
     }
@@ -62,7 +62,7 @@ class ObjectAverageService
             }
             else
             {
-                $average = ObjectAverageService::create([
+                $average = self::create([
                     'poll_id'       => $review->poll_id,
                     'object_id'     => $review->object_id,
                     'object_type'   => $review->object_type,

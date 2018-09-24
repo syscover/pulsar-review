@@ -9,14 +9,14 @@ class ReviewService
 {
     public static function create($object)
     {
-        ReviewService::checkCreate($object);
-        return Review::create(ReviewService::builder($object));
+        self::checkCreate($object);
+        return Review::create(self::builder($object));
     }
 
     public static function update($object)
     {
-        ReviewService::checkUpdate($object);
-        Review::where('id', $object['id'])->update(ReviewService::builder($object));
+        self::checkUpdate($object);
+        Review::where('id', $object['id'])->update(self::builder($object));
 
         return Review::find($object['id']);
     }

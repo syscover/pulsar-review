@@ -6,7 +6,7 @@ class QuestionService
 {
     public static function create($object)
     {
-        QuestionService::checkCreate($object);
+        self::checkCreate($object);
 
         $isNew = false;
         if(empty($object['id']))
@@ -17,7 +17,7 @@ class QuestionService
 
         $object['data_lang'] = Question::addDataLang($object['lang_id'], $object['id']);
 
-        $question = Question::create(QuestionService::builder($object));
+        $question = Question::create(self::builder($object));
 
         // Register question average if is a new element
         if($isNew && $question->type_id === 1)
@@ -33,9 +33,9 @@ class QuestionService
 
     public static function update($object)
     {
-        QuestionService::checkUpdate($object);
-        Question::where('ix', $object['ix'])->update(QuestionService::builder($object));
-        Question::where('id', $object['id'])->update(QuestionService::builder($object, ['poll_id', 'type_id', 'sort', 'high_score']));
+        self::checkUpdate($object);
+        Question::where('ix', $object['ix'])->update(self::builder($object));
+        Question::where('id', $object['id'])->update(self::builder($object, ['poll_id', 'type_id', 'sort', 'high_score']));
 
         $question = Question::find($object['ix']);
 

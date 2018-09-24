@@ -15,14 +15,14 @@ class CommentService
 {
     public static function create($object)
     {
-        CommentService::checkCreate($object);
-        return Comment::create(CommentService::builder($object));
+        self::checkCreate($object);
+        return Comment::create(self::builder($object));
     }
 
     public static function update($object)
     {
-        CommentService::checkUpdate($object);
-        Comment::where('id', $object['id'])->update(CommentService::builder($object));
+        self::checkUpdate($object);
+        Comment::where('id', $object['id'])->update(self::builder($object));
 
         return Comment::find($object['id']);
     }
@@ -77,12 +77,12 @@ class CommentService
 
     public static function store($object)
     {
-        CommentService::checkCreate($object);
+        self::checkCreate($object);
 
         // get review of comment
         $review = Review::find($object['review_id']);
 
-        $comment = CommentService::create([
+        $comment = self::create([
                 'review_id'         => $object['review_id'],
                 'owner_type_id'     => $object['owner_type_id'],
                 'name'              => $object['name'],

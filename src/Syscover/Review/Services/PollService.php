@@ -6,14 +6,14 @@ class PollService
 {
     public static function create($object)
     {
-        $object = PollService::checkCreate($object);
-        return Poll::create(PollService::builder($object));
+        $object = self::checkCreate($object);
+        return Poll::create(self::builder($object));
     }
 
     public static function update($object)
     {
-        $object = PollService::checkUpdate($object);
-        Poll::where('id', $object['id'])->update(PollService::builder($object));
+        $object = self::checkUpdate($object);
+        Poll::where('id', $object['id'])->update(self::builder($object));
 
         return Poll::find($object['id']);
     }
