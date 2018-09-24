@@ -1,0 +1,40 @@
+type ReviewQuestionAverage {
+    id: Int!
+    poll_id: Int!
+    question_id: Int!
+    reviews: Int!
+    total: Float!
+    average:Float!
+}
+
+type ReviewQuestion {
+    ix: Int!
+    id: Int!
+    lang_id: String!
+    poll_id: Int!
+    type_id: Int!
+    name: String!
+    description: String
+    sort: Int!
+    high_score: Int!
+    data_lang: [String]
+    average: ReviewQuestionAverage
+}
+
+type ReviewPoll {
+    id: Int!
+    name: String!
+    send_notification: Boolean
+    validate: Boolean
+    default_high_score: Int
+    mailing_days: Int
+    expiration_days: Int
+    review_route: String
+    comment_route: String
+    review_email_template: String
+    comment_email_template: String
+    questions: [ReviewQuestion!]!
+}
+
+
+
