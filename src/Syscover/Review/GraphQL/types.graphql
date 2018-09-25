@@ -15,8 +15,8 @@ type ReviewQuestion {
     type_id: Int!
     name: String!
     description: String
-    sort: Int!
-    high_score: Int!
+    sort: Int
+    high_score: Int
     data_lang: [String]
     average: ReviewQuestionAverage
 }
@@ -36,5 +36,72 @@ type ReviewPoll {
     questions: [ReviewQuestion!]!
 }
 
+type ReviewObjectAverage {
+    id: Int!
+    poll_id: Int!
+    poll: ReviewPoll!
+    """ Object that belong this review """
+    object_id: Int!
+    """ Object class name that belong this review """
+    object_type: String!
+    """ Object name that belong this review """
+    object_name: String!
+    reviews: Int!
+    """ Total score """
+    total: Float!
+    """ Average of all responses """
+    average: Float!
+}
 
+type ReviewResponse {
+    id: Int!
+    review_id: Int!
+    question_id: Int!
+    questions: [ReviewQuestion!]!
+    score: Int
+    text: String
+}
 
+type ReviewReview {
+    id: Int!
+    date: String
+    poll_id: Int!
+    poll: ReviewPoll!
+    responses: [ReviewResponse!]!
+    object_id: Int!
+    object_type: String!
+    object_name: String!
+    object_email: String
+    customer_id: Int
+    customer_name: String!
+    customer_email: String!
+    customer_verified: Boolean!
+    email_subject: String
+    review_url: String
+    review_completed_url: String
+    completed: Boolean!
+    validated: Boolean!
+    average: Float
+    total: Float
+    """ Date when review will be send to customer """
+    mailing: String!
+    sent: Boolean!
+    expiration: String!
+    comments: [ReviewComment!]!
+}
+
+type ReviewComment {
+    id: Int!
+    review_id: Int!
+    review: ReviewReview!
+    date: String!
+    """ Type of owner of this comment, provider or customer """
+    owner_type_id: Int!
+    name: String!
+    email: String
+    comment: String
+    validated: Boolean!
+    email_template: String
+    email_subject: String
+    comment_url: String
+}

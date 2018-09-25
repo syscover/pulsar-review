@@ -4,5 +4,13 @@ reviewPolls(sql:[CoreSQLInput]): [ReviewPoll!]! @field(resolver: "Syscover\\Revi
 """ Query to get poll """
 reviewPoll(sql:[CoreSQLInput]): ReviewPoll @field(resolver: "Syscover\\Review\\GraphQL\\Services\\PollGraphQLService@find")
 """ Query to get polls paginated """
-reviewPollsPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Review\\GraphQL\\Services\\PollGraphQLService@paginate")
+reviewPollsPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Review\\GraphQL\\Services\\PollGraphQLService@paginate")
+
+# Questions
+""" Query to get questions list """
+reviewQuestions(sql:[CoreSQLInput]): [ReviewQuestion!]! @field(resolver: "Syscover\\Review\\GraphQL\\Services\\QuestionGraphQLService@get")
+""" Query to get question """
+reviewQuestion(sql:[CoreSQLInput]): ReviewQuestion @field(resolver: "Syscover\\Review\\GraphQL\\Services\\QuestionGraphQLService@find")
+""" Query to get questions paginated """
+reviewQuestionsPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Review\\GraphQL\\Services\\QuestionGraphQLService@paginate")
 
