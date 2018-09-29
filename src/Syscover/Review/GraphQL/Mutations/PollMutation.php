@@ -80,7 +80,7 @@ class DeletePollMutation extends PollMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], Poll::class);
+        $object = SQLService::deleteRecord($args['id'], Poll::class);
 
         return $object;
     }

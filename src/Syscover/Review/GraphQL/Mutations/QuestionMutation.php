@@ -89,7 +89,7 @@ class DeleteQuestionMutation extends QuestionMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], Question::class, $args['lang_id']);
+        $object = SQLService::deleteRecord($args['id'], Question::class, $args['lang_id']);
 
         if($args['lang_id'] === base_lang()) QuestionAverage::where('question_id', $args['id'])->delete();
 

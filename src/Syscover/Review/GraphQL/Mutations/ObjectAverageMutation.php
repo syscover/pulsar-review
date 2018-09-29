@@ -80,7 +80,7 @@ class DeleteObjectAverageMutation extends ObjectAverageMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], ObjectAverage::class);
+        $object = SQLService::deleteRecord($args['id'], ObjectAverage::class);
 
         return $object;
     }

@@ -80,7 +80,7 @@ class DeleteReviewMutation extends ReviewMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], Review::class);
+        $object = SQLService::deleteRecord($args['id'], Review::class);
 
         return $object;
     }

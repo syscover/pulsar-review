@@ -80,7 +80,7 @@ class DeleteCommentMutation extends CommentMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], Comment::class);
+        $object = SQLService::deleteRecord($args['id'], Comment::class);
 
         return $object;
     }
