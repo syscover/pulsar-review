@@ -1,29 +1,27 @@
-type ReviewComment {
-    id: Int!
-    review_id: Int!
-    review: ReviewReview!
-    date: String!
+input ReviewCommentInput {
+    id: Int
+    review_id: Int
+    date: String
     """ Type of owner of this comment, provider or customer """
-    owner_type_id: Int!
-    name: String!
+    owner_type_id: Int
+    name: String
     email: String
     comment: String
-    validated: Boolean!
+    validated: Boolean
     email_template: String
     email_subject: String
     comment_url: String
 }
 
-type ReviewObjectAverage {
-    id: Int!
-    poll_id: Int!
-    poll: ReviewPoll!
+input ReviewObjectAverageInput {
+    id: Int
+    poll_id: Int
     """ Object that belong this review """
-    object_id: Int!
+    object_id: Int
     """ Object class name that belong this review """
-    object_type: String!
+    object_type: String
     """ Object name that belong this review """
-    object_name: String!
+    object_name: String
     reviews: Int!
     """ Total score """
     total: Float!
@@ -31,8 +29,8 @@ type ReviewObjectAverage {
     average: Float!
 }
 
-type ReviewPoll {
-    id: Int!
+input ReviewPollInput {
+    id: Int
     name: String!
     send_notification: Boolean
     validate: Boolean
@@ -43,12 +41,11 @@ type ReviewPoll {
     comment_route: String
     review_email_template: String
     comment_email_template: String
-    questions: [ReviewQuestion!]!
 }
 
-type ReviewQuestion {
-    ix: Int!
-    id: Int!
+input ReviewQuestionInput {
+    ix: Int
+    id: Int
     lang_id: String!
     poll_id: Int!
     type_id: Int!
@@ -57,51 +54,47 @@ type ReviewQuestion {
     sort: Int
     high_score: Int
     data_lang: [String]
-    average: ReviewQuestionAverage
+    average: ReviewQuestionAverageInput
 }
 
-type ReviewQuestionAverage {
-    id: Int!
-    poll_id: Int!
-    question_id: Int!
+input ReviewQuestionAverageInput {
+    id: Int
+    poll_id: Int
+    question_id: Int
     reviews: Int!
     total: Float!
-    average:Float!
+    average: Float!
 }
 
-type ReviewResponse {
-    id: Int!
-    review_id: Int!
-    question_id: Int!
-    questions: [ReviewQuestion!]!
+input ReviewResponseInput {
+    id: Int
+    review_id: Int
+    question_id: Int
     score: Int
     text: String
 }
 
-type ReviewReview {
-    id: Int!
+input ReviewReviewInput {
+    id: Int
     date: String
-    poll_id: Int!
-    poll: ReviewPoll!
-    responses: [ReviewResponse!]!
-    object_id: Int!
-    object_type: String!
-    object_name: String!
+    poll_id: Int
+    object_id: Int
+    object_type: String
+    object_name: String
     object_email: String
     customer_id: Int
-    customer_name: String!
-    customer_email: String!
-    customer_verified: Boolean!
+    customer_name: String
+    customer_email: String
+    customer_verified: Boolean
     email_subject: String
     review_url: String
     review_completed_url: String
-    completed: Boolean!
-    validated: Boolean!
-    average: Float
-    total: Float
+    completed: Boolean
+    validated: Boolean
     """ Date when review will be send to customer """
-    mailing: String!
-    sent: Boolean!
-    expiration: String!
-    comments: [ReviewComment!]!
+    mailing: String
+    sent: Boolean
+    expiration: String
+    """ Responses of this review, to update scores """
+    responses: [ReviewResponseInput]
 }

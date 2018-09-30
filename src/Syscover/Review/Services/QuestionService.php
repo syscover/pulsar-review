@@ -34,6 +34,7 @@ class QuestionService
     public static function update($object)
     {
         self::checkUpdate($object);
+
         Question::where('ix', $object['ix'])->update(self::builder($object));
         Question::where('id', $object['id'])->update(self::builder($object, ['poll_id', 'type_id', 'sort', 'high_score']));
 

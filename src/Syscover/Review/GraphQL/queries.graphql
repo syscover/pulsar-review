@@ -1,4 +1,20 @@
-# Polls
+# Comment
+""" Query to get comments list """
+reviewComments(sql:[CoreSQLInput]): [ReviewComment!]! @field(resolver: "Syscover\\Review\\GraphQL\\Services\\CommentGraphQLService@get")
+""" Query to get comment """
+reviewComment(sql:[CoreSQLInput]): ReviewComment @field(resolver: "Syscover\\Review\\GraphQL\\Services\\CommentGraphQLService@find")
+""" Query to get comments paginated """
+reviewCommentsPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Review\\GraphQL\\Services\\CommentGraphQLService@paginate")
+
+# ObjectAverage
+""" Query to get object averages list """
+reviewObjectAverages(sql:[CoreSQLInput]): [ReviewObjectAverage!]! @field(resolver: "Syscover\\Review\\GraphQL\\Services\\ObjectAverageGraphQLService@get")
+""" Query to get object average """
+reviewObjectAverage(sql:[CoreSQLInput]): ReviewObjectAverage @field(resolver: "Syscover\\Review\\GraphQL\\Services\\ObjectAverageGraphQLService@find")
+""" Query to get object averages paginated """
+reviewObjectAveragesPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Review\\GraphQL\\Services\\ObjectAverageGraphQLService@paginate")
+
+# Poll
 """ Query to get polls list """
 reviewPolls(sql:[CoreSQLInput]): [ReviewPoll!]! @field(resolver: "Syscover\\Review\\GraphQL\\Services\\PollGraphQLService@get")
 """ Query to get poll """
@@ -6,11 +22,19 @@ reviewPoll(sql:[CoreSQLInput]): ReviewPoll @field(resolver: "Syscover\\Review\\G
 """ Query to get polls paginated """
 reviewPollsPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Review\\GraphQL\\Services\\PollGraphQLService@paginate")
 
-# Questions
+# Question
 """ Query to get questions list """
 reviewQuestions(sql:[CoreSQLInput]): [ReviewQuestion!]! @field(resolver: "Syscover\\Review\\GraphQL\\Services\\QuestionGraphQLService@get")
 """ Query to get question """
 reviewQuestion(sql:[CoreSQLInput]): ReviewQuestion @field(resolver: "Syscover\\Review\\GraphQL\\Services\\QuestionGraphQLService@find")
 """ Query to get questions paginated """
 reviewQuestionsPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Review\\GraphQL\\Services\\QuestionGraphQLService@paginate")
+
+# Review
+""" Query to get reviews list """
+reviewReviews(sql:[CoreSQLInput]): [ReviewReview!]! @field(resolver: "Syscover\\Review\\GraphQL\\Services\\ReviewGraphQLService@get")
+""" Query to get review """
+reviewReview(sql:[CoreSQLInput]): ReviewReview @field(resolver: "Syscover\\Review\\GraphQL\\Services\\ReviewGraphQLService@find")
+""" Query to get reviews paginated """
+reviewReviewsPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Review\\GraphQL\\Services\\ReviewGraphQLService@paginate")
 

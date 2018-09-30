@@ -1,0 +1,16 @@
+<?php namespace Syscover\Review\GraphQL\Services;
+
+use Syscover\Core\GraphQL\Services\CoreGraphQLService;
+use Syscover\Review\Models\Comment;
+use Syscover\Review\Services\CommentService;
+
+class CommentGraphQLService extends CoreGraphQLService
+{
+    protected $model = Comment::class;
+    protected $service = CommentService::class;
+
+    public function resolveAction($root, array $args)
+    {
+        CommentService::action($args['object'], $args['action_id']);
+    }
+}

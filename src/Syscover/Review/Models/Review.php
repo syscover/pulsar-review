@@ -13,6 +13,7 @@ class Review extends CoreModel
 	protected $table        = 'review_review';
     protected $fillable     = ['date', 'poll_id', 'object_id', 'object_type', 'object_name', 'object_email', 'customer_id', 'customer_name', 'customer_email', 'customer_verified', 'email_template', 'email_subject', 'review_url', 'review_completed_url', 'completed', 'validated', 'mailing', 'sent', 'expiration'];
     public $with            = ['poll', 'responses'];
+    protected $appends      = ['average', 'total'];
 
     private static $rules   = [];
 
@@ -50,6 +51,9 @@ class Review extends CoreModel
         return Validator::make($data, static::$rules);
 	}
 
+    /**
+     * Relations
+     */
     public function poll()
     {
         return $this->hasOne(Poll::class, 'id', 'poll_id');
@@ -63,5 +67,18 @@ class Review extends CoreModel
     public function comments()
     {
         return $this->hasMany(Comment::class, 'review_id', 'id');
+    }
+
+    /**
+     * Accessors
+     */
+    public function getAverageAttribute()
+    {
+        return $this->average;
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->total;
     }
 }
