@@ -6,11 +6,11 @@ use Syscover\Review\Services\CommentService;
 
 class CommentGraphQLService extends CoreGraphQLService
 {
-    protected $model = Comment::class;
-    protected $service = CommentService::class;
+    protected $modelClassName = Comment::class;
+    protected $serviceClassName = CommentService::class;
 
     public function resolveAction($root, array $args)
     {
-        CommentService::action($args['object'], $args['action_id']);
+        $this->service->action($args['object'], $args['action_id']);
     }
 }

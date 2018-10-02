@@ -6,6 +6,6 @@ use Syscover\Review\Services\ObjectAverageService;
 
 class ObjectAverageGraphQLService extends CoreGraphQLService
 {
-    protected $model = ObjectAverage::class;
-    protected $service = ObjectAverageService::class;
+    protected $modelClassName = ObjectAverage::class;
+    protected $serviceClassName = ObjectAverageService::class;
 }
