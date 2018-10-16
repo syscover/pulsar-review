@@ -14,10 +14,10 @@ class QuestionGraphQLService extends CoreGraphQLService
 
     public function update($root, array $args)
     {
-        if(isset($args['object']['average']))
-            QuestionAverageService::update($args['object']['average']);
+        if(isset($args['payload']['average']))
+            QuestionAverageService::update($args['payload']['average']);
 
-        return $this->service->update($args['object']);
+        return $this->service->update($args['payload']);
     }
 
     public function delete($root, array $args)

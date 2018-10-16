@@ -11,6 +11,6 @@ class CommentGraphQLService extends CoreGraphQLService
 
     public function resolveAction($root, array $args)
     {
-        $this->service->action($args['object'], $args['action_id']);
+        $this->service->action($args['payload'], $args['action_id']);
     }
 }
