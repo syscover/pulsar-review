@@ -21,10 +21,10 @@ class ReviewServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
         // register translations
-        $this->loadTranslationsFrom(__DIR__ . '/../../lang', 'review');
+        $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'review');
 
         // register views
-        $this->loadViewsFrom(__DIR__ . '/../../views', 'review');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'review');
 
         // register seeds
         $this->publishes([
