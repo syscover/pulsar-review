@@ -20,8 +20,8 @@ class ReviewCreateTableReview extends Migration {
                 $table->increments('id');
                 $table->timestamp('date')->nullable();
                 $table->integer('poll_id')->unsigned();
-                $table->integer('object_id')->unsigned();
                 $table->string('object_type');
+                $table->integer('object_id')->unsigned();
                 $table->string('object_name');
                 $table->string('object_email')->nullable();                                 // email where will be sent the notifications and comments if has data
                 $table->integer('customer_id')->unsigned()->nullable();                     // nullable to allow anonymous reviews
@@ -43,8 +43,7 @@ class ReviewCreateTableReview extends Migration {
                 $table->timestamps();
                 $table->softDeletes();
 
-                $table->index('object_id', 'ix01_review_review');
-                $table->index('object_type', 'ix02_review_review');
+                $table->index(['object_type', 'object_id'], 'ix01_review_review');
 
                 $table->foreign('poll_id', 'fk01_review_review')
                     ->references('id')
