@@ -10,7 +10,6 @@ class ReviewTableSeeder extends Seeder
         Model::unguard();
 
         $this->call(ReviewPackageTableSeeder::class);
-        $this->call(ReviewCronJobTableSeeder::class);
 
         Model::reguard();
     }

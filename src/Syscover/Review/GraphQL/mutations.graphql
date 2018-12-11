@@ -23,4 +23,4 @@ reviewDeleteQuestion(id:Int! lang_id:String!): ReviewQuestion @field(resolver: "
 reviewCreateReview(payload:ReviewReviewInput!): ReviewReview @field(resolver: "Syscover\\Review\\GraphQL\\Services\\ReviewGraphQLService@create")
 reviewUpdateReview(payload:ReviewReviewInput!): ReviewReview @field(resolver: "Syscover\\Review\\GraphQL\\Services\\ReviewGraphQLService@update")
 reviewDeleteReview(id:Int!): ReviewReview @field(resolver: "Syscover\\Review\\GraphQL\\Services\\ReviewGraphQLService@delete")
-reviewActionReview(payload:ReviewReviewInput! action_id:Int!): ReviewComment @field(resolver: "Syscover\\Review\\GraphQL\\Services\\ReviewGraphQLService@resolveAction")
+reviewActionReview(payload:ReviewReviewInput! action_id:Int!): ReviewReview @field(resolver: "Syscover\\Review\\GraphQL\\Services\\ReviewGraphQLService@resolveAction")
