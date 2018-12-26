@@ -65,7 +65,9 @@ type ReviewQuestionAverage {
     poll_id: Int!
     question_id: Int!
     reviews: Int!
+    """ Total score """
     total: Float!
+    """ Average of all questions """
     average:Float!
 }
 
