@@ -63,6 +63,7 @@ type ReviewQuestion {
 type ReviewQuestionAverage {
     id: Int!
     poll_id: Int!
+    poll: ReviewPoll!
     question_id: Int!
     reviews: Int!
     """ Total score """
