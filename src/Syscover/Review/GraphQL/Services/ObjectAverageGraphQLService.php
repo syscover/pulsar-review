@@ -31,11 +31,9 @@ class ObjectAverageGraphQLService extends CoreGraphQLService
                 $total      += $questionAverage['average'];
             }
         }
-        info($total);
-        info($length);
 
         // add fake average
-        if ($hasFake) $args['payload']['fake_average'] = $total / $length;
+        $args['payload']['fake_average'] = $hasFake ? $total / $length : null;
 
         return $this->service->update($args['payload']);
     }
