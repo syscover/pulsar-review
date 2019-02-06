@@ -29,6 +29,29 @@ type ReviewObjectAverage {
     total: Float!
     """ Average of all responses """
     average: Float!
+    """ Fake average of all responses """
+    fake_average: Float
+    """ Questions average for this object """
+    question_averages: [ReviewObjectQuestionAverage]!
+}
+
+type ReviewObjectQuestionAverage {
+    id: Int!
+    poll_id: Int!
+    poll: ReviewPoll!
+    """ Object that belong this review """
+    object_id: Int!
+    """ Object class name that belong this review """
+    object_type: String!
+    question_id: Int!
+    question: ReviewQuestion!
+    reviews: Int!
+    """ Total score """
+    total: Float!
+    """ Average of all questions """
+    average:Float!
+    """ Fake average of all questions """
+    fake_average: Float
 }
 
 type ReviewPoll {

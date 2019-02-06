@@ -22,11 +22,32 @@ input ReviewObjectAverageInput {
     object_type: String
     """ Object name that belong this review """
     object_name: String
+    reviews: Int
+    """ Total score """
+    total: Float
+    """ Average of all responses """
+    average: Float
+    """ Fake average of all responses """
+    fake_average: Float
+    """ Questions average for this object """
+    question_averages: [ReviewObjectQuestionAverageInput]
+}
+
+input ReviewObjectQuestionAverageInput {
+    id: Int!
+    poll_id: Int!
+    """ Object that belong this review """
+    object_id: Int!
+    """ Object class name that belong this review """
+    object_type: String!
+    question_id: Int!
     reviews: Int!
     """ Total score """
     total: Float!
-    """ Average of all responses """
-    average: Float!
+    """ Average of all questions """
+    average:Float
+    """ Fake average of all questions """
+    fake_average: Float
 }
 
 input ReviewPollInput {
@@ -64,6 +85,8 @@ input ReviewQuestionAverageInput {
     reviews: Int!
     total: Float!
     average: Float!
+    """ Fake average of all questions """
+    fake_average: Float
 }
 
 input ReviewResponseInput {

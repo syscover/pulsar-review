@@ -11,8 +11,8 @@ use Syscover\Core\Models\CoreModel;
 class ObjectAverage extends CoreModel
 {
 	protected $table        = 'review_object_average';
-    protected $fillable     = ['poll_id', 'object_id', 'object_type', 'object_name', 'reviews', 'total', 'average'];
-    public $with            = ['poll'];
+    protected $fillable     = ['poll_id', 'object_id', 'object_type', 'object_name', 'reviews', 'total', 'average', 'fake_average'];
+    public $with            = ['poll', 'question_averages'];
 
     private static $rules   = [];
 
@@ -24,5 +24,11 @@ class ObjectAverage extends CoreModel
     public function poll()
     {
         return $this->hasOne(Poll::class, 'id', 'poll_id');
+    }
+
+    // Average of question from concrete object
+    public function question_averages()
+    {
+        return $this->hasMany(ObjectQuestionAverage::class, 'object_id', 'object_id');
     }
 }

@@ -11,7 +11,7 @@ use Syscover\Core\Models\CoreModel;
 class ObjectQuestionAverage extends CoreModel
 {
 	protected $table        = 'review_object_question_average';
-    protected $fillable     = ['poll_id', 'question_id', 'object_id', 'object_type', 'reviews', 'total', 'average'];
+    protected $fillable     = ['poll_id', 'question_id', 'object_id', 'object_type', 'reviews', 'total', 'average', 'fake_average'];
 
     private static $rules   = [];
 

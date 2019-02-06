@@ -22,9 +22,10 @@ class ReviewCreateTableObjectQuestionAverage extends Migration {
                 $table->integer('question_id')->unsigned();
                 $table->string('object_type');
                 $table->integer('object_id')->unsigned();
-                $table->integer('reviews')->unsigned()->default(0);                 // Total reviews
+                $table->integer('reviews')->unsigned()->default(0);    // Total reviews
                 $table->decimal('total', 10,2)->default(0);            // Total score, sum of all average reviews
                 $table->decimal('average', 10,2)->default(0);          // Average of all reviews
+                $table->decimal('fake_average', 10,2)->nullable();     // Average of all reviews
 
                 $table->timestamps();
                 $table->softDeletes();
