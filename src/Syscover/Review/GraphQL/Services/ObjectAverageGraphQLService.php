@@ -2,13 +2,12 @@
 
 use Syscover\Core\GraphQL\Services\CoreGraphQLService;
 use Syscover\Review\Models\ObjectAverage;
-use Syscover\Review\Models\ObjectQuestionAverage;
 use Syscover\Review\Services\ObjectAverageService;
 use Syscover\Review\Services\ObjectQuestionAverageService;
 
 class ObjectAverageGraphQLService extends CoreGraphQLService
 {
-    protected $modelClassName = ObjectAverage::class;
+    protected $model = ObjectAverage::class;
     protected $serviceClassName = ObjectAverageService::class;
 
     public function update($root, array $args)

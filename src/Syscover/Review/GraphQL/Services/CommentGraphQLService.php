@@ -6,7 +6,7 @@ use Syscover\Review\Services\CommentService;
 
 class CommentGraphQLService extends CoreGraphQLService
 {
-    protected $modelClassName = Comment::class;
+    protected $model = Comment::class;
     protected $serviceClassName = CommentService::class;
 
     public function resolveAction($root, array $args)
