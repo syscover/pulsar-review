@@ -6,8 +6,11 @@ use Syscover\Review\Services\ReviewService;
 
 class ReviewGraphQLService extends CoreGraphQLService
 {
-    protected $model = Review::class;
-    protected $service = ReviewService::class;
+    public function __construct(Review $model, ReviewService $service)
+    {
+        $this->model = $model;
+        $this->service = $service;
+    }
 
     public function resolveAction($root, array $args)
     {

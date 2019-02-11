@@ -6,8 +6,11 @@ use Syscover\Review\Services\CommentService;
 
 class CommentGraphQLService extends CoreGraphQLService
 {
-    protected $model = Comment::class;
-    protected $service = CommentService::class;
+    public function __construct(Comment $model, CommentService $service)
+    {
+        $this->model = $model;
+        $this->service = $service;
+    }
 
     public function resolveAction($root, array $args)
     {

@@ -6,6 +6,9 @@ use Syscover\Review\Services\PollService;
 
 class PollGraphQLService extends CoreGraphQLService
 {
-    protected $model = Poll::class;
-    protected $service = PollService::class;
+    public function __construct(Poll $model, PollService $service)
+    {
+        $this->model = $model;
+        $this->service = $service;
+    }
 }

@@ -9,8 +9,11 @@ use Syscover\Review\Services\QuestionService;
 
 class QuestionGraphQLService extends CoreGraphQLService
 {
-    protected $model = Question::class;
-    protected $service = QuestionService::class;
+    public function __construct(Question $model, QuestionService $service)
+    {
+        $this->model = $model;
+        $this->service = $service;
+    }
 
     public function update($root, array $args)
     {
