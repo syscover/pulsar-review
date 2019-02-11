@@ -8,7 +8,7 @@ use Syscover\Review\Services\ObjectQuestionAverageService;
 class ObjectAverageGraphQLService extends CoreGraphQLService
 {
     protected $model = ObjectAverage::class;
-    protected $serviceClassName = ObjectAverageService::class;
+    protected $service = ObjectAverageService::class;
 
     public function update($root, array $args)
     {
