@@ -9,7 +9,8 @@ class ReviewTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call(ReviewPackageTableSeeder::class);
+        $this->call(ReviewPackageSeeder::class);
+        $this->call(ReviewResourceSeeder::class);
 
         Model::reguard();
     }
