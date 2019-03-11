@@ -15,7 +15,7 @@ class QuestionService
             $isNew = true;
         }
 
-        $object['data_lang'] = Question::addDataLang($object['lang_id'], $object['id']);
+        $object['data_lang'] = Question::getDataLang($object['lang_id'], $object['id']);
 
         $question = Question::create(self::builder($object));
 
