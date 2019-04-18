@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Validator;
 use Syscover\Core\Models\CoreModel;
-use Syscover\Admin\Traits\Translatable;
+use Syscover\Admin\Traits\Langable;
 
 /**
  * Class Question
@@ -11,7 +11,7 @@ use Syscover\Admin\Traits\Translatable;
 
 class Question extends CoreModel
 {
-    use Translatable;
+    use Langable;
 
 	protected $table        = 'review_question';
     protected $primaryKey   = 'ix';
