@@ -72,7 +72,7 @@ type ReviewPoll {
 type ReviewQuestion {
     ix: Int!
     id: Int!
-    lang_id: String!
+    lang_id: Int!
     poll_id: Int!
     type_id: Int!
     name: String!
