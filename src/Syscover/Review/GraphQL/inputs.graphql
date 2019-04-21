@@ -67,7 +67,7 @@ input ReviewPollInput {
 input ReviewQuestionInput {
     ix: Int
     id: Int
-    lang_id: Int!
+    lang_id: String!
     poll_id: Int!
     type_id: Int!
     name: String!
